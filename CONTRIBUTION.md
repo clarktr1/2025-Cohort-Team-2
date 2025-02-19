@@ -84,11 +84,7 @@ Each PR should include the following sections:
 
 #### **Title:**
 
-- Clear and concise title of the change.
-
-#### **Issue Closed:**
-
-- Link to the issue being closed (e.g., `Closes #123`).
+- Number and title of the Jira ticket
 
 #### **Summary of Changes:**
 
@@ -101,10 +97,7 @@ Each PR should include the following sections:
 ### **Example PR Message**
 ```md
 ### Title:
-Fix login authentication bug
-
-### Issue Closed:
-Closes #42
+[#1 Fixes Authentication]
 
 ### Summary of Changes:
 - Fixed incorrect password validation logic.

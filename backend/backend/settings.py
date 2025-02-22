@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-94o0@v22wej$605_5w+k!f)nm1n250-+fxi_wkwi8%uqsql+e3
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'https://two025-cohort-team-2.onrender.com'
+    'two025-cohort-team-2.onrender.com'
 ]
 
 

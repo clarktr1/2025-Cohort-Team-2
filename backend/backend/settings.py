@@ -29,6 +29,10 @@ ALLOWED_HOSTS = [
     'two025-cohort-team-2.onrender.com'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://two025-cohort-team-2.onrender.com",
+]
+
 
 # Application definition
 

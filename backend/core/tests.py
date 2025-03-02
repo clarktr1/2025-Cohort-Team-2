@@ -4,7 +4,7 @@ from core.models import Tenant, Manager
 
 class TenantModelTest(TestCase):
     def test_create_tenant(self):
-        user = User.objects.create_user(username='tenantuser', password='pass123')
+        user = User.objects.create_user(username='tenantuser', password='dummy_password')
         tenant = Tenant.objects.create(
             user=user,
             apartment_number='101',
@@ -15,7 +15,7 @@ class TenantModelTest(TestCase):
 
 class ManagerModelTest(TestCase):
     def test_create_manager(self):
-        user = User.objects.create_user(username='manageruser', password='pass123')
+        user = User.objects.create_user(username='manageruser', password='dummy_password')
         manager = Manager.objects.create(
             user=user,
             phone_number='555-9876',

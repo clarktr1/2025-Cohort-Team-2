@@ -3,7 +3,7 @@ import TenantPage from "./components/TenantPage";
 import LandlordPage from "./components/LandlordPage";
 import { Route, Routes } from "react-router";
 import Layout from "./components/Layout";
-import HomePage from "./components/HomePage";
+import HomePage from "./pages/Home";
 import { RoleProvider } from './context/RoleContext';
 
 

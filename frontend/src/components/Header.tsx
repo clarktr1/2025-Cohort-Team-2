@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router";
-import { useRole } from "../context/RoleContext";
+import { useRole } from "../hooks/useRole";
 
 const Header = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -48,7 +48,7 @@ const Header = () => {
     </ul>
   );
 
-  
+
 
   const TenantNavBar = () => (
     <div className="">
@@ -81,7 +81,7 @@ const Header = () => {
         <div className="flex justify-between items-center h-full">
           <div className="flex items-center md:hidden">
             <ul className="flex gap-2">
-                {currentNavBar()}
+              {currentNavBar()}
             </ul>
           </div>
 

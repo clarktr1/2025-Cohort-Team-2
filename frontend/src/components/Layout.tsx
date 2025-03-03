@@ -1,20 +1,15 @@
-import { Outlet, Route, Routes } from "react-router"
-import Header from "./Header"
-import HomePage from "../pages/Home"
+
+import { Outlet } from "react-router-dom";
+import Header from "./Header";
 
 const Layout = () => {
   return (
     <div>
       <Header />
-      <div>
-        <Outlet />
-      </div>
-      <Routes>
-        <Route index element={<HomePage />} />
-      </Routes>
+      {/* This is where nested routes/components will be rendered */}
+      <Outlet />
     </div>
+  );
+};
 
-  )
-}
-
-export default Layout
+export default Layout;

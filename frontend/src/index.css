@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @layer components {
+  
+  /* sidebare components */
   .sidebar-name {
     @apply relative flex items-center justify-center
             h-8 w-20 mt-4 mb-2 mr-1.5 mx-auto shadow-lg
@@ -19,12 +21,18 @@
     transition-delay: 500ms;
   }
 
+
+  /* lease items in the list */
   .lease-item {
     @apply relative flex items-center justify-center
-    h-12 flex-grow
+    h-12 flex-grow 
+  }
+
+  .lease-button {
+    @apply relative flex items-start justify-start place-items-start
+    h-12 flex-grow gap-10 overflow-hidden
     text-white bg-neutral-400
     hover:bg-orange-400 hover:text-black
-    hover:text-3xl
     duration-300
   }
 }

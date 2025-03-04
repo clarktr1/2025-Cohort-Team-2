@@ -2,8 +2,8 @@
 const TenantPage = () => {
 
     return (
-        <div className="bg-neutral-950 h-screen p-4">
-            <div className="flex h-3/5 rounded-lg overflow-hidden gap-4">
+        <div className="bg-neutral-950 h-screen p-2">
+            <div className="flex h-2/5 rounded-lg overflow-hidden gap-2">
                 <div className="w-full rounded-lg overflow-hidden relative">
                     {/* Background Image */}
                     <img

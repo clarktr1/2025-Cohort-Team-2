@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router";
 import { useRole } from "../hooks/useRole";
 
 const Header = () => {
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  // const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { currentRole, setCurrentRole } = useRole();
   const location = useLocation();
 
@@ -51,9 +51,45 @@ const Header = () => {
 
 
   const TenantNavBar = () => (
-    <div className="">
-      <h1>Tenant NavBar</h1>
-    </div>
+    <nav className="bg-neutral-900 p-4 w-full rounded-lg">
+      <ul className="flex space-x-8 items-center justify-center">
+        <li>
+          <Link to="/" className="text-orange-100 text-md hover:text-orange-400 hover:font-medium">
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link to="/lease" className="text-orange-100 text-md hover:text-orange-400 hover:font-medium">
+            Lease Management
+          </Link>
+        </li>
+        <li>
+          <Link to="/payments" className="text-orange-100 text-md hover:text-orange-400 hover:font-medium">
+            Payments
+          </Link>
+        </li>
+        <li>
+          <Link to="/access" className="text-orange-100 text-md hover:text-orange-400 hover:font-medium">
+            Access Controls
+          </Link>
+        </li>
+        <li>
+          <Link to="/maintenance" className="text-orange-100 text-md hover:text-orange-400 hover:font-medium">
+            Maintenance
+          </Link>
+        </li>
+        <li>
+          <Link to="/deliveries" className="text-orange-100 text-md hover:text-orange-400 hover:font-medium">
+            Deliveries
+          </Link>
+        </li>
+        <li>
+          <Link to="/complaints" className="text-orange-100 text-md hover:text-orange-400 hover:font-medium">
+            Complaints
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 
   const LandlordNavBar = () => (
@@ -76,16 +112,16 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm h-16 z-10">
-      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 h-full">
-        <div className="flex justify-between items-center h-full">
-          <div className="flex items-center md:hidden">
-            <ul className="flex gap-2">
-              {currentNavBar()}
-            </ul>
-          </div>
+    <header className="bg-neutral-950 shadow-sm h-16 z-10 w-full">
+      {/* <div className="max-w-full mx-auto  h-full"> */}
+      {/* <div className="flex justify-between items-center h-full">
+          <div className="flex items-center"> */}
+      <ul className="p-2">
+        {currentNavBar()}
+      </ul>
+      {/* </div> */}
 
-          <div className="flex-1 flex justify-end">
+      {/* <div className="flex-1 flex justify-end">
             <div className="ml-4 flex items-center md:ml-6">
               <div className="ml-3 relative">
                 <div>
@@ -101,9 +137,9 @@ const Header = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div> */}
+      {/* </div> */}
+      {/* </div> */}
     </header>
   );
 };

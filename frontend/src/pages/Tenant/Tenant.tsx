@@ -23,7 +23,7 @@ const TenantPage = () => {
                         </h2>
                     </div>
                 </div>
-
+                {/* Notifications */}
                 <div className="bg-neutral-900 rounded-lg p-4 overflow-auto">
                     <p className="text-white mb-2">
                         Notification 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.

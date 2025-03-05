@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useRole } from "../hooks/useRole";
 import NavItem from "./navbarListElement";
 import { tenantNav } from "../data/tenantNav";
+import { landlordNav } from "../data/landlordNav";
 
 const NavBar = () => {
   const { currentRole, setCurrentRole } = useRole();
@@ -33,8 +34,11 @@ const NavBar = () => {
   // Landlord NavBar
   const LandlordNavBar = () => (
     <nav className="bg-neutral-900 p-4 w-full rounded-lg">
-      <h1 className="text-red-500">Landlord NavBar (To be updated...)</h1>
-      {/* Add additional landlord links here */}
+      <ul className="flex space-x-8 items-center justify-center">
+        {landlordNav.map((item, index) => (
+          <NavItem key={index} to={item.to} navLinkName={item.navLinkName} />
+        ))}
+      </ul>
     </nav>
   );
 

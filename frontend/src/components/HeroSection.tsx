@@ -22,7 +22,7 @@ const HeroSection = ({ imageSrc, title, subtitle }: HeroSectionProps) => {
                 <h1 className="text-4xl md:text-6xl font-medium text-orange-200 drop-shadow-lg text-center">
                     {title}
                 </h1>
-                <h2 className="mt-4 text-2xl font-bold text-orange-200 drop-shadow-md text-center">
+                <h2 className="mt-4 text-2xl font-normal text-orange-200 drop-shadow-md text-center">
                     {subtitle}
                 </h2>
             </div>

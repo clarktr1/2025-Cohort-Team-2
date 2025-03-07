@@ -3,14 +3,6 @@
 @layer components {
   
   /* sidebare components */
-  .sidebar-name {
-    @apply relative flex items-center justify-center
-            h-8 w-20 mt-4 mb-2 mr-1.5 mx-auto shadow-lg
-            bg-neutral-700 text-white
-            hover:bg-orange-400 hover:text-black
-            rounded-3xl hover:rounded-xl
-            transition-all duration-300;
-  }
 
   .sidebar-tooltip {
     @apply absolute w-auto p-2 m-2 min-w-max left-20
@@ -18,7 +10,7 @@
     text-white bg-gray-900
     text-xs font-bold
     transition-all duration-100 scale-0 origin-left;
-    transition-delay: 500ms;
+    transition-delay: 800ms;
   }
 
 

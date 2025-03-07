@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 // import {FaFire} from 'react-icons/fa';
 
 const LeaseManagement: React.FC = () => {
@@ -11,6 +11,82 @@ const LeaseManagement: React.FC = () => {
             leaseDisplay.className = "bg-white rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-0"
         }
     };
+
+    //least item logic
+    interface LeaseItem {
+        name: string,
+        signed: number,
+        s_date: Date,
+        e_date: Date
+    }
+
+    const [leaseData, setData] = useState<LeaseItem[] | null>(null);
+    const [leaseDisplayState, setLeaseDisplayState] = useState<number>(0);
+
+    const sbButtonClicked = (buttonName: string) => {
+        const testText = document.getElementById("test-text");
+        if(testText) {
+            if(buttonName == "Pending"){
+                setLeaseDisplayState(0);
+                testText.innerHTML = leaseDisplayState.toString();
+            } else if(buttonName == "Previous"){
+                setLeaseDisplayState(1);
+                testText.innerHTML = leaseDisplayState.toString();
+            } else {
+                setLeaseDisplayState(2);
+                testText.innerHTML = leaseDisplayState.toString();
+            }
+            // setLeaseDisplayState(5);
+            // testText.innerHTML = leaseDisplayState.toString();
+            // testText.innerHTML = buttonName;
+        };
+    };
+    
+
+    useEffect(() => {
+        const testData = [
+            {
+                name: "Lease 1 - lets see what happens if this is long as shit again",
+                signed: 1,
+                s_date: new Date(2024, 1, 5),
+                e_date: new Date(2025, 12, 5)
+            },
+            {
+                name: "Lease 2",
+                signed: 1,
+                s_date: new Date(2024, 1, 5),
+                e_date: new Date(2025, 12, 5)
+            },
+            {
+                name: "Lease 3",
+                signed: 0,
+                s_date: new Date(2020, 0, 10),
+                e_date: new Date(2024, 10, 5)
+            },
+            {
+                name: "Lease 4",
+                signed: 0,
+                s_date: new Date(2022, 10, 4),
+                e_date: new Date(2025, 12, 9)
+            },
+        ]
+        setData(testData)
+    }, [])
+
+    // //lease selecting logic
+    // const [leaseSelected, setLeaseSelected] = useState<string | null>(null);
+
+    // const leaseButtonClicked = () => {
+    //     const testText = document.getElementById("test-text");
+    //     const leaseDisplay = document.getElementById("lease-display")
+
+    //     if(testText) {
+    //         testText.innerHTML = "Lease Clicked: "+name;
+    //     }
+    //     if(leaseDisplay) {
+    //         leaseDisplay.className = "bg-white rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-100"
+    //     }
+    // };
 
     return (
         <>
@@ -35,17 +111,58 @@ const LeaseManagement: React.FC = () => {
                 {/* Display */}
                 <div className="bg-neutral-900 rounded-2xl h-9/10 flex-grow mt-20 overflow-auto">
                     {/* Header */}
-                    <LeaseItem name="lease1 this is testing bc this might be long" status={0} date="02/19"/>
+                    {/* <LeaseItem name="lease1 this is testing bc this might be long" status={0} date="02/19"/>
                     <LeaseItem name="lease2" status={0} date="10/02"/>
                     <LeaseItem name="lease3" status={1} date="10/02"/>
-                    <LeaseItem name="lease4" status={1} date="10/02"/>
+                    <LeaseItem name="lease4" status={1} date="10/02"/> */}
+                    {leaseData && leaseData.map((leaseItem) => {
+                        if (leaseItem.signed === leaseDisplayState || leaseDisplayState == 2){
+                            return <LeaseItem name={leaseItem.name} status={leaseItem.signed} s_date={leaseItem.s_date} e_date={leaseItem.e_date}/>
+                        }
+                    })}
+
                 </div>
                 {/* Lease Display */}
-                <div id="lease-display" className="bg-white rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-0">
+                <div id="lease-display" className="flex bg-white rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-0">
                     <button onClick={leaseClosed} className="absolute top-2 right-4 text-black scale-150
-                                     hover:text-orange-400 rounded-3xl hover:rounded-xl transition-all duration-300 ">
+                                     hover:text-orange-400 rounded-3xl hover:text-2xl hover:rounded-xl transition-all duration-300 ">
                         X
                     </button>
+                    <div className="bg-neutral-950 min-h-screen p-4 overflow-hidden relative">
+                        <div className="bg-neutral-900 rounded-lg p-6 max-w-4xl mx-auto">
+                        <h1 className="text-3xl font-bold text-orange-200 mb-6">Lease Signing Portal</h1>
+
+                        <div className="bg-neutral-800 p-4 rounded-lg mb-6">
+                            <h2 className="text-xl font-semibold text-orange-200 mb-2">Apartment Lease Agreement</h2>
+                            <p className="text-white mb-4">Please review the document below and sign at the bottom.</p>
+
+                            {/* Document preview area */}
+                            <div className="bg-white h-96 rounded overflow-auto p-2 mb-4">
+                            <p className="text-black">Lease agreement content would appear here...</p>
+                            </div>
+
+                            {/* Signature area */}
+                            <div className="border border-dashed border-gray-500 h-32 bg-neutral-700 rounded-lg flex items-center justify-center mb-4">
+                            <p className="text-gray-400">Click or drag to sign here</p>
+                            </div>
+
+                            <div className="flex justify-between">
+                            <button 
+                                className="bg-neutral-700 text-white px-4 py-2 rounded hover:bg-neutral-600"
+                                // onClick={() => setCurrentPage('tenant')}
+                            >
+                                Back to Dashboard
+                            </button>
+                            <button className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+                                Submit Signed Lease
+                            </button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
 
@@ -60,56 +177,50 @@ const LeaseManagement: React.FC = () => {
                 <div className="bg-neutral-800 h-1/10 w-2"></div>
 
                 {/* buttons for display */}
-                <SideBarIcon icon="All" text="tbd"/>
-                <SideBarIcon icon="Pending" text="tbd"/>
-                <SideBarIcon icon="Previous" text="tbd"/>
+                <SideBarIcon icon="All" setState={sbButtonClicked}/>
+                <SideBarIcon icon="Pending" setState={sbButtonClicked}/>
+                <SideBarIcon icon="Previous" setState={sbButtonClicked}/>
             </div>
         </>
     );
 };
 
-
-
 //sidebar class and associated tooltips
-const SideBarIcon = ({ icon, text = 'tooltip' }: {icon: string, text: string}) => {
-    
-    //logic for sidebar button click
-    const [sidebarStatus, setSidebarStatus] = useState("All");
+const SideBarIcon:React.FC<{icon: string, setState: (clickedName: string) => void}> = ({ 
+    icon, 
+    setState 
+}) => {
 
-    const sbButtonClicked = () => {
-        const testText = document.getElementById("test-text");
-        if(testText) {
-            setSidebarStatus(icon);
-            testText.innerHTML = sidebarStatus;
-        };
-    };
-
-    useEffect(() => {
-        const leaseDisplay = document.getElementById("lease-display");
-        if (leaseDisplay) {
-            const childElements = leaseDisplay.querySelectorAll("div"); // Select all divs inside
-            console.log("reached inside if")
-            childElements.forEach((child) => {
-                child.className = "scale-0"
-            });
-        }
-    }, [sidebarStatus]);
+    const handleClick = useCallback(() => setState(icon), [setState, icon]);
 
     return (
-        <div className="sidebar-name group">
+        <div className="relative group">
             
-            <button onClick={sbButtonClicked}> {icon} </button>
+            {/* <button onClick={() => setState(icon)}> {icon} </button> */}
+            <button onClick={handleClick} className="relative items-center justify-center
+                                                    h-8 w-20 mt-4 mb-2 mr-1.5 mx-auto shadow-lg
+                                                    bg-neutral-700 text-white
+                                                    hover:bg-orange-400 hover:text-black
+                                                    rounded-3xl hover:rounded-xl
+                                                    transition-all duration-300"> 
+            {icon} </button>
 
-            <span className="sidebar-tooltip group-hover:scale-100">
+            {/* <span className="relative w-auto p-2 m-2 min-w-max left-5 bottom-5
+                            rounded-md shadow-md
+                            text-white bg-gray-900
+                            text-xs font-bold
+                            transition-all duration-100 opacity-0
+                            delay-800 z-10
+                            group-hover:opacity-100">
                 {text}
-            </span>
+            </span> */}
         </div>
     );
 };
 
 
 //lease class and display opening
-const LeaseItem = ({name, status, date}: {name: string, status: number, date: string}) => {
+const LeaseItem = ({name, status, s_date, e_date}: {name: string, status: number, s_date: Date, e_date: Date}) => {
     
      //lease button click
     const leaseButtonClicked = () => {
@@ -127,11 +238,11 @@ const LeaseItem = ({name, status, date}: {name: string, status: number, date: st
     return (
         <div className="lease-item">
             <button onClick={leaseButtonClicked} className="lease-button">
-                <div className="w-35 ml-3 truncate">{name}</div>
-                <div id="statusText" className="w-35 ml-3 truncate">
+                <div className="w-35 ml-3 truncate text-left">{name}</div>
+                <div id="statusText" className="w-35 truncate text-left">
                     {status == 1 ? "Completed" : "Signing Required"}
                 </div>
-                <div>{date}</div>
+                <div className="w-45 truncate text-left">{s_date.toDateString() + " - " + e_date.toDateString()}</div>
             </button>
         </div>
     );

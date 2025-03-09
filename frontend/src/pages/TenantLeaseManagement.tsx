@@ -8,7 +8,7 @@ const LeaseManagement: React.FC = () => {
     const leaseClosed = () => {
         const leaseDisplay = document.getElementById("lease-display");
         if(leaseDisplay) {
-            leaseDisplay.className = "bg-white rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-0"
+            leaseDisplay.className = "bg-neutral-900 rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-0"
         }
     };
 
@@ -36,9 +36,6 @@ const LeaseManagement: React.FC = () => {
                 setLeaseDisplayState(2);
                 testText.innerHTML = leaseDisplayState.toString();
             }
-            // setLeaseDisplayState(5);
-            // testText.innerHTML = leaseDisplayState.toString();
-            // testText.innerHTML = buttonName;
         };
     };
     
@@ -46,7 +43,7 @@ const LeaseManagement: React.FC = () => {
     useEffect(() => {
         const testData = [
             {
-                name: "Lease 1 - lets see what happens if this is long as shit again",
+                name: "Lease 1 - let us see what happens if this is long as shit again",
                 signed: 1,
                 s_date: new Date(2024, 1, 5),
                 e_date: new Date(2025, 12, 5)
@@ -73,21 +70,6 @@ const LeaseManagement: React.FC = () => {
         setData(testData)
     }, [])
 
-    // //lease selecting logic
-    // const [leaseSelected, setLeaseSelected] = useState<string | null>(null);
-
-    // const leaseButtonClicked = () => {
-    //     const testText = document.getElementById("test-text");
-    //     const leaseDisplay = document.getElementById("lease-display")
-
-    //     if(testText) {
-    //         testText.innerHTML = "Lease Clicked: "+name;
-    //     }
-    //     if(leaseDisplay) {
-    //         leaseDisplay.className = "bg-white rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-100"
-    //     }
-    // };
-
     return (
         <>
             {/* Background ----- fix it overflowing onto the sidebare */}
@@ -110,11 +92,7 @@ const LeaseManagement: React.FC = () => {
 
                 {/* Display */}
                 <div className="bg-neutral-900 rounded-2xl h-9/10 flex-grow mt-20 overflow-auto">
-                    {/* Header */}
-                    {/* <LeaseItem name="lease1 this is testing bc this might be long" status={0} date="02/19"/>
-                    <LeaseItem name="lease2" status={0} date="10/02"/>
-                    <LeaseItem name="lease3" status={1} date="10/02"/>
-                    <LeaseItem name="lease4" status={1} date="10/02"/> */}
+                    {/* Lease Data */}
                     {leaseData && leaseData.map((leaseItem) => {
                         if (leaseItem.signed === leaseDisplayState || leaseDisplayState == 2){
                             return <LeaseItem name={leaseItem.name} status={leaseItem.signed} s_date={leaseItem.s_date} e_date={leaseItem.e_date}/>
@@ -123,13 +101,8 @@ const LeaseManagement: React.FC = () => {
 
                 </div>
                 {/* Lease Display */}
-                <div id="lease-display" className="flex bg-white rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-0">
-                    <button onClick={leaseClosed} className="absolute top-2 right-4 text-black scale-150
-                                     hover:text-orange-400 rounded-3xl hover:text-2xl hover:rounded-xl transition-all duration-300 ">
-                        X
-                    </button>
-                    <div className="bg-neutral-950 min-h-screen p-4 overflow-hidden relative">
-                        <div className="bg-neutral-900 rounded-lg p-6 max-w-4xl mx-auto">
+                <div id="lease-display" className="flex bg-red-600 rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-0">
+                    <div className="bg-neutral-900 rounded-lg p-6 max-w-4xl mx-auto">
                         <h1 className="text-3xl font-bold text-orange-200 mb-6">Lease Signing Portal</h1>
 
                         <div className="bg-neutral-800 p-4 rounded-lg mb-6">
@@ -149,16 +122,16 @@ const LeaseManagement: React.FC = () => {
                             <div className="flex justify-between">
                             <button 
                                 className="bg-neutral-700 text-white px-4 py-2 rounded hover:bg-neutral-600"
-                                // onClick={() => setCurrentPage('tenant')}
+                                onClick={leaseClosed}
                             >
-                                Back to Dashboard
+                                Close Lease
                             </button>
                             <button className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
                                 Submit Signed Lease
                             </button>
                             </div>
                         </div>
-                        </div>
+                    
                     </div>
 
 
@@ -204,16 +177,6 @@ const SideBarIcon:React.FC<{icon: string, setState: (clickedName: string) => voi
                                                     rounded-3xl hover:rounded-xl
                                                     transition-all duration-300"> 
             {icon} </button>
-
-            {/* <span className="relative w-auto p-2 m-2 min-w-max left-5 bottom-5
-                            rounded-md shadow-md
-                            text-white bg-gray-900
-                            text-xs font-bold
-                            transition-all duration-100 opacity-0
-                            delay-800 z-10
-                            group-hover:opacity-100">
-                {text}
-            </span> */}
         </div>
     );
 };
@@ -231,7 +194,7 @@ const LeaseItem = ({name, status, s_date, e_date}: {name: string, status: number
             testText.innerHTML = "Lease Clicked: "+name;
         }
         if(leaseDisplay) {
-            leaseDisplay.className = "bg-white rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-100"
+            leaseDisplay.className = "bg-neutral-900 rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-100"
         }
     };
 

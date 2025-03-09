@@ -1,6 +1,7 @@
 import './App.css'
 import { useState } from 'react'
-import LeaseManagement from './pages/LeaseManagement';
+import TenantLeaseManagement from './pages/TenantLeaseManagement';
+import LandlordLeaseManagement from './pages/LandlordLeaseManagement';
 
 type Page = 'entry' | 'tenant' | 'landlord';
 
@@ -62,7 +63,8 @@ function App() {
   // Entry Page with Background Image, Dark Overlay, and Buttons
   return (
     <>
-      <LeaseManagement/>
+      <TenantLeaseManagement/>
+      {/* <LandlordLeaseManagement/> */}
     </>
     // <div className="relative w-full h-screen">
     //   {/* Background Image */}

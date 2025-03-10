@@ -1,7 +1,5 @@
 import './App.css'
 import { useState } from 'react'
-import TenantLeaseManagement from './pages/TenantLeaseManagement';
-import LandlordLeaseManagement from './pages/LandlordLeaseManagement';
 
 type Page = 'entry' | 'tenant' | 'landlord';
 
@@ -62,34 +60,30 @@ function App() {
 
   // Entry Page with Background Image, Dark Overlay, and Buttons
   return (
-    <>
-      <TenantLeaseManagement/>
-      {/* <LandlordLeaseManagement/> */}
-    </>
-    // <div className="relative w-full h-screen">
-    //   {/* Background Image */}
-    //   <div
-    //     className="absolute inset-0 bg-cover bg-center"
-    //     style={{ backgroundImage: "url('/apartment_bg_img.jpg')" }}
-    //   />
-    //   {/* Dark Overlay */}
-    //   <div className="absolute inset-0 bg-neutral-900/75" />
-    //   {/* Content */}
-    //   <div className="relative z-10 flex flex-col justify-center items-center h-full">
-    //     <div className="flex space-x-4">
-    //       <button
-    //         onClick={() => setCurrentPage('landlord')}
-    //         className="px-8 py-4 bg-orange-700 text-orange-100 font-semibold rounded-md hover:bg-orange-800 transition">
-    //         Landlord
-    //       </button>
-    //       <button
-    //         onClick={() => setCurrentPage('tenant')}
-    //         className="px-8 py-4 bg-orange-200 text-stone-700 font-semibold rounded-md hover:bg-orange-100 transition">
-    //         Tenant
-    //       </button>
-    //     </div>
-    //   </div>
-    // </div>
+    <div className="relative w-full h-screen">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/apartment_bg_img.jpg')" }}
+      />
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-neutral-900/75" />
+      {/* Content */}
+      <div className="relative z-10 flex flex-col justify-center items-center h-full">
+        <div className="flex space-x-4">
+          <button
+            onClick={() => setCurrentPage('landlord')}
+            className="px-8 py-4 bg-orange-700 text-orange-100 font-semibold rounded-md hover:bg-orange-800 transition">
+            Landlord
+          </button>
+          <button
+            onClick={() => setCurrentPage('tenant')}
+            className="px-8 py-4 bg-orange-200 text-stone-700 font-semibold rounded-md hover:bg-orange-100 transition">
+            Tenant
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 

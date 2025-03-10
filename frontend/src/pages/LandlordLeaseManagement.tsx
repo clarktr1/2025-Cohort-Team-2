@@ -91,7 +91,7 @@ const LeaseManagement: React.FC = () => {
                 
 
                 {/* Display */}
-                <div className="bg-neutral-900 rounded-2xl h-9/10 flex-grow mt-20 overflow-auto">
+                <div className="bg-neutral-900 rounded-2xl h-9/10 flex-grow mt-20 pl-4 overflow-auto">
 
                         {/* Table */}
                         <div className="mt-8 flow-root">
@@ -124,49 +124,21 @@ const LeaseManagement: React.FC = () => {
                                                 >
                                                     Role
                                                 </th>
-                                                <th
-                                                    scope="col"
-                                                    className="relative py-3.5 pl-3 pr-4 sm:pr-0"
-                                                >
-                                                    <span className="sr-only">Edit</span>
-                                                </th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-orange-500">
-                                            <tr>
-                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
-                                                    Lindsay Walton
-                                                </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                    Front-end Developer
-                                                </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                    lindsay.walton@example.com
-                                                </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                    Member
-                                                </td>
-                                                <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                    <button className="text-orange-500 hover:text-orange-400">
-                                                        Assign<span className="sr-only">, Lindsay Walton</span>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                        <tbody>
+                                        {/* <tbody className="divide-y divide-orange-500"> */}
                                             {/* More rows... */}
+                                            {userData && userData.map((userItem, index) => {
+                                                return <UserItem key={index} name={userItem.name} title={userItem.title} email={userItem.email} role={userItem.role}/>
+                                            })}
                                         </tbody>
-                                        {userData && userData.map((userItem) => {
-                                            return <UserItem name={userItem.name} title={userItem.title} email={userItem.email} role={userItem.role}/>
-                                        })}
                                     </table>
                                 </div>
                             </div>
                         </div>
                         {/* End Table */}
- 
                 </div>
-
-                
-
 
 
                 {/* Lease Display */}
@@ -183,11 +155,7 @@ const LeaseManagement: React.FC = () => {
                             <p className="text-black">Lease agreement content would appear here...</p>
                             </div>
 
-                            {/* Signature area */}
-                            <div className="border border-dashed border-gray-500 h-32 bg-neutral-700 rounded-lg flex items-center justify-center mb-4">
-                            <p className="text-gray-400">Click or drag to sign here</p>
-                            </div>
-
+                            
                             <div className="flex justify-between">
                             <button 
                                 className="bg-neutral-700 text-white px-4 py-2 rounded hover:bg-neutral-600"
@@ -196,15 +164,13 @@ const LeaseManagement: React.FC = () => {
                                 Close Lease
                             </button>
                             <button className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
-                                Submit Signed Lease
+                                Generate Lease Agreement
+                                {/* incude API to assign user a pending lease (creates a lease item for it as well) */}
                             </button>
                             </div>
                         </div>
                     
                     </div>
-
-
-
                 </div>
             </div>
 
@@ -268,36 +234,20 @@ const UserItem = ({name, title, email, role}: {name: string, title: string, emai
     };
 
     return (
-        <div className="lease-item">
-            <button onClick={userButtonClicked} className='hover:bg-orange-400 duration-300'>
-                <tbody className="divide-y divide-orange-500">
-                    <tr>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
-                            {name}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                            {title}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                            {email}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                            {role}
-                        </td>
-                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                            <button className="text-orange-500 hover:text-orange-400">
-                                Assign<span className="sr-only">, Lindsay Walton</span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-                {/* <div className="w-35 ml-3 truncate text-left">{name}</div>
-                <div id="statusText" className="w-35 truncate text-left">
-                    {status == 1 ? "Completed" : "Signing Required"}
-                </div>
-                <div className="w-45 truncate text-left">{"Testing, used to have the two dates"}</div> */}
-            </button>
-        </div>
+        <tr onClick={userButtonClicked} className="cursor-pointer hover:bg-orange-500 duration-300">
+            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
+                {name}
+            </td>
+            <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                {title}
+            </td>
+            <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                {email}
+            </td>
+            <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                {role}
+            </td>
+        </tr>
     );
 };
 

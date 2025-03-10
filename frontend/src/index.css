@@ -1,5 +1,34 @@
 @import "tailwindcss";
 
+@layer components {
+  
+  /* sidebare components */
+
+  .sidebar-tooltip {
+    @apply absolute w-auto p-2 m-2 min-w-max left-20
+    rounded-md shadow-md
+    text-white bg-gray-900
+    text-xs font-bold
+    transition-all duration-100 scale-0 origin-left;
+    transition-delay: 800ms;
+  }
+
+
+  /* lease items in the list */
+  .lease-item {
+    @apply relative flex items-center justify-center
+    h-12 flex-grow 
+  }
+
+  .lease-button {
+    @apply relative flex items-start justify-start place-items-start
+    h-12 flex-grow gap-10 overflow-hidden
+    text-white bg-neutral-400
+    hover:bg-orange-400 hover:text-black
+    duration-300
+  }
+}
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

@@ -9,11 +9,11 @@ export const tenantActions: QuickAction[] = [
         <form className="space-y-4">
           <div>
             <label className="block text-orange-100 text-sm font-medium mb-1">
-              Enter Key Details
+              Guest Name
             </label>
             <input
               type="text"
-              placeholder="Key description"
+              placeholder="Guest full name"
               className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
             />
           </div>

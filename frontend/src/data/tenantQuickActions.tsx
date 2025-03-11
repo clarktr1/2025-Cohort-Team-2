@@ -32,14 +32,114 @@ export const tenantActions: QuickAction[] = [
   },
   {
     text: "Report disturbance",
-    onClick: () => console.log("Report disturbance clicked"),
+    modalContent: {
+      header: <>Report Disturbance</>,
+      form: (
+        <form className="space-y-4">
+          <div>
+            <label className="block text-orange-100 text-sm font-medium mb-1">
+              Apartment Number
+            </label>
+            <input
+              type="text"
+              placeholder="Apartment number"
+              className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
+            />
+          </div>
+          <div>
+            <label className="block text-orange-100 text-sm font-medium mb-1">
+              Complaint Type
+            </label>
+            <select className="w-full p-2 rounded-md bg-neutral-800 text-orange-100">
+              <option >Noise</option>
+              <option>Smoke</option>
+              <option>Inappropriate behavior</option>
+              <option>Mice</option>
+              <option>Cockroaches</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-orange-100 text-sm font-medium mb-1">
+              Complaint Description
+            </label>
+            <textarea
+              placeholder="Describe the disturbance"
+              className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
+              rows={3}
+            />
+          </div>
+        </form>
+      ),
+    },
   },
   {
     text: "Renew lease",
-    onClick: () => console.log("Renew lease clicked"),
+    modalContent: {
+      header: <>Renew Lease</>,
+      form: (
+        <form className="space-y-4">
+          <div>
+            <label className="block text-orange-100 text-sm font-medium mb-1">
+              Lease Document
+            </label>
+            <div className="w-full p-2 py-40 rounded-md bg-neutral-800 text-orange-100">
+              <p className="text-center">[Lease PDF Document Placeholder]</p>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="agree"
+              className="h-4 w-4 text-orange-500 bg-neutral-800 border-orange-100 focus:ring-orange-500"
+            />
+            <label htmlFor="agree" className="ml-2 block text-sm text-orange-100">
+              I agree
+            </label>
+          </div>
+        </form>
+      ),
+    },
   },
   {
     text: "Issue parking permit",
-    onClick: () => console.log("Issue parking permit clicked"),
+    modalContent: {
+      header: <>Issue Parking Permit</>,
+      form: (
+        <form className="space-y-4">
+          <div>
+            <label className="block text-orange-100 text-sm font-medium mb-1">
+              Guest Name
+            </label>
+            <input
+              type="text"
+              placeholder="Guest name"
+              className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
+            />
+          </div>
+          <div>
+            <label className="block text-orange-100 text-sm font-medium mb-1">
+              Car Model
+            </label>
+            <input
+              type="text"
+              placeholder="Car model"
+              className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
+            />
+          </div>
+          <div>
+            <label className="block text-orange-100 text-sm font-medium mb-1">
+              License Plate
+            </label>
+            <input
+              type="text"
+              placeholder="License plate"
+              className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
+            />
+          </div>
+        </form>
+      ),
+    },
   },
+
 ];

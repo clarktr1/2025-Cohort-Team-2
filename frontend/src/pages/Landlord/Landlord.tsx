@@ -21,7 +21,7 @@ const LandlordPage = () => {
   return (
     <div className="bg-neutral-950 h-full p-2">
       <div className="flex flex-col gap-2">
-        <div className="flex h-2/5 rounded-lg overflow-hidden gap-2">
+        <div className="flex h-96 rounded-lg overflow-hidden gap-2">
           <HeroSection
             imageSrc="/apartment_bg_img.jpg"
             title={

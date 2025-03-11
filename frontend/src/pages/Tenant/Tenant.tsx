@@ -14,8 +14,6 @@ const tenantActions: QuickAction[] = [
     { text: "Generate temporary key", onClick: () => console.log("Generate temporary key clicked") },
     { text: "Report disturbance", onClick: () => console.log("Report disturbance clicked") },
     { text: "Renew lease", onClick: () => console.log("Renew lease clicked") },
-    { text: "Pay rent", onClick: () => console.log("Pay rent clicked") },
-    { text: "Request maintenance", onClick: () => console.log("Request maintenance clicked") },
     { text: "Issue parking permit", onClick: () => console.log("Issue parking permit clicked") },
 ];
 

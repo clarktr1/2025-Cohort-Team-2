@@ -1,4 +1,4 @@
-// landlordNav.ts
+
 export const landlordNav = [
     { to: "/", navLinkName: "Home" },
     { to: "/tenant_management", navLinkName: "Tenant Management" },

@@ -1,4 +1,3 @@
-// tenantNav.ts
 export const tenantNav = [
     { to: "/", navLinkName: "Home" },
     { to: "/lease", navLinkName: "Lease Management" },

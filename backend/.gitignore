@@ -1,0 +1,5 @@
+*.py[cod]
+backend/__pycache__/
+
+# Django DB File
+db.sqlite3

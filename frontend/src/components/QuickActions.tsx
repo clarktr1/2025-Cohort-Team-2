@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import QuickActionButton from "./QuickActionButton";
 import QuickActionModal, { QuickActionModalProps } from "./QuickActionModal";
 

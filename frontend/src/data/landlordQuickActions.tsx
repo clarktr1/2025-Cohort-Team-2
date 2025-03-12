@@ -19,13 +19,18 @@ export const landlordActions: QuickAction[] = [
                         />
                     </div>
                     <div>
-                        <label className="block text-orange-100 text-sm font-medium mb-1">
+                        {/* <label className="block text-orange-100 text-sm font-medium mb-1">
                             Valid Until
                         </label>
                         <input
                             type="date"
                             className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
-                        />
+                        /> */}
+
+                        <p className="w-full p-2 rounded-md bg-neutral-800 text-orange-100">
+                            Valid Until: {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}
+                        </p>
+
                     </div>
                 </form>
             ),
@@ -111,17 +116,24 @@ export const landlordActions: QuickAction[] = [
                     </div>
                     <div>
                         <label className="block text-orange-100 text-sm font-medium mb-1">
-                            Valid Until
+                            Guest Email
                         </label>
                         <input
-                            type="date"
+                            type="email"
+                            placeholder="Guest email"
                             className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
                         />
+                    </div>
+                    <div>
+                        <p className="w-full p-2 rounded-md bg-neutral-800 text-orange-100">
+                            Valid Until: {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}
+                        </p>
                     </div>
                 </form>
             ),
         },
     }
+
     ,
     { text: "Something else", onClick: () => console.log("Something else clicked") },
 ];

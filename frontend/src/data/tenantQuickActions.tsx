@@ -1,5 +1,62 @@
 import { QuickAction } from "../components/QuickActions";
 
+const popularCarModels = [
+  "Toyota Camry",
+  "Honda Civic",
+  "Ford Focus",
+  "BMW 3 Series",
+  "Audi A4",
+  "Chevrolet Malibu",
+  "Nissan Altima",
+  "Hyundai Sonata",
+  "Kia Optima",
+  "Mazda3",
+  "Volkswagen Jetta",
+  "Subaru Impreza",
+  "Honda Accord",
+  "Ford Fusion",
+  "Chevrolet Cruze",
+  "Mercedes-Benz C-Class",
+  "Lexus ES",
+  "Acura TLX",
+  "Infiniti Q50",
+  "Volvo S60",
+  "Jaguar XE",
+  "Genesis G70",
+  "Audi A6",
+  "BMW 5 Series",
+  "Cadillac CT5",
+  "Other",
+];
+
+const carColors = [
+  "Red",
+  "Blue",
+  "Black",
+  "White",
+  "Silver",
+  "Green",
+  "Gray",
+  "Yellow",
+  "Brown",
+  "Gold",
+  "Orange",
+  "Purple",
+  "Maroon",
+  "Navy",
+  "Turquoise",
+  "Other",
+];
+
+const disturbanceTypes = [
+  "Noise",
+  "Smoke",
+  "Inappropriate behavior",
+  "Mice",
+  "Cockroaches",
+  "Other",
+];
+
 export const tenantActions: QuickAction[] = [
   {
     text: "Generate temporary key",
@@ -9,11 +66,11 @@ export const tenantActions: QuickAction[] = [
         <form className="space-y-4">
           <div>
             <label className="block text-orange-100 text-sm font-medium mb-1">
-              Guest Name
+              Enter Key Details
             </label>
             <input
               type="text"
-              placeholder="Guest full name"
+              placeholder="Key description"
               className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
             />
           </div>
@@ -51,12 +108,12 @@ export const tenantActions: QuickAction[] = [
               Complaint Type
             </label>
             <select className="w-full p-2 rounded-md bg-neutral-800 text-orange-100">
-              <option >Noise</option>
-              <option>Smoke</option>
-              <option>Inappropriate behavior</option>
-              <option>Mice</option>
-              <option>Cockroaches</option>
-              <option>Other</option>
+              <option value="">Select Complaint Type</option>
+              {disturbanceTypes.map((type, index) => (
+                <option key={index} value={type}>
+                  {type}
+                </option>
+              ))}
             </select>
           </div>
           <div>
@@ -121,11 +178,27 @@ export const tenantActions: QuickAction[] = [
             <label className="block text-orange-100 text-sm font-medium mb-1">
               Car Model
             </label>
-            <input
-              type="text"
-              placeholder="Car model"
-              className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
-            />
+            <select className="w-full p-2 rounded-md bg-neutral-800 text-orange-100">
+              <option value="">Select Car Model</option>
+              {popularCarModels.map((model) => (
+                <option key={model} value={model}>
+                  {model}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-orange-100 text-sm font-medium mb-1">
+              Car Color
+            </label>
+            <select className="w-full p-2 rounded-md bg-neutral-800 text-orange-100">
+              <option value="">Select Car Color</option>
+              {carColors.map((color) => (
+                <option key={color} value={color}>
+                  {color}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block text-orange-100 text-sm font-medium mb-1">
@@ -141,5 +214,4 @@ export const tenantActions: QuickAction[] = [
       ),
     },
   },
-
 ];

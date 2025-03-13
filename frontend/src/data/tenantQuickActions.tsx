@@ -1,52 +1,6 @@
 import { QuickAction } from "../components/QuickActions";
+import ParkingPermitForm from "./ParkingPermitForm";
 
-const popularCarModels = [
-  "Toyota Camry",
-  "Honda Civic",
-  "Ford Focus",
-  "BMW 3 Series",
-  "Audi A4",
-  "Chevrolet Malibu",
-  "Nissan Altima",
-  "Hyundai Sonata",
-  "Kia Optima",
-  "Mazda3",
-  "Volkswagen Jetta",
-  "Subaru Impreza",
-  "Honda Accord",
-  "Ford Fusion",
-  "Chevrolet Cruze",
-  "Mercedes-Benz C-Class",
-  "Lexus ES",
-  "Acura TLX",
-  "Infiniti Q50",
-  "Volvo S60",
-  "Jaguar XE",
-  "Genesis G70",
-  "Audi A6",
-  "BMW 5 Series",
-  "Cadillac CT5",
-  "Other",
-];
-
-const carColors = [
-  "Red",
-  "Blue",
-  "Black",
-  "White",
-  "Silver",
-  "Green",
-  "Gray",
-  "Yellow",
-  "Brown",
-  "Gold",
-  "Orange",
-  "Purple",
-  "Maroon",
-  "Navy",
-  "Turquoise",
-  "Other",
-];
 
 const disturbanceTypes = [
   "Noise",
@@ -162,56 +116,7 @@ export const tenantActions: QuickAction[] = [
     text: "Issue parking permit",
     modalContent: {
       header: <>Issue Parking Permit</>,
-      form: (
-        <form className="space-y-4">
-          <div>
-            <label className="block text-orange-100 text-sm font-medium mb-1">
-              Guest Name
-            </label>
-            <input
-              type="text"
-              placeholder="Guest name"
-              className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
-            />
-          </div>
-          <div>
-            <label className="block text-orange-100 text-sm font-medium mb-1">
-              Car Model
-            </label>
-            <select className="w-full p-2 rounded-md bg-neutral-800 text-orange-100">
-              <option value="">Select Car Model</option>
-              {popularCarModels.map((model) => (
-                <option key={model} value={model}>
-                  {model}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-orange-100 text-sm font-medium mb-1">
-              Car Color
-            </label>
-            <select className="w-full p-2 rounded-md bg-neutral-800 text-orange-100">
-              <option value="">Select Car Color</option>
-              {carColors.map((color) => (
-                <option key={color} value={color}>
-                  {color}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-orange-100 text-sm font-medium mb-1">
-              License Plate
-            </label>
-            <input
-              type="text"
-              placeholder="License plate"
-              className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
-            />
-          </div>
-        </form>
-      ),
+      form: <ParkingPermitForm />,
     },
   },
 ];

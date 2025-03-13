@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-94o0@v22wej$605_5w+k!f)nm1n250-+fxi_wkwi8%uqsql+e3
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     'two025-cohort-team-2.onrender.com'
 ]
 
@@ -89,6 +90,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+AUTH_USER_MODEL = "api.CustomUser"
 
 
 # Password validation

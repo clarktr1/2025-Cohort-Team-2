@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-94o0@v22wej$605_5w+k!f)nm1n250-+fxi_wkwi8%uqsql+e3
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '127.0.0.1',
     'two025-cohort-team-2.onrender.com'
 ]
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework.authtoken',
 
     'api',
 ]
@@ -110,6 +112,18 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# DRF Authentication 
+# https://www.django-rest-framework.org/api-guide/authentication/#setting-the-authentication-scheme
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
 
 
 # Internationalization

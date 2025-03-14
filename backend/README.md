@@ -19,3 +19,7 @@ Added emergency contact info.
 
 #### Landlord:
 Added landlord address. 
+
+### [Serializers](api/serializers.py)
+Converts Models in JSON objects
+

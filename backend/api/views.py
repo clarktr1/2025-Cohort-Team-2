@@ -23,67 +23,57 @@ def user_status(request):
 
     return Response({"message": "user not logged in"})
 
-@api_view(['POST'])
-@permission_classes([IsUnauthenticated])
-def register_landlord(request):
-    serializer = LandlordSerializer(data=request.data)
-    if serializer.is_valid():
-        landlord = serializer.save()
-        user = landlord.user
-        authenticated_user = authenticate(email=user.email, password=request.data["user"]["password"])
 
-        if authenticated_user:
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_201_CREATED)
-     
+class RegisterLandlordView(generics.CreateAPIView):
+    permission_classes = [IsUnauthenticated]
+    serializer_class = LandlordSerializer
+    queryset = Landlord.objects.all()
 
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        landlord, token = serializer.save()
+        landlord_serializer = LandlordSerializer(landlord)
+        return Response({"token": token.key, "landlord": landlord_serializer.data}, status=status.HTTP_201_CREATED)
 
-@api_view(['POST'])
-@permission_classes([IsUnauthenticated])
-def register_tenant(request):
-    serializer = TenantSerializer(data=request.data)
-    if serializer.is_valid():
-        tenant = serializer.save()
-        user = tenant.user
-        authenticated_user = authenticate(email=user.email, password=request.data["user"]["password"])
+    
 
-        if authenticated_user:
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_201_CREATED)
-     
+class RegisterTenantView(generics.CreateAPIView):
+    permission_classes = [IsUnauthenticated]
+    serializer_class = TenantSerializer
+    queryset = Tenant.objects.all()
 
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        tenant, token = serializer.save()
+        tenant_serializer = TenantSerializer(tenant)
+        return Response({"token": token.key, "landlord": tenant_serializer.data}, status=status.HTTP_201_CREATED)
 
-@api_view(['POST'])
-@permission_classes([IsUnauthenticated])
-def login_landlord(request):
-    user = authenticate(email=request.data["email"], password=request.data["password"])
 
-    if user:
-        landlord = Landlord.objects.get(user=user)
-        serialzer = LandlordSerializer(landlord)
+class LoginView(APIView):
+    permission_classes = [IsUnauthenticated]
 
-        if landlord:
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key, "landlord": serialzer.data}, status=status.HTTP_200_OK)
+    def post(self, request):
+        user = authenticate(email=request.data["email"], password=request.data["password"])
 
-    return Response({"message": "can't login landlord"}, status=status.HTTP_400_BAD_REQUEST)
+        if user:
+            landlord = Landlord.objects.get(user=user)
 
-@api_view(['POST'])
-@permission_classes([IsUnauthenticated])
-def login_tenant(request):
-    user = authenticate(email=request.data["email"], password=request.data["password"])
+            if landlord:
+                serialzer = LandlordSerializer(landlord)
+                token, created = Token.objects.get_or_create(user=user)
+                return Response({"token": token.key, "landlord": serialzer.data}, status=status.HTTP_200_OK)
+            
+            tenant = Tenant.objects.get(user=user)
 
-    if user:
-        tenant = Tenant.objects.get(user=user)
-        serialzer = TenantSerializer(tenant)
+            if tenant:
+                serialzer = TenantSerializer(tenant)
+                token, created = Token.objects.get_or_create(user=user)
+                return Response({"token": token.key, "landlord": serialzer.data}, status=status.HTTP_200_OK)
 
-        if tenant:
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key, "landlord": serialzer.data}, status=status.HTTP_200_OK)
+        return Response({"message": "can't login"}, status=status.HTTP_400_BAD_REQUEST)
 
-    return Response({"message": "can't login tenant"}, status=status.HTTP_400_BAD_REQUEST)
 
 class LogoutView(APIView):
     permission_classes = [permissions.IsAuthenticated]

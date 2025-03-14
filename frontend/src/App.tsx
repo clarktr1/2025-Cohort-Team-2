@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import HomePage from "./pages/Home/Home";
 import { RoleProvider } from "./context/RoleProvider";
+import AccessControls from "./pages/Tenant/AccessControls";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="landlord" element={<LandlordPage />} />
           <Route path="tenant" element={<TenantPage />} />
+          <Route path="access" element={<AccessControls />} />
         </Route>
       </Routes>
     </RoleProvider>

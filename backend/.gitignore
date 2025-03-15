@@ -4,3 +4,6 @@ api/__pycache__/
 
 # Django DB File
 db.sqlite3
+
+# Env file
+.env

@@ -18,9 +18,9 @@ class TenantSerializer(serializers.ModelSerializer):
         fields = ["user", "emergency_contact", "emergency_email", "emergency_phone"]
     
     def create(self, validated_data):
-        user_data = validated_data.pop("user")  # Extract user data
-        user = CustomUser.objects.create_user(**user_data)  # Create user instance
-        tenant = Tenant.objects.create(user=user, **validated_data)  # Create tenant instance
+        user_data = validated_data.pop("user")  
+        user = CustomUser.objects.create_user(**user_data)  
+        tenant = Tenant.objects.create(user=user, **validated_data) 
 
         token, created = Token.objects.get_or_create(user = user)
         return tenant, token 
@@ -30,11 +30,11 @@ class TenantSerializer(serializers.ModelSerializer):
 
         if user_data:
             for attr, value in user_data.items():
-                setattr(instance.user, attr, value)  # Update user instance
+                setattr(instance.user, attr, value)
             instance.user.save()
         
         for attr, value in validated_data.items():
-            setattr(instance, attr, value)  # Update tenant instance
+            setattr(instance, attr, value)  
         instance.save()
 
         return instance
@@ -49,9 +49,9 @@ class LandlordSerializer(serializers.ModelSerializer):
         fields = ["user", "address_line1", "address_line2", "city", "state", "zipcode"]
     
     def create(self, validated_data):
-        user_data = validated_data.pop("user")  # Extract user data
-        user = CustomUser.objects.create_user(**user_data)  # Create user instance
-        landlord = Landlord.objects.create(user=user, **validated_data)  # Create landlord instance
+        user_data = validated_data.pop("user")  
+        user = CustomUser.objects.create_user(**user_data)  
+        landlord = Landlord.objects.create(user=user, **validated_data) 
 
         token, created = Token.objects.get_or_create(user = user)
         return landlord, token 
@@ -61,11 +61,11 @@ class LandlordSerializer(serializers.ModelSerializer):
 
         if user_data:
             for attr, value in user_data.items():
-                setattr(instance.user, attr, value)  # Update user instance
+                setattr(instance.user, attr, value)  
             instance.user.save()
         
         for attr, value in validated_data.items():
-            setattr(instance, attr, value)  # Update tenant instance
+            setattr(instance, attr, value)
         instance.save()
 
         return instance

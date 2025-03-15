@@ -10,19 +10,7 @@ from .serializers import TenantSerializer, LandlordSerializer
 from .custom_permissions import IsTenant, IsLandlord, IsUnauthenticated
 from .models import Landlord, Tenant
 
-import requests
-
 # Create your views here.
-
-@api_view(['GET'])
-def user_status(request):
-    print(request.user)
-    print(request.auth)
-    if request.user.is_authenticated:
-        return Response({"message": "user logged in"})
-
-    return Response({"message": "user not logged in"})
-
 
 class RegisterLandlordView(generics.CreateAPIView):
     permission_classes = [IsUnauthenticated]
@@ -79,6 +67,6 @@ class LogoutView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
-        request.user.auth_token.delete()  # Delete the token
+        request.user.auth_token.delete()
         return Response({"message": "Successfully logged out."}, status=200)
 

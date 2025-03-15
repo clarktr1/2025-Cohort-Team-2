@@ -26,13 +26,16 @@ SECRET_KEY = 'django-insecure-94o0@v22wej$605_5w+k!f)nm1n250-+fxi_wkwi8%uqsql+e3
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
     'two025-cohort-team-2.onrender.com'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://two025-cohort-team-2.onrender.com",
 ]
+
+if DEBUG:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+    CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
 
 
 # Application definition

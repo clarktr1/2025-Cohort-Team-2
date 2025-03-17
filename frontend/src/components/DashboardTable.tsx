@@ -1,5 +1,9 @@
 // import { useEffect, useState } from "react";
 
+import SingleUseAction from "./SingleUseAction";
+import { userFormAddAction } from "../data/userFormAddAction";
+import { userFormUpdateAction } from "../data/userFormUpdateAction";
+
 
 const DashboardTable = () => {
     // const [users, setUsers] = useState([]);
@@ -23,7 +27,6 @@ const DashboardTable = () => {
     //     fetchUsers();
     // }, []);
 
-
     return (
         <div className="bg-neutral-900">
             <div className="mx-auto max-w-7xl">
@@ -38,12 +41,14 @@ const DashboardTable = () => {
                                 </p>
                             </div>
                             <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                                <button
+                                {/* <button
                                     type="button"
                                     className="block rounded-md bg-orange-500 px-3 py-2 text-center text-sm font-semibold text-orange-100 hover:bg-orange-400 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-orange-500"
+                                    
                                 >
-                                    Add user
-                                </button>
+                                    Add User
+                                </button> */}
+                                <SingleUseAction actions={userFormAddAction}></SingleUseAction>
                             </div>
                         </div>
 
@@ -122,9 +127,10 @@ const DashboardTable = () => {
                                                     Member
                                                 </td>
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                    <a href="#" className="text-orange-500 hover:text-orange-400">
+                                                    {/* <a href="#" className="text-orange-500 hover:text-orange-400">
                                                         Edit<span className="sr-only">, Lindsay Walton</span>
-                                                    </a>
+                                                    </a> */}
+                                                    <SingleUseAction actions={userFormUpdateAction}></SingleUseAction>
                                                 </td>
                                             </tr>
                                             {/* More rows... */}

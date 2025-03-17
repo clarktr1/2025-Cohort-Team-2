@@ -1,3 +1,6 @@
+import { userFormAddAction } from "../data/userFormAddAction";
+import { leaseTableActions } from "../data/leaseTableActions";
+import LeaseActions from "./LeaseActions";
 
 const ClickableDashboardTable = () => {
     return (
@@ -54,6 +57,7 @@ const ClickableDashboardTable = () => {
                                             {/* {userData && userData.map((userItem, index) => {
                                                 return <UserItem key={index} name={userItem.name} title={userItem.title} email={userItem.email} role={userItem.role}/>
                                             })} */}
+                                            <LeaseActions actions={leaseTableActions}/>
                                         </tbody>
                                     </table>
                                 </div>

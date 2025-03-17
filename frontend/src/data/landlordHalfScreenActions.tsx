@@ -128,7 +128,6 @@ export const landlordHalfScreenActions: QuickAction[] = [
     //         ),
     //     },
     // }
-    ,
     {
         text: "Issue temporary key",
         modalContent: {

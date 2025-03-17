@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
-from .models import CustomUser, Tenant, Landlord
+from .models import CustomUser, Tenant, Landlord, Apartment, Lease
 
 class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -69,3 +69,16 @@ class LandlordSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+    
+
+class ApartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Apartment
+        fields = ["apt_number", "apt_type", "available_permits"]
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if self.context['request'].method == 'POST':
+            data.pop('available_permits', None)
+        return data
+

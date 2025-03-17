@@ -1,14 +1,14 @@
 from django.shortcuts import render
-from rest_framework import generics, permissions, status, authentication
+from rest_framework import generics, permissions, status, authentication, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import authenticate
 
-from .serializers import TenantSerializer, LandlordSerializer
+from .serializers import TenantSerializer, LandlordSerializer, ApartmentSerializer
 from .custom_permissions import IsTenant, IsLandlord, IsUnauthenticated
-from .models import Landlord, Tenant
+from .models import Landlord, Tenant, Apartment, Lease
 
 # Create your views here.
 
@@ -69,4 +69,12 @@ class LogoutView(APIView):
     def post(self, request):
         request.user.auth_token.delete()
         return Response({"message": "Successfully logged out."}, status=200)
+
+
+
+class ApartmentViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsLandlord]
+    queryset = Apartment.objects.all()
+    serializer_class = ApartmentSerializer
+    lookup_field = 'apt_number'
 

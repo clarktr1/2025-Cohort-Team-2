@@ -1,5 +1,4 @@
 
-// import { landlordActions } from "../../data/landlordQuickActions";
 import { landlordHalfScreenActions } from "../../data/landlordHalfScreenActions";
 import DashboardTable from "../../components/DashboardTable";
 import ClickableDashboardTable from "../../components/ClickableDashboardTable";
@@ -8,7 +7,7 @@ import HalfScreenActions from "../../components/HalfScreenActions";
 
 
 
-const TenantManagementPage = () => {
+const TenantDeliveries = () => {
   return (
     <div className="bg-neutral-950 h-full p-2">
       <div className="flex flex-col gap-2">
@@ -25,16 +24,16 @@ const TenantManagementPage = () => {
 
         <div className="bg-neutral-900 rounded-b-lg p-6">
           <div className="mx-auto max-w-7xl">
-            <header className="mb-6">
+            {/* <header className="mb-6">
               <h1 className="font-bold text-orange-100 mb-10 tracking-widest text-center text-4xl">Dashboards</h1>
               
-            </header>
-            <div className="bg-neutral-900 py-10 rounded-lg">
+            </header> */}
+            {/* <div className="bg-neutral-900 py-10 rounded-lg">
               <DashboardTable />
             </div>
             <div className="bg-neutral-900 py-10 rounded-lg">
               <ClickableDashboardTable />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -42,4 +41,4 @@ const TenantManagementPage = () => {
   );
 };
 
-export default TenantManagementPage;
+export default TenantDeliveries;

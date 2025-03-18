@@ -1,23 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import QuickActionButton from "./QuickActionButton";
 import QuickActionModal, { QuickActionModalProps } from "./QuickActionModal";
 
 export interface QuickAction {
     text: string;
-    // If modalContent is provided, clicking this button will open the modal.
     modalContent?: Omit<QuickActionModalProps, "isOpen" | "onClose">;
-    // Fallback onClick if no modalContent is provided.
     onClick?: () => void;
 }
 
-interface QuickActionsProps {
+export interface QuickActionsProps {
     actions: QuickAction[];
+    modalData: QuickActionModalProps | null;
+    setModalData: (data: QuickActionModalProps | null) => void;
 }
 
-const QuickActions: React.FC<QuickActionsProps> = ({ actions }) => {
-    const [modalData, setModalData] =
-        useState<QuickActionModalProps | null>(null);
-
+const QuickActions: React.FC<QuickActionsProps> = ({ actions, modalData, setModalData }) => {
     const handleModalClose = () => {
         setModalData(null);
     };

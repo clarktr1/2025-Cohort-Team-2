@@ -102,3 +102,7 @@ const TenantPage = () => {
 };
 
 export default TenantPage;
+
+// TODO:
+// 1. show error message modal if the success message key can't be generated
+// 2. apply success and error message modal to the other forms. 

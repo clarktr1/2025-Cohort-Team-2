@@ -1,24 +1,30 @@
 interface LeaseActionsProps {
-    tenant: string;
-    landlord: string;
+    lease_id: number;
+    tenant_name: string;
+    landlord_name: string;
+    date_created: Date;
+    date_signed: Date;
+    date_end: Date;
 }
 
-const LeaseDisplay: React.FC<LeaseActionsProps> = ({ tenant, landlord }) => {
+const LeaseDisplay: React.FC<LeaseActionsProps> = ({ lease_id, tenant_name, landlord_name, date_created, date_signed, date_end }) => {
 
     return (
-        <div className="bg-white h-96 rounded overflow-auto p-2 mb-4">
+        <div className="bg-white h-full rounded overflow-auto p-2 mb-4">
             {/* <span className='text-2xl bold'>big words</span> */}
             <p className="text-black">
                 <span className='text-xl font-bold'>RESIDENTIAL LEASE AGREEMENT</span>
                 <br></br>
+                <span>Lease ID: {lease_id}</span>
+                <br></br>
                 THIS RESIDENTIAL LEASE AGREEMENT (the "Agreement") is made and entered into as of
-                __________, by and between {landlord} ("Landlord") and {tenant}
+                __{date_signed.toLocaleDateString()}__, by and between {landlord_name} ("Landlord") and {tenant_name}
                 ("Tenant").<br></br>
                 <span className='text-lg font-bold'>1. PREMISES </span> Landlord leases to Tenant the premises located at 
                 <span id="lease-room-num"></span> (the
                 "Premises")<br></br>
-                <span className='text-lg font-bold'>2. TERM </span> The lease term shall commence on 
-                <span id="lease-start-date"></span> and shall end on <span id="lease-end-date"></span>.
+                <span className='text-lg font-bold'>2. TERM </span> The lease term shall commence on {date_created.toLocaleDateString()} and 
+                shall end on {date_end.toLocaleDateString()}.
                 <br></br>
                 <span className='text-lg font-bold'>3. RENT </span>
                 Tenant shall pay Landlord monthly rent in the amount of $1500, due on the 1st
@@ -84,9 +90,11 @@ const LeaseDisplay: React.FC<LeaseActionsProps> = ({ tenant, landlord }) => {
                 after 9 PM for reasons that need not be explained.
                 IN WITNESS WHEREOF, the parties have executed this Agreement as of the date first written
                 above.
-                LANDLORD: _____{landlord}______
-                TENANT: ____{tenant}_____
+                LANDLORD: _____{landlord_name}______
+                TENANT: ____{tenant_name}_____
             </p>
+            <br></br>
+            <span>Date Signed: _____{date_signed.toLocaleDateString()}____</span>
         </div>
     );
 };

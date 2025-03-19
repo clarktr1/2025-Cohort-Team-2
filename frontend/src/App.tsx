@@ -7,6 +7,7 @@ import HomePage from "./pages/Home/Home";
 import { RoleProvider } from "./context/RoleProvider";
 import TenantManagementPage from "./pages/Landlord/TenantManagement";
 import TenantDeliveries from "./pages/Tenant/TenantDeliveries";
+import TenantLeaseManagement from "./pages/Tenant/TenantLeaseManagement";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="tenant" element={<TenantPage />} />
           <Route path="tenant_management" element={<TenantManagementPage />} />
           <Route path="deliveries" element={<TenantDeliveries />} />
+          <Route path="lease" element={<TenantLeaseManagement />} />
         </Route>
       </Routes>
     </RoleProvider>

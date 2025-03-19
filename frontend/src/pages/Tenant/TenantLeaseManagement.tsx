@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState, useEffect, useCallback } from "react";
+import LeaseDisplay from '../../components/LeaseDisplay';
 // import {FaFire} from 'react-icons/fa';
 
-const LeaseManagementPage: React.FC = () => {
+const TenantLeaseManagement: React.FC = () => {
 
     //display functions
     const leaseClosed = () => {
@@ -24,19 +25,13 @@ const LeaseManagementPage: React.FC = () => {
     const [leaseDisplayState, setLeaseDisplayState] = useState<number>(0);
 
     const sbButtonClicked = (buttonName: string) => {
-        const testText = document.getElementById("test-text");
-        if(testText) {
-            if(buttonName == "Pending"){
-                setLeaseDisplayState(0);
-                testText.innerHTML = leaseDisplayState.toString();
-            } else if(buttonName == "Previous"){
-                setLeaseDisplayState(1);
-                testText.innerHTML = leaseDisplayState.toString();
-            } else {
-                setLeaseDisplayState(2);
-                testText.innerHTML = leaseDisplayState.toString();
-            }
-        };
+        if(buttonName == "Pending"){
+            setLeaseDisplayState(0);
+        } else if(buttonName == "Previous"){
+            setLeaseDisplayState(1);
+        } else {
+            setLeaseDisplayState(2);
+        }
     };
     
 
@@ -84,11 +79,7 @@ const LeaseManagementPage: React.FC = () => {
                     <h1 className="w-1/2 text-white text-4xl ml-22 p-4">
                         My Leases:
                     </h1>
-                    <h1 id="test-text" className="w-1/2 bg-neutral-700   text-white text-4xl p-4">
-                        Testing Text:
-                    </h1>
                 </div>
-                
 
                 {/* Display */}
                 <div className="bg-neutral-900 rounded-2xl h-9/10 flex-grow mt-20 overflow-auto">
@@ -106,13 +97,10 @@ const LeaseManagementPage: React.FC = () => {
                         <h1 className="text-3xl font-bold text-orange-200 mb-6">Lease Signing Portal</h1>
 
                         <div className="bg-neutral-800 p-4 rounded-lg mb-6">
-                            <h2 className="text-xl font-semibold text-orange-200 mb-2">Apartment Lease Agreement</h2>
                             <p className="text-white mb-4">Please review the document below and sign at the bottom.</p>
 
                             {/* Document preview area */}
-                            <div className="bg-white h-96 rounded overflow-auto p-2 mb-4">
-                            <p className="text-black">Lease agreement content would appear here...</p>
-                            </div>
+                            <LeaseDisplay lease_id={123456} tenant_name="Tenant Name" landlord_name="Landlord Name" date_created={new Date("2020-06-15")} date_signed={new Date()} date_end={new Date("2027-08-15")}></LeaseDisplay>
 
                             {/* Signature area */}
                             <div className="border border-dashed border-gray-500 h-32 bg-neutral-700 rounded-lg flex items-center justify-center mb-4">
@@ -134,12 +122,8 @@ const LeaseManagementPage: React.FC = () => {
                     
                     </div>
 
-
-
                 </div>
             </div>
-
-            
 
             {/* Sidebar */}
             <div className="fixed top-0 left-0 h-screen w-22 m-0 
@@ -168,14 +152,12 @@ const SideBarIcon:React.FC<{icon: string, setState: (clickedName: string) => voi
 
     return (
         <div className="relative group">
-            
-            {/* <button onClick={() => setState(icon)}> {icon} </button> */}
             <button onClick={handleClick} className="relative items-center justify-center
-                                                    h-8 w-20 mt-4 mb-2 mr-1.5 mx-auto shadow-lg
-                                                    bg-neutral-700 text-white
-                                                    hover:bg-orange-400 hover:text-black
-                                                    rounded-3xl hover:rounded-xl
-                                                    transition-all duration-300"> 
+                                        h-8 w-20 mt-4 mb-2 mr-1.5 mx-auto shadow-lg
+                                        bg-neutral-700 text-white
+                                        hover:bg-orange-400 hover:text-black
+                                        rounded-3xl hover:rounded-xl
+                                        transition-all duration-300"> 
             {icon} </button>
         </div>
     );
@@ -187,20 +169,18 @@ const LeaseItem = ({name, status, s_date, e_date}: {name: string, status: number
     
      //lease button click
     const leaseButtonClicked = () => {
-        const testText = document.getElementById("test-text");
         const leaseDisplay = document.getElementById("lease-display")
 
-        if(testText) {
-            testText.innerHTML = "Lease Clicked: "+name;
-        }
         if(leaseDisplay) {
             leaseDisplay.className = "bg-neutral-900 rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-100"
         }
     };
 
     return (
-        <div className="lease-item">
-            <button onClick={leaseButtonClicked} className="lease-button">
+        <div className="relative flex items-center justify-center h-12 flex-grow ">
+            <button onClick={leaseButtonClicked} className="relative flex items-start justify-start place-items-start
+                                                        h-12 flex-grow gap-10 overflow-hidden
+                                                        text-white bg-neutral-400 hover:bg-orange-400 hover:text-black duration-300">
                 <div className="w-35 ml-3 truncate text-left">{name}</div>
                 <div id="statusText" className="w-35 truncate text-left">
                     {status == 1 ? "Completed" : "Signing Required"}
@@ -211,4 +191,4 @@ const LeaseItem = ({name, status, s_date, e_date}: {name: string, status: number
     );
 };
 
-export default LeaseManagementPage;
+export default TenantLeaseManagement;

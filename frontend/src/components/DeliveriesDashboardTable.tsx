@@ -1,7 +1,7 @@
-import { leaseTableActions } from "../data/leaseTableActions";
-import LeaseActions from "./LeaseActions";
+// import { useEffect, useState } from "react";
 
-const ClickableDashboardTable = () => {
+const DeliveriesDashboardTable = () => {
+
     return (
         <div className="bg-neutral-900">
             <div className="mx-auto max-w-7xl">
@@ -10,9 +10,8 @@ const ClickableDashboardTable = () => {
                         {/* Header */}
                         <div className="sm:flex sm:items-center">
                             <div className="sm:flex-auto">
-                                <h1 className="text-base font-semibold text-orange-100">Leases</h1>
                                 <p className="mt-2 text-sm text-orange-100">
-                                    A list of all the leases you manage.
+                                    A list of all deliveries sent to your locked box address
                                 </p>
                             </div>
                         </div>
@@ -28,35 +27,56 @@ const ClickableDashboardTable = () => {
                                                     scope="col"
                                                     className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-orange-100 sm:pl-0"
                                                 >
-                                                    Name
+                                                    Package ID
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
                                                 >
-                                                    Title
+                                                    Apt ID
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
                                                 >
-                                                    Email
+                                                    Date Delivered
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
                                                 >
-                                                    Role
+                                                    Date Recieved
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                                                >
+                                                    <span className="sr-only">Dismiss</span>
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                        {/* <tbody className="divide-y divide-orange-500"> */}
+                                        <tbody className="divide-y divide-orange-500">
+                                            <tr>
+                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
+                                                    Lindsey Walton
+                                                </td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                                                    Front-end Developer
+                                                </td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                                                    lindsay.walton@example.com
+                                                </td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                                                    Member
+                                                </td>
+                                                <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                                    <a href="#" className="text-orange-500 hover:text-orange-400">
+                                                        Dismiss<span className="sr-only">, Lindsay Walton</span>
+                                                    </a>
+                                                    {/* <SingleUseAction actions={userFormUpdateAction}></SingleUseAction> */}
+                                                </td>
+                                            </tr>
                                             {/* More rows... */}
-                                            {/* {userData && userData.map((userItem, index) => {
-                                                return <UserItem key={index} name={userItem.name} title={userItem.title} email={userItem.email} role={userItem.role}/>
-                                            })} */}
-                                            <LeaseActions actions={leaseTableActions}/>
                                         </tbody>
                                     </table>
                                 </div>
@@ -70,4 +90,4 @@ const ClickableDashboardTable = () => {
     );
 };
 
-export default ClickableDashboardTable;
+export default DeliveriesDashboardTable;

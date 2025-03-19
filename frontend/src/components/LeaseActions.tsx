@@ -49,6 +49,14 @@ const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
                     title="TITLE--"
                     email="EMAIL--"
                     role="ROLE--"
+
+                    // tenant_name="TEN_NAME"
+                    // tenant_email="TEN_EMAIL"
+                    // apartment_num={9999}
+                    // date_started={new Date("2001/01/01")}
+                    // date_end={new Date("2003/01/03")}
+                    // date_signed={new Date("2001/02/01")}
+
                 />
             ))}
             {/* </ul> */}

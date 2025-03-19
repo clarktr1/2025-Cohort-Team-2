@@ -29,7 +29,7 @@ export interface LeaseActionsModalProps {
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             {/* Modal panel */}
             {/* <div className="relative transform overflow-hidden rounded-lg bg-neutral-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6"> */}
-            <div className="relative transform overflow-hidden rounded-lg bg-neutral-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all ml-auto sm:my-8 w-2/3 h-screen sm:p-6">
+            <div className="relative transform rounded-lg bg-neutral-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all ml-auto sm:my-8 w-2/3 h-screen sm:p-6">
               {/* Close button */}
               <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
                 <button
@@ -75,14 +75,14 @@ export interface LeaseActionsModalProps {
                 <button
                   type="button"
                   onClick={onRenew}
-                  className="inline-flex w-full justify-center rounded-md bg-orange-500 px-3 py-2 text-sm font-semibold text-neutral-900 shadow-sm hover:bg-orange-400 sm:ml-3 sm:w-auto"
+                  className="inline-flex mb-3 w-full justify-center rounded-md bg-orange-500 px-3 py-2 text-sm font-semibold text-neutral-900 shadow-sm hover:bg-orange-400 sm:ml-3 sm:w-auto"
                 >
                   Renew Lease
                 </button>
                 <button
                   type="button"
                   onClick={onClose}
-                  className="mt-3 inline-flex w-full justify-center rounded-md border-2 border-orange-100 bg-neutral-900 px-3 py-2 text-sm font-semibold text-orange-100 shadow-sm hover:bg-neutral-800 sm:mt-0 sm:w-auto"
+                  className="mt-3 mb-3 inline-flex w-full justify-center rounded-md border-2 border-orange-100 bg-neutral-900 px-3 py-2 text-sm font-semibold text-orange-100 shadow-sm hover:bg-neutral-800 sm:mt-0 sm:w-auto"
                 >
                   Cancel
                 </button>

@@ -55,8 +55,6 @@ export interface LeaseActionsModalProps {
               </div>
   
               {/* Modal header */}
-  
-  
               <div className="mt-3 mb-10 text-center sm:text-left">
                 <h3
                   className="text-2xl font-medium text-orange-500"

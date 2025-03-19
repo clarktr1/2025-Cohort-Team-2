@@ -16,8 +16,7 @@ interface LeaseActionsRowProps {
 }
 
 //user class and display opening
-// const LeaseActionsRow: React.FC<LeaseActionsRowProps> = ({ text, onClick, tenant_name, tenant_email, apartment_num, date_started, date_end, date_signed}) => {
-//     console.log({text})
+// const LeaseActionsRow: React.FC<LeaseActionsRowProps> = ({onClick, tenant_name, tenant_email, apartment_num, date_started, date_end, date_signed}) => {
 
 //     return (
 //         <tr onClick={onClick} className="cursor-pointer hover:bg-orange-500 duration-300">
@@ -43,9 +42,7 @@ interface LeaseActionsRowProps {
 //     );
 // };
 
-const LeaseActionsRow: React.FC<LeaseActionsRowProps> = ({ text, onClick, name, title, email, role }) => {
-    
-    console.log({text})
+const LeaseActionsRow: React.FC<LeaseActionsRowProps> = ({onClick, name, title, email, role }) => {
 
    return (
        <tr onClick={onClick} className="cursor-pointer hover:bg-orange-500 duration-300">

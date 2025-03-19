@@ -6,27 +6,6 @@ import { userFormUpdateAction } from "../data/userFormUpdateAction";
 
 
 const DashboardTable = () => {
-    // const [users, setUsers] = useState([]);
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
-
-    // useEffect(() => {
-    //     const fetchUsers = async () => {
-    //         try {
-    //             const response = await fetch("/api/users");
-    //             if (!response.ok) {
-    //                 throw new Error("Failed to fetch users");
-    //             }
-    //             const data = await response.json();
-    //             setUsers(data);
-    //         } catch (err) {
-    //             console.log(err)
-    //         }
-    //     };
-
-    //     fetchUsers();
-    // }, []);
-
     return (
         <div className="bg-neutral-900">
             <div className="mx-auto max-w-7xl">
@@ -41,13 +20,6 @@ const DashboardTable = () => {
                                 </p>
                             </div>
                             <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                                {/* <button
-                                    type="button"
-                                    className="block rounded-md bg-orange-500 px-3 py-2 text-center text-sm font-semibold text-orange-100 hover:bg-orange-400 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-orange-500"
-                                    
-                                >
-                                    Add User
-                                </button> */}
                                 <SingleUseAction actions={userFormAddAction}></SingleUseAction>
                             </div>
                         </div>
@@ -92,27 +64,6 @@ const DashboardTable = () => {
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-orange-500">
-                                            {/* {users.map((user) => (
-                                                <tr>
-                                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
-                                                        {user.id}
-                                                    </td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                        Front-end Developer
-                                                    </td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                        lindsay.walton@example.com
-                                                    </td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                        Member
-                                                    </td>
-                                                    <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                        <a href="#" className="text-orange-500 hover:text-orange-400">
-                                                            Edit<span className="sr-only">, Lindsay Walton</span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            ))}    */}
                                             <tr>
                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
                                                     Lindsey Walton
@@ -127,9 +78,6 @@ const DashboardTable = () => {
                                                     Member
                                                 </td>
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                    {/* <a href="#" className="text-orange-500 hover:text-orange-400">
-                                                        Edit<span className="sr-only">, Lindsay Walton</span>
-                                                    </a> */}
                                                     <SingleUseAction actions={userFormUpdateAction}></SingleUseAction>
                                                 </td>
                                             </tr>

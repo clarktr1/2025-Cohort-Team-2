@@ -5,6 +5,9 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import HomePage from "./pages/Home/Home";
 import { RoleProvider } from "./context/RoleProvider";
+import TenantManagementPage from "./pages/Landlord/TenantManagement";
+import TenantDeliveries from "./pages/Tenant/TenantDeliveries";
+import TenantLeaseManagement from "./pages/Tenant/TenantLeaseManagement";
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="landlord" element={<LandlordPage />} />
           <Route path="tenant" element={<TenantPage />} />
+          <Route path="tenant_management" element={<TenantManagementPage />} />
+          <Route path="deliveries" element={<TenantDeliveries />} />
+          <Route path="lease" element={<TenantLeaseManagement />} />
         </Route>
       </Routes>
     </RoleProvider>

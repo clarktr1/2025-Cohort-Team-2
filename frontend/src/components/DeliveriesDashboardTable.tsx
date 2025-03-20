@@ -1,11 +1,7 @@
 // import { useEffect, useState } from "react";
 
-import SingleUseAction from "./SingleUseAction";
-import { userFormAddAction } from "../data/userFormAddAction";
-import { userFormUpdateAction } from "../data/userFormUpdateAction";
+const DeliveriesDashboardTable = () => {
 
-
-const DashboardTable = () => {
     return (
         <div className="bg-neutral-900">
             <div className="mx-auto max-w-7xl">
@@ -14,13 +10,9 @@ const DashboardTable = () => {
                         {/* Header */}
                         <div className="sm:flex sm:items-center">
                             <div className="sm:flex-auto">
-                                <h1 className="text-base font-semibold text-orange-100">Users</h1>
                                 <p className="mt-2 text-sm text-orange-100">
-                                    A list of all the users in your account including their name, title, email and role.
+                                    A list of all deliveries sent to your locked box address
                                 </p>
-                            </div>
-                            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                                <SingleUseAction actions={userFormAddAction}></SingleUseAction>
                             </div>
                         </div>
 
@@ -35,31 +27,31 @@ const DashboardTable = () => {
                                                     scope="col"
                                                     className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-orange-100 sm:pl-0"
                                                 >
-                                                    Name
+                                                    Package ID
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
                                                 >
-                                                    Title
+                                                    Apt ID
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
                                                 >
-                                                    Email
+                                                    Date Delivered
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
                                                 >
-                                                    Role
+                                                    Date Recieved
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     className="relative py-3.5 pl-3 pr-4 sm:pr-0"
                                                 >
-                                                    <span className="sr-only">Edit</span>
+                                                    <span className="sr-only">Dismiss</span>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -78,7 +70,10 @@ const DashboardTable = () => {
                                                     Member
                                                 </td>
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                    <SingleUseAction actions={userFormUpdateAction}></SingleUseAction>
+                                                    <a href="#" className="text-orange-500 hover:text-orange-400">
+                                                        Dismiss<span className="sr-only">, Lindsay Walton</span>
+                                                    </a>
+                                                    {/* <SingleUseAction actions={userFormUpdateAction}></SingleUseAction> */}
                                                 </td>
                                             </tr>
                                             {/* More rows... */}
@@ -95,4 +90,4 @@ const DashboardTable = () => {
     );
 };
 
-export default DashboardTable;
+export default DeliveriesDashboardTable;

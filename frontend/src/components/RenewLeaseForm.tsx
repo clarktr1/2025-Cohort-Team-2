@@ -1,6 +1,6 @@
 import React from "react";
 
-interface RenewLeaseFormProps {
+export interface RenewLeaseFormProps {
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     onCancel: () => void;
 }

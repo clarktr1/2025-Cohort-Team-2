@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-interface ParkingPermitFormProps {
+export interface ParkingPermitFormProps {
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     onCancel: () => void;
 }

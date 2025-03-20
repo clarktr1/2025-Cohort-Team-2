@@ -1,63 +1,28 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import QuickActions, { QuickAction } from "../../components/QuickActions";
 import AccessControlActivitiesTable from "../../components/AccessControlActivities";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
 import { accessControlActions as accessControlActionsData } from "../../data/accessControlsQuickActions";
-
 import { QuickActionModalProps } from "../../components/QuickActionModal";
-import { TemporaryKeyFormProps } from "../../components/TemporaryKeyFormTenant";
+import { useTenantActionsSuccessMessage, SuccessModalData } from "../../hooks/useTenantActionsSuccessMessage";
 
 const AccessControls = () => {
     // Lift QuickActions modal state.
     const [quickActionModalData, setQuickActionModalData] = useState<QuickActionModalProps | null>(null);
     // State for the success modal.
-    const [successModalData, setSuccessModalData] = useState<{
-        isOpen: boolean;
-        generatedKey: string;
-        message: string;
-    }>({
+    const [successModalData, setSuccessModalData] = useState<SuccessModalData>({
         isOpen: false,
         generatedKey: "",
         message: "",
+        label: "",
     });
 
-    // Override the "Generate temporary key" action's form callbacks.
-    const accessActions: QuickAction[] = accessControlActionsData.map((action) => {
-        if (action.text === "Generate temporary key" && action.modalContent) {
-            // Cast form element to TemporaryKeyFormProps
-            const formElement = action.modalContent.form as React.ReactElement<TemporaryKeyFormProps>;
-            const newFormElement = React.cloneElement(formElement, {
-                onSubmit: (e: React.FormEvent<HTMLFormElement>) => {
-                    e.preventDefault();
-                    const dummyKeys = ["12345", "23456", "34567", "45678", "56789"];
-                    const randomKey = dummyKeys[Math.floor(Math.random() * dummyKeys.length)];
-                    console.log("Temporary key submitted:", randomKey);
-                    // Close QuickActions modal.
-                    setQuickActionModalData(null);
-                    // After a short delay, open the success modal with the generated key.
-                    setTimeout(() => {
-                        setSuccessModalData({
-                            isOpen: true,
-                            generatedKey: randomKey,
-                            message: "Temporary key generated successfully!",
-                        });
-                    }, 200);
-                },
-                onCancel: () => {
-                    console.log("Temporary key canceled");
-                    setQuickActionModalData(null);
-                },
-            });
-            return {
-                ...action,
-                modalContent: {
-                    ...action.modalContent,
-                    form: newFormElement,
-                },
-            };
-        }
-        return action;
-    });
+    // Use the hook with accessControlActionsData.
+    const accessActions: QuickAction[] = useTenantActionsSuccessMessage(
+        setQuickActionModalData,
+        setSuccessModalData,
+        accessControlActionsData
+    );
 
     return (
         <div className="bg-neutral-950 h-screen p-2">
@@ -78,6 +43,7 @@ const AccessControls = () => {
                 }
                 generatedKey={successModalData.generatedKey}
                 message={successModalData.message}
+                label={successModalData.label}
             />
         </div>
     );

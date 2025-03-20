@@ -1,64 +1,28 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import HeroSection from "../../components/HeroSection";
 import Notifications from "../../components/Notifications";
-import QuickActions, { QuickAction } from "../../components/QuickActions";
+import QuickActions from "../../components/QuickActions";
 import { QuickActionModalProps } from "../../components/QuickActionModal";
 import Dashboard from "../../components/Dashboard";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
-import { TemporaryKeyFormProps } from "../../components/TemporaryKeyFormTenant";
-import { tenantActions as tenantActionsData } from "../../data/tenantQuickActions";
 import { tenantNotifications } from "../../data/tenantNotifications";
+import { useTenantActionsSuccessMessage } from "../../hooks/useTenantActionsSuccessMessage";
+import { SuccessModalData } from "../../hooks/useTenantActionsSuccessMessage";
+import { tenantActions as tenantActionsData } from "../../data/tenantQuickActions";
 
 const TenantPage = () => {
-    // State for QuickActions modal
+    // State for QuickActions modal.
     const [quickActionModalData, setQuickActionModalData] = useState<QuickActionModalProps | null>(null);
-    // State for Success modal.
-    const [successModalData, setSuccessModalData] = useState<{
-        isOpen: boolean;
-        generatedKey: string;
-        message: string;
-    }>({
+    // State for the SuccessMessageModal.
+    const [successModalData, setSuccessModalData] = useState<SuccessModalData>({
         isOpen: false,
         generatedKey: "",
         message: "",
+        label: "",
     });
 
-    // Override the temporary key action's form callbacks.
-    const tenantActions: QuickAction[] = tenantActionsData.map((action) => {
-        if (action.text === "Generate temporary key" && action.modalContent) {
-            const formElement = action.modalContent.form as React.ReactElement<TemporaryKeyFormProps>;
-            const newFormElement = React.cloneElement(formElement, {
-                onSubmit: (e: React.FormEvent<HTMLFormElement>) => {
-                    e.preventDefault();
-                    const dummyKeys = ["12345", "23456", "34567", "45678", "56789"];
-                    const randomKey = dummyKeys[Math.floor(Math.random() * dummyKeys.length)];
-                    console.log("Temporary key submitted:", randomKey);
-                    // Close the QuickActions modal first.
-                    setQuickActionModalData(null);
-                    // Then open the SuccessMessageModal after a short delay.
-                    setTimeout(() => {
-                        setSuccessModalData({
-                            isOpen: true,
-                            generatedKey: randomKey,
-                            message: "Temporary key generated successfully!",
-                        });
-                    }, 200);
-                },
-                onCancel: () => {
-                    console.log("Temporary key canceled");
-                    setQuickActionModalData(null);
-                },
-            });
-            return {
-                ...action,
-                modalContent: {
-                    ...action.modalContent,
-                    form: newFormElement,
-                },
-            };
-        }
-        return action;
-    });
+    // Use our custom hook to get the modified tenant actions.
+    const tenantActions = useTenantActionsSuccessMessage(setQuickActionModalData, setSuccessModalData, tenantActionsData);
 
     return (
         <div className="bg-neutral-950 h-full p-2">
@@ -96,13 +60,10 @@ const TenantPage = () => {
                 }
                 generatedKey={successModalData.generatedKey}
                 message={successModalData.message}
+                label={successModalData.label}
             />
         </div>
     );
 };
 
 export default TenantPage;
-
-// TODO:
-// 1. show error message modal if the success message key can't be generated
-// 2. apply success and error message modal to the other forms. 

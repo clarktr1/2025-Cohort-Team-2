@@ -1,6 +1,6 @@
 import React from "react";
 
-interface ReportDisturbanceFormProps {
+export interface ReportDisturbanceFormProps {
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     onCancel: () => void;
 }

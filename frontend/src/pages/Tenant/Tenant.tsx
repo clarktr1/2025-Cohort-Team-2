@@ -5,7 +5,7 @@ import QuickActions, { QuickAction } from "../../components/QuickActions";
 import { QuickActionModalProps } from "../../components/QuickActionModal";
 import Dashboard from "../../components/Dashboard";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
-import { TemporaryKeyFormProps } from "../../components/TemporaryKeyForm";
+import { TemporaryKeyFormProps } from "../../components/TemporaryKeyFormTenant";
 import { tenantActions as tenantActionsData } from "../../data/tenantQuickActions";
 import { tenantNotifications } from "../../data/tenantNotifications";
 

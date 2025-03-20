@@ -1,7 +1,7 @@
 import { QuickAction } from "../components/QuickActions";
 import CommunityAlertForm from "../components/CommunityAlertForm";
 import SendNotificationForm from "../components/SendNotificationForm";
-import IssueTemporaryKeyForm from "../components/IssueTemporaryKeyForm";
+import IssueTemporaryKeyForm from "../components/IssueTemporaryKeyFormLandlord";
 // Assume RenewLeaseForm is already implemented
 
 export const landlordActions: QuickAction[] = [

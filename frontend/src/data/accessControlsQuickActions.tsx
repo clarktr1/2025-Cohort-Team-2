@@ -1,5 +1,5 @@
 import { QuickAction } from "../components/QuickActions";
-import TemporaryKeyForm from "../components/TemporaryKeyForm";
+import TemporaryKeyForm from "../components/TemporaryKeyFormTenant";
 import ParkingPermitForm from "../components/ParkingPermitForm";
 import OpenLockDoorForm from "../components/OpenLockDoorForm";
 

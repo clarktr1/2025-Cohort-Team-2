@@ -5,7 +5,7 @@ import SuccessMessageModal from "../../components/SuccessMessageModal";
 import { accessControlActions as accessControlActionsData } from "../../data/accessControlsQuickActions";
 
 import { QuickActionModalProps } from "../../components/QuickActionModal";
-import { TemporaryKeyFormProps } from "../../components/TemporaryKeyForm";
+import { TemporaryKeyFormProps } from "../../components/TemporaryKeyFormTenant";
 
 const AccessControls = () => {
     // Lift QuickActions modal state.

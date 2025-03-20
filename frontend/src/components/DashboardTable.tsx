@@ -2,7 +2,7 @@
 
 import SingleUseAction from "./SingleUseAction";
 import { userFormAddAction } from "../data/userFormAddAction";
-import { userFormUpdateAction } from "../data/userFormUpdateAction";
+import DashboardRows from "./DashboardRows";
 
 
 const DashboardTable = () => {
@@ -35,25 +35,25 @@ const DashboardTable = () => {
                                                     scope="col"
                                                     className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-orange-100 sm:pl-0"
                                                 >
-                                                    Name
-                                                </th>
-                                                <th
-                                                    scope="col"
-                                                    className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
-                                                >
-                                                    Title
-                                                </th>
-                                                <th
-                                                    scope="col"
-                                                    className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
-                                                >
                                                     Email
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
                                                 >
-                                                    Role
+                                                    First Name
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
+                                                >
+                                                    Last Name
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
+                                                >
+                                                    Phone Number
                                                 </th>
                                                 <th
                                                     scope="col"
@@ -64,24 +64,10 @@ const DashboardTable = () => {
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-orange-500">
-                                            <tr>
-                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
-                                                    Lindsey Walton
-                                                </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                    Front-end Developer
-                                                </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                    lindsay.walton@example.com
-                                                </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                    Member
-                                                </td>
-                                                <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                    <SingleUseAction actions={userFormUpdateAction}></SingleUseAction>
-                                                </td>
-                                            </tr>
+                                        </tbody>
+                                        <tbody>
                                             {/* More rows... */}
+                                            <DashboardRows></DashboardRows>
                                         </tbody>
                                     </table>
                                 </div>

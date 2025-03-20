@@ -28,13 +28,13 @@ const ClickableDashboardTable = () => {
                                                     scope="col"
                                                     className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-orange-100 sm:pl-0"
                                                 >
-                                                    Name
+                                                    Lease ID
                                                 </th>
                                                 <th
                                                     scope="col"
-                                                    className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
+                                                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-orange-100 sm:pl-0"
                                                 >
-                                                    Title
+                                                    Name
                                                 </th>
                                                 <th
                                                     scope="col"
@@ -46,7 +46,25 @@ const ClickableDashboardTable = () => {
                                                     scope="col"
                                                     className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
                                                 >
-                                                    Role
+                                                    Apt Number
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
+                                                >
+                                                    Lease Start Date
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
+                                                >
+                                                    Lease End Date 
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-3 py-3.5 text-left text-sm font-semibold text-orange-100"
+                                                >
+                                                    Date Signed
                                                 </th>
                                             </tr>
                                         </thead>

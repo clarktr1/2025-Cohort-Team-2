@@ -8,6 +8,15 @@ export interface LeaseAction {
     modalContent?: Omit<LeaseActionsModalProps, "isOpen" | "onClose" | "onRenew">;
     // Fallback onClick if no modalContent is provided.
     onClick?: () => void;
+
+    //lease data
+    lease_id: number;
+    tenant_name: string;
+    tenant_email: string;
+    apartment_num: number;
+    date_started: Date;
+    date_end: Date;
+    date_signed: Date;
 }
 
 interface LeaseActionsProps {
@@ -45,17 +54,14 @@ const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
                             action.onClick();
                         }
                     }}
-                    name="NAME--"
-                    title="TITLE--"
-                    email="EMAIL--"
-                    role="ROLE--"
 
-                    // tenant_name="TEN_NAME"
-                    // tenant_email="TEN_EMAIL"
-                    // apartment_num={9999}
-                    // date_started={new Date("2001/01/01")}
-                    // date_end={new Date("2003/01/03")}
-                    // date_signed={new Date("2001/02/01")}
+                    lease_id={action.lease_id}
+                    tenant_name={action.tenant_name}
+                    tenant_email={action.tenant_email}
+                    apartment_num={action.apartment_num}
+                    date_started={action.date_started}
+                    date_end={action.date_end}
+                    date_signed={action.date_signed}
 
                 />
             ))}

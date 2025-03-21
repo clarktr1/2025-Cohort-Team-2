@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import RegisterLandlordView, RegisterTenantView, LoginView, LogoutView, ApartmentViewSet, CreateLeaseView
+from .views import RegisterLandlordView, RegisterTenantView, UpdateTenantView, UpdateLandlordView,  LoginView, LogoutView, ApartmentViewSet, CreateLeaseView
 
 router = DefaultRouter()
 router.register(r'apartment', ApartmentViewSet)

@@ -36,6 +36,16 @@ class RegisterTenantView(generics.CreateAPIView):
         tenant, token = serializer.save()
         tenant_serializer = TenantSerializer(tenant)
         return Response({"token": token.key, "landlord": tenant_serializer.data}, status=status.HTTP_201_CREATED)
+
+
+class UpdateLandlordView(generics.UpdateAPIView):
+    permission_classes = [IsLandlord]
+    serializer_class = LandlordSerializer
+    queryset = Landlord.objects.all()
+
+    def get_object(self):
+        user = self.request.user
+        return Landlord.objects.get(user=user)
     
 
 class UpdateTenantView(generics.UpdateAPIView):

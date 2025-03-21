@@ -1,5 +1,7 @@
 
-import { SingleUseAction } from "../components/SingleUseAction";
+import SingleUseActions from "../components/SingleUseActions";
+import { SingleUseAction } from "../components/SingleUseActions";
+import { generateNewLease } from "./generateNewLease";
 
 interface ApartmentProps {
     apt_id: string;
@@ -31,38 +33,12 @@ const apartments: ApartmentProps[] = [
     },
 ]
 
-// const [modalData, setModalData] = useState<LeaseActionsModalProps | null>(null);
-
-// const handleModalClose = () => {
-//     setModalData(null);
-// };
-
-// const handleModalSubmit = () => {
-//     // Add submit logic here if needed.
-//     setModalData(null);
-// };
-
-// const onClick={() => {
-//     if (action.modalContent) {
-//         setModalData({
-//             isOpen: true,
-//             header: action.modalContent.header,
-//             display: action.modalContent.display,
-//             onClose: handleModalClose,
-//             onRenew: handleModalSubmit,
-//         });
-//     } else if (action.onClick) {
-//         action.onClick();
-//     }
-// }}
-
-
-
 
 export const userFormAddAction: SingleUseAction[] = [
     {
         text: "Add Tenant User",
         classCss: "block rounded-md bg-orange-500 px-3 py-2 text-center text-sm font-semibold text-orange-100 hover:bg-orange-400 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-orange-500",
+        instance_id: null,
         modalContent: {
             header: <>Add New Tenant User</>,
             form: (
@@ -127,10 +103,7 @@ export const userFormAddAction: SingleUseAction[] = [
                         </select>
                     </div>
                     <div className="">
-                        <button className="w-full mt-5 mb-3 p-2 rounded-md bg-neutral-600 text-orange-100
-                                            hover:bg-orange-500 hover:text-black">
-                            Generate Lease
-                        </button> 
+                        <SingleUseActions actions={generateNewLease}></SingleUseActions>
                     </div>
                 </form>
             ),

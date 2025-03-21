@@ -10,10 +10,10 @@ export const leaseTableActions: LeaseAction[] = [
     {
         text: "Lease Row Data Acessed",
         modalContent: {
-            header: <>Lease Number: tbd</>,
+            header: <>Lease Number: {1234567}</>,
 
             display: (
-                <LeaseDisplay lease_id={123456} tenant_name="Tenant Name" landlord_name="Landlord Name" date_created={new Date("2020-06-15")} date_signed={new Date()} date_end={new Date("2027-08-15")}></LeaseDisplay>
+                <LeaseDisplay lease_id={123456} tenant_name="TEN_NAME" landlord_name="Landlord Name" date_created={new Date("2001/01/01")} date_signed={new Date()} date_end={new Date("2027-08-15")}></LeaseDisplay>
             ),
         },
         lease_id: 1234567,
@@ -28,10 +28,10 @@ export const leaseTableActions: LeaseAction[] = [
     {
         text: "Lease Row Data Acessed",
         modalContent: {
-            header: <>Lease Number: tbd</>,
+            header: <>Lease Number: 123456</>,
 
             display: (
-                <LeaseDisplay lease_id={123456} tenant_name="Tenant Name" landlord_name="Landlord Name" date_created={new Date("2020-06-15")} date_signed={new Date()} date_end={new Date("2027-08-15")}></LeaseDisplay>
+                <LeaseDisplay lease_id={9876554} tenant_name="TEN_NAME_2" landlord_name="Landlord Name" date_created={new Date("2020-06-15")} date_signed={new Date()} date_end={new Date("2027-08-15")}></LeaseDisplay>
             ),
         },
         lease_id: 9876554,

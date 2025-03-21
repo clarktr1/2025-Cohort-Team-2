@@ -1,10 +1,11 @@
 
-import { SingleUseAction } from "../components/SingleUseAction";
+import { SingleUseAction } from "../components/SingleUseActions";
 
 export const userFormUpdateAction: SingleUseAction[] = [
     {
         text: "Edit User",
         classCss: "text-orange-500 hover:text-orange-400",
+        instance_id: null,
         modalContent: {
             header: <>Update User Info</>,
             form: (

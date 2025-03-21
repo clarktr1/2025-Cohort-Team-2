@@ -1,7 +1,10 @@
-import { leaseTableActions } from "../data/leaseTableActions";
-import LeaseActions from "./LeaseActions";
+import LeaseActions, { LeaseAction } from "./LeaseActions";
 
-const ClickableDashboardTable = () => {
+let dataFileTable = []
+
+const ClickableDashboardTable = (actions: LeaseAction[]) => {
+    dataFileTable = actions
+
     return (
         <div className="bg-neutral-900">
             <div className="mx-auto max-w-7xl">
@@ -69,12 +72,7 @@ const ClickableDashboardTable = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {/* <tbody className="divide-y divide-orange-500"> */}
-                                            {/* More rows... */}
-                                            {/* {userData && userData.map((userItem, index) => {
-                                                return <UserItem key={index} name={userItem.name} title={userItem.title} email={userItem.email} role={userItem.role}/>
-                                            })} */}
-                                            <LeaseActions actions={leaseTableActions}/>
+                                            <LeaseActions actions={dataFileTable}/>
                                         </tbody>
                                     </table>
                                 </div>

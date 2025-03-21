@@ -3,8 +3,8 @@
 const DeliveriesDashboardTable = () => {
 
     return (
-        <div className="bg-neutral-900">
-            <div className="mx-auto max-w-7xl">
+        <div className="bg-neutral-900 h-full">
+            <div className="mx-auto max-w-7xl h-full">
                 <div className="bg-neutral-900 py-10 rounded-lg">
                     <div className="px-4 sm:px-6 lg:px-8">
                         {/* Header */}
@@ -69,12 +69,7 @@ const DeliveriesDashboardTable = () => {
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
                                                     Member
                                                 </td>
-                                                <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                    <a href="#" className="text-orange-500 hover:text-orange-400">
-                                                        Dismiss<span className="sr-only">, Lindsay Walton</span>
-                                                    </a>
-                                                    {/* <SingleUseAction actions={userFormUpdateAction}></SingleUseAction> */}
-                                                </td>
+
                                             </tr>
                                             {/* More rows... */}
                                         </tbody>

@@ -5,6 +5,7 @@ import HalfScreenActionsModal, { HalfScreenActionsModalProps } from "./HalfScree
 export interface SingleUseAction {
     text: string;
     classCss: string;
+    instance_id: string | null;
     // If modalContent is provided, clicking this button will open the modal.
     modalContent?: Omit<HalfScreenActionsModalProps, "isOpen" | "onClose" | "onSubmit">;
     // Fallback onClick if no modalContent is provided.
@@ -15,7 +16,7 @@ interface SingleUseActionProps {
     actions: SingleUseAction[];
 }
 
-const HalfScreenActions: React.FC<SingleUseActionProps> = ({ actions }) => {
+const SingleUseActions: React.FC<SingleUseActionProps> = ({ actions}) => {
     const [modalData, setModalData] = useState<HalfScreenActionsModalProps | null>(null);
 
     const handleModalClose = () => {
@@ -30,7 +31,28 @@ const HalfScreenActions: React.FC<SingleUseActionProps> = ({ actions }) => {
     return (
         <div className="bg-neutral-900 rounded-b-lg py-10">
             <ul className="flex flex-col gap-4 items-center justify-center list-none">
-                {actions.map((action, index) => (
+                {actions.map((action, index) => 
+                    action.instance_id !== null ? (
+                    
+                    <SingleUseActionButton
+                        key={index}
+                        text={"Input ID Found"}
+                        classCss={action.classCss}
+                        onClick={() => {
+                            if (action.modalContent) {
+                                setModalData({
+                                    isOpen: true,
+                                    header: action.modalContent.header,
+                                    form: action.modalContent.form,
+                                    onClose: handleModalClose,
+                                    onSubmit: handleModalSubmit,
+                                });
+                            } else if (action.onClick) {
+                                action.onClick();
+                            }
+                        }}
+                    />
+                ) : (
                     <SingleUseActionButton
                         key={index}
                         text={action.text}
@@ -64,4 +86,4 @@ const HalfScreenActions: React.FC<SingleUseActionProps> = ({ actions }) => {
     );
 };
 
-export default HalfScreenActions;
+export default SingleUseActions;

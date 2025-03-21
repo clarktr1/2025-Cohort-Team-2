@@ -4,7 +4,7 @@ import { landlordHalfScreenActions } from "../../data/landlordHalfScreenActions"
 import DashboardTable from "../../components/DashboardTable";
 import ClickableDashboardTable from "../../components/ClickableDashboardTable";
 import HalfScreenActions from "../../components/HalfScreenActions";
-
+import { leaseTableActions } from '../../data/leaseTableActions';
 
 
 
@@ -33,7 +33,7 @@ const TenantManagementPage = () => {
               <DashboardTable />
             </div>
             <div className="bg-neutral-900 py-10 rounded-lg">
-              <ClickableDashboardTable />
+              {ClickableDashboardTable(leaseTableActions)}
             </div>
           </div>
         </div>

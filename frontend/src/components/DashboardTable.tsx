@@ -1,6 +1,6 @@
 // import { useEffect, useState } from "react";
 
-import SingleUseAction from "./SingleUseAction";
+import SingleUseAction from "./SingleUseActions";
 import { userFormAddAction } from "../data/userFormAddAction";
 import DashboardRows from "./DashboardRows";
 

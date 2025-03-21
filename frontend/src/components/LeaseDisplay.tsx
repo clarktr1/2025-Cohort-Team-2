@@ -1,9 +1,9 @@
-interface LeaseActionsProps {
+export interface LeaseActionsProps {
     lease_id: number;
     tenant_name: string;
     landlord_name: string;
     date_created: Date;
-    date_signed: Date;
+    date_signed: Date | null;
     date_end: Date;
 }
 
@@ -18,7 +18,7 @@ const LeaseDisplay: React.FC<LeaseActionsProps> = ({ lease_id, tenant_name, land
                 <span>Lease ID: {lease_id}</span>
                 <br></br>
                 THIS RESIDENTIAL LEASE AGREEMENT (the "Agreement") is made and entered into as of
-                __{date_signed.toLocaleDateString()}__, by and between {landlord_name} ("Landlord") and {tenant_name}
+                __{date_signed?.toLocaleDateString()}__, by and between {landlord_name} ("Landlord") and {tenant_name}
                 ("Tenant").<br></br>
                 <span className='text-lg font-bold'>1. PREMISES </span> Landlord leases to Tenant the premises located at 
                 <span id="lease-room-num"></span> (the
@@ -94,7 +94,7 @@ const LeaseDisplay: React.FC<LeaseActionsProps> = ({ lease_id, tenant_name, land
                 TENANT: ____{tenant_name}_____
             </p>
             <br></br>
-            <span>Date Signed: _____{date_signed.toLocaleDateString()}____</span>
+            <span>Date Signed: _____{date_signed?.toLocaleDateString()}____</span>
         </div>
     );
 };

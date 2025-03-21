@@ -10,6 +10,7 @@ interface LeaseActionsRowProps {
     date_signed: Date;
 }
 
+
 //user class and display opening
 const LeaseActionsRow: React.FC<LeaseActionsRowProps> = ({onClick, lease_id, tenant_name, tenant_email, apartment_num, date_started, date_end, date_signed}) => {
 

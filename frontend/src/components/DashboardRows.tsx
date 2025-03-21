@@ -1,4 +1,4 @@
-import SingleUseAction from "./SingleUseAction";
+import SingleUseAction from "./SingleUseActions";
 import { userFormUpdateAction } from "../data/userFormUpdateAction";
 
 

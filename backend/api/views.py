@@ -36,6 +36,16 @@ class RegisterTenantView(generics.CreateAPIView):
         tenant, token = serializer.save()
         tenant_serializer = TenantSerializer(tenant)
         return Response({"token": token.key, "landlord": tenant_serializer.data}, status=status.HTTP_201_CREATED)
+    
+
+class UpdateTenantView(generics.UpdateAPIView):
+    permission_classes = [IsTenant]
+    serializer_class = TenantSerializer
+    queryset = Tenant.objects.all()
+
+    def get_object(self):
+        user = self.request.user
+        return Tenant.objects.get(user=user)
 
 
 class LoginView(APIView):
@@ -45,21 +55,27 @@ class LoginView(APIView):
         user = authenticate(email=request.data["email"], password=request.data["password"])
 
         if user:
-            landlord = Landlord.objects.get(user=user)
+            try:
+                landlord = Landlord.objects.get(user=user)
+            except Landlord.DoesNotExist:
+                landlord = None
 
             if landlord:
                 serialzer = LandlordSerializer(landlord)
                 token, created = Token.objects.get_or_create(user=user)
                 return Response({"token": token.key, "landlord": serialzer.data}, status=status.HTTP_200_OK)
             
-            tenant = Tenant.objects.get(user=user)
+            try:
+                tenant = Tenant.objects.get(user=user)
+            except Tenant.DoesNotExist:
+                tenant = None
 
             if tenant:
                 serialzer = TenantSerializer(tenant)
                 token, created = Token.objects.get_or_create(user=user)
-                return Response({"token": token.key, "landlord": serialzer.data}, status=status.HTTP_200_OK)
+                return Response({"token": token.key, "tenant": serialzer.data}, status=status.HTTP_200_OK)
 
-        return Response({"message": "can't login"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"message": "invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LogoutView(APIView):
@@ -67,7 +83,7 @@ class LogoutView(APIView):
 
     def post(self, request):
         request.user.auth_token.delete()
-        return Response({"message": "Successfully logged out."}, status=200)
+        return Response({"message": "Successfully logged out."}, status=status.HTTP_200_OK)
 
 
 class ApartmentViewSet(viewsets.ModelViewSet):

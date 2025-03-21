@@ -31,7 +31,8 @@ class TenantSerializer(serializers.ModelSerializer):
 
         if user_data:
             for attr, value in user_data.items():
-                setattr(instance.user, attr, value)
+                if attr != "email": 
+                    setattr(instance.user, attr, value)
             instance.user.save()
         
         for attr, value in validated_data.items():
@@ -57,16 +58,17 @@ class LandlordSerializer(serializers.ModelSerializer):
         token, created = Token.objects.get_or_create(user = user)
         return landlord, token 
     
+    
     def update(self, instance, validated_data):
         user_data = validated_data.pop("user", None)
-
         if user_data:
             for attr, value in user_data.items():
-                setattr(instance.user, attr, value)  
+                if attr != "email": 
+                    setattr(instance.user, attr, value)
             instance.user.save()
         
         for attr, value in validated_data.items():
-            setattr(instance, attr, value)
+            setattr(instance, attr, value)  
         instance.save()
 
         return instance

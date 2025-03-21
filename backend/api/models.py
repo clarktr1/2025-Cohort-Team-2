@@ -53,16 +53,6 @@ class Apartment(models.Model):
     apt_type = models.CharField(max_length=15)
     available_permits = models.PositiveSmallIntegerField(default=5)
 
-    '''
-
-    address_line1 = models.CharField(max_length=35)
-    address_line2 = models.CharField(max_length=20, blank=True)
-    city = models.CharField(max_length=15)
-    state = models.CharField(max_length=2)
-    zipcode = models.CharField(max_length=5)'
-    
-    '''
-
     def __str__(self):
         return self.apt_number + " " + self.apt_type
 
@@ -70,20 +60,14 @@ class Apartment(models.Model):
 class Lease(models.Model):
     lease_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     landlord = models.ForeignKey(Landlord, on_delete=models.CASCADE)
-    tenant = models.OneToOneField(Tenant, on_delete=models.CASCADE, null=True)
+    tenant = models.OneToOneField(Tenant, on_delete=models.CASCADE)
     apartment = models.OneToOneField(Apartment, on_delete=models.CASCADE)
-    is_signed = models.BooleanField(default=False)
     lease_created = models.DateTimeField(auto_now_add=True)
     lease_signed = models.DateTimeField(null=True, blank=True)
     lease_end = models.DateField()
 
     def __str__(self):
         return self.apartment.__str__() + " leased by " + self.tenant.__str__()
-
-    def save(self, *args, **kwargs):
-        if self.pk:  
-            self.lease_signed = timezone.now()
-        super().save(*args, **kwargs)
 
 
 class Complaint(models.Model):
@@ -113,10 +97,16 @@ class Keycode(models.Model):
 
 class Parking(models.Model):
     apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
-    guest_parking = models.BooleanField(default=False)
     license_plate = models.CharField(max_length=7, unique=True)
     car_model = models.CharField(max_length=15)
     created_time = models.DateField(auto_now_add=True)
     end_time = models.DateField(null=True)
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    time = models.DateTimeField(auto_now_add=True)
+    message = models.CharField(max_length=50)
+
     
     

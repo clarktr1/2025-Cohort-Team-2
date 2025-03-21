@@ -6,7 +6,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import authenticate
 
-from .serializers import TenantSerializer, LandlordSerializer, ApartmentSerializer
+from .serializers import TenantSerializer, LandlordSerializer, ApartmentSerializer, LeaseSerializer
 from .custom_permissions import IsTenant, IsLandlord, IsUnauthenticated
 from .models import Landlord, Tenant, Apartment, Lease
 
@@ -25,7 +25,6 @@ class RegisterLandlordView(generics.CreateAPIView):
         return Response({"token": token.key, "landlord": landlord_serializer.data}, status=status.HTTP_201_CREATED)
 
     
-
 class RegisterTenantView(generics.CreateAPIView):
     permission_classes = [IsUnauthenticated]
     serializer_class = TenantSerializer
@@ -71,10 +70,18 @@ class LogoutView(APIView):
         return Response({"message": "Successfully logged out."}, status=200)
 
 
-
 class ApartmentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsLandlord]
     queryset = Apartment.objects.all()
     serializer_class = ApartmentSerializer
     lookup_field = 'apt_number'
 
+
+class CreateLeaseView(generics.CreateAPIView):
+    permission_classes = [IsLandlord]
+    queryset = Lease.objects.all()
+    serializer_class = LeaseSerializer
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        return Response(response.data, status=status.HTTP_201_CREATED)

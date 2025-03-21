@@ -13,5 +13,4 @@ class IsLandlord(BasePermission):
 
 class IsUnauthenticated(BasePermission):
     def has_permission(self, request, view):
-        print("In Permission", request.user.is_authenticated)
         return not request.user.is_authenticated

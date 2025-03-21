@@ -13,6 +13,7 @@ import os
 from dotenv import load_dotenv
 
 from pathlib import Path
+import dj_database_url
 
 load_dotenv()
 
@@ -98,6 +99,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+if not DEBUG:
+    DATABASES = {
+        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    }
 
 AUTH_USER_MODEL = "api.CustomUser"
 

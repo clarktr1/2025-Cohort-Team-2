@@ -1,12 +1,5 @@
-import React from "react";
+import { SuccessModalProps } from "../types/types";
 
-interface SuccessModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    generatedKey: string;
-    message: string;
-    label?: string; // e.g., "Key", "Parking Permit", "Complaint ID", etc.
-}
 
 const SuccessMessageModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, generatedKey, message, label = "Key" }) => {
     if (!isOpen) return null;

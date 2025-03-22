@@ -3,7 +3,7 @@ import QuickActions, { QuickAction } from "../../components/QuickActions";
 import AccessControlActivitiesTable from "../../components/AccessControlActivities";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
 import { accessControlActions as accessControlActionsData } from "../../data/accessControlsQuickActions";
-import { QuickActionModalProps } from "../../components/QuickActionModal";
+import { QuickActionModalProps } from "../../types/types";
 import { useTenantActionsSuccessMessage, SuccessModalData } from "../../hooks/useTenantActionsSuccessMessage";
 
 const AccessControls = () => {

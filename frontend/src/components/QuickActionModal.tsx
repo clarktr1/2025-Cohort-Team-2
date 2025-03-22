@@ -1,11 +1,4 @@
-import React from "react";
-
-export interface QuickActionModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  header: React.ReactNode;
-  form: React.ReactNode;
-}
+import { QuickActionModalProps } from "../types/types";
 
 const QuickActionModal: React.FC<QuickActionModalProps> = ({
   isOpen,

@@ -1,9 +1,6 @@
 import React from "react";
+import { CommunityAlertFormProps } from "../types/types";
 
-interface CommunityAlertFormProps {
-    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    onCancel: () => void;
-}
 
 const CommunityAlertForm: React.FC<CommunityAlertFormProps> = ({ onSubmit, onCancel }) => {
     return (

@@ -1,29 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const OpenLockDoorForm: React.FC = () => {
     const [doorOpen, setDoorOpen] = useState(false);
-    const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
-        if (doorOpen) {
-            // Start a 10-minute timer (600,000ms)
-            timerRef.current = setTimeout(() => {
-                setDoorOpen(false);
-            }, 10 * 60 * 1000);
-        } else {
-            // Clear any existing timer when door is locked
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
-                timerRef.current = null;
-            }
-        }
+        if (!doorOpen) return;
 
-        // Clean up timer on unmount or doorOpen change
+        // Start a 10-minute timer (600,000ms)
+        const timerId = window.setTimeout(() => {
+            setDoorOpen(false);
+        }, 10 * 60 * 1000);
+
+        // Cleanup on unmount or re-render
         return () => {
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
-                timerRef.current = null;
-            }
+            clearTimeout(timerId);
         };
     }, [doorOpen]);
 
@@ -54,9 +44,7 @@ const OpenLockDoorForm: React.FC = () => {
                 </button>
             </div>
             {doorOpen && (
-                <p className="text-orange-100">
-                    Door is open. Valid for 10 minutes.
-                </p>
+                <p className="text-orange-100">Door is open. Valid for 10 minutes.</p>
             )}
         </div>
     );

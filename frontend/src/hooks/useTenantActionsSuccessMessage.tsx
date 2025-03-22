@@ -1,6 +1,6 @@
 import React from "react";
 import { QuickAction } from "../components/QuickActions";
-import { QuickActionModalProps } from "../components/QuickActionModal";
+import { QuickActionModalProps } from "../types/types";
 
 export interface SuccessModalData {
     isOpen: boolean;

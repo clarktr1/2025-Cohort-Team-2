@@ -1,9 +1,6 @@
 import React from "react";
+import { IssueTemporaryKeyFormProps } from "../types/types";
 
-interface IssueTemporaryKeyFormProps {
-    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    onCancel: () => void;
-}
 
 const IssueTemporaryKeyForm: React.FC<IssueTemporaryKeyFormProps> = ({ onSubmit, onCancel }) => {
     return (

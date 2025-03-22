@@ -1,9 +1,4 @@
-import React from "react";
-
-export interface ReportDisturbanceFormProps {
-    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    onCancel: () => void;
-}
+import { ReportDisturbanceFormProps } from "../types/types";
 
 const disturbanceTypes = [
     "Noise",

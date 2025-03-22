@@ -2,7 +2,7 @@ import { useState } from "react";
 import HeroSection from "../../components/HeroSection";
 import Notifications from "../../components/Notifications";
 import QuickActions from "../../components/QuickActions";
-import { QuickActionModalProps } from "../../components/QuickActionModal";
+import { QuickActionModalProps } from "../../types/types";
 import Dashboard from "../../components/Dashboard";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
 import { tenantNotifications } from "../../data/tenantNotifications";

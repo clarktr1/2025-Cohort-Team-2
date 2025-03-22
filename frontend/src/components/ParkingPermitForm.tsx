@@ -1,9 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { ParkingPermitFormProps } from "../types/types";
 
-export interface ParkingPermitFormProps {
-    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    onCancel: () => void;
-}
 
 const carData: Record<string, string[]> = {
     Toyota: ["Camry"],

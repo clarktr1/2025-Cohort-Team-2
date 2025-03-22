@@ -1,9 +1,6 @@
-import React from "react";
+import { RenewLeaseFormProps } from "../types/types";
 
-export interface RenewLeaseFormProps {
-    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    onCancel: () => void;
-}
+
 
 const RenewLeaseForm: React.FC<RenewLeaseFormProps> = ({ onSubmit, onCancel }) => {
     return (

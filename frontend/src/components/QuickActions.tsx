@@ -1,6 +1,7 @@
 import React from "react";
 import QuickActionButton from "./QuickActionButton";
-import QuickActionModal, { QuickActionModalProps } from "./QuickActionModal";
+import QuickActionModal from "./QuickActionModal";
+import { QuickActionModalProps } from "../types/types";
 
 export interface QuickAction {
     text: string;

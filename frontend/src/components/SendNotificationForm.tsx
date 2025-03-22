@@ -1,9 +1,6 @@
-import React from "react";
+import { SendNotificationFormProps } from "../types/types";
 
-interface SendNotificationFormProps {
-    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    onCancel: () => void;
-}
+
 
 const SendNotificationForm: React.FC<SendNotificationFormProps> = ({ onSubmit, onCancel }) => {
     return (

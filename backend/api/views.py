@@ -118,7 +118,7 @@ class ApartmentViewSet(viewsets.ModelViewSet):
 
 
 
-class CreateLeaseView(generics.CreateAPIView):
+class LeaseView(generics.ListCreateAPIView):
     permission_classes = [IsLandlord]
     queryset = Lease.objects.all()
     serializer_class = LeaseSerializer
@@ -126,6 +126,7 @@ class CreateLeaseView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
         return Response(response.data, status=status.HTTP_201_CREATED)
+    
     
 
 class SignLeaseView(generics.RetrieveUpdateAPIView):
@@ -159,7 +160,7 @@ class SignLeaseView(generics.RetrieveUpdateAPIView):
                 notification.save()
 
 
-class DeleteLeaseView(generics.RetrieveDestroyAPIView):
+class GetDeleteLeaseView(generics.RetrieveDestroyAPIView):
     permission_classes = [IsLandlord]
     queryset = Lease.objects.all()
     serializer_class = LeaseSerializer

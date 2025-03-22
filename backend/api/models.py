@@ -1,5 +1,10 @@
+import os
+import uuid
+import random
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 from .managers import CustomUserManager
 
@@ -40,3 +45,68 @@ class Landlord(models.Model):
 
     def __str__(self):
         return "Landlord: " + self.user.__str__()
+    
+
+class Apartment(models.Model):
+    apt_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    apt_number = models.CharField(max_length=5, unique=True)
+    apt_type = models.CharField(max_length=15)
+    available_permits = models.PositiveSmallIntegerField(default=5)
+
+    def __str__(self):
+        return self.apt_number + " " + self.apt_type
+
+
+class Lease(models.Model):
+    lease_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    landlord = models.ForeignKey(Landlord, on_delete=models.CASCADE)
+    tenant = models.OneToOneField(Tenant, on_delete=models.CASCADE)
+    apartment = models.OneToOneField(Apartment, on_delete=models.CASCADE)
+    lease_created = models.DateTimeField(auto_now_add=True)
+    lease_signed = models.DateTimeField(null=True, blank=True)
+    lease_end = models.DateField()
+
+    def __str__(self):
+        return self.apartment.__str__() + " leased by " + self.tenant.__str__()
+
+
+class Complaint(models.Model):
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
+    landlord = models.ForeignKey(Landlord, on_delete=models.CASCADE)
+    tenant = models.ForeignKey(Tenant, on_delete=models.SET_NULL, null=True)
+    complaint_title = models.CharField(max_length=25)
+    complaint_desc = models.TextField(null=True, blank=True)
+
+
+class Package(models.Model):
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
+    delivered_time = models.DateTimeField(auto_now_add=True)
+    picked_up_time  = models.DateTimeField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.pk:  
+            self.picked_up_time = timezone.now()
+        super().save(*args, **kwargs)
+
+
+class Keycode(models.Model):
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
+    key_generated = models.DateTimeField(auto_now_add=True)
+    key = models.PositiveIntegerField(default=random.randint(100000, 999999))
+
+
+class Parking(models.Model):
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
+    license_plate = models.CharField(max_length=7, unique=True)
+    car_model = models.CharField(max_length=15)
+    created_time = models.DateField(auto_now_add=True)
+    end_time = models.DateField(null=True)
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    time = models.DateTimeField(auto_now_add=True)
+    message = models.CharField(max_length=50)
+
+    
+    

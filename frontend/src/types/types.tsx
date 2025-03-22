@@ -77,3 +77,23 @@ export type TemporaryKeyFormProps = {
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     onCancel: () => void;
 }
+
+
+export type RecordData = {
+    apartmentNumber: string;
+    tenantName: string;
+    activityName: string; // e.g., "Parking Permit", "Door", "Temporary Key"
+    startDate: string;
+    endDate: string;
+    status: string;
+    // Optional extra details:
+    carModel?: string;
+    carColor?: string;
+    description?: string;
+}
+
+export type ViewRecordModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+    record: RecordData;
+}

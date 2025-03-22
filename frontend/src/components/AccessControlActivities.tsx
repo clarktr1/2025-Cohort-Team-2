@@ -1,18 +1,65 @@
+import { useState } from "react";
+import ViewRecordModal from "./ViewRecordModal";
+import { RecordData } from "../types/types";
 
-const AccessControlActivitiesTable = () => {
+const dummyActivities: RecordData[] = [
+    {
+        apartmentNumber: "101",
+        tenantName: "Alice",
+        activityName: "Guest Key",
+        startDate: "3/12/2025",
+        endDate: "3/19/2025",
+        status: "Expired",
+        description: "Guest key for front door.",
+    },
+    {
+        apartmentNumber: "102",
+        tenantName: "Bob",
+        activityName: "Parking Permit",
+        startDate: "3/17/2025",
+        endDate: "3/25/2025",
+        status: "Active",
+        carModel: "Honda Civic",
+        carColor: "Blue",
+    },
+    {
+        apartmentNumber: "103",
+        tenantName: "Charlie",
+        activityName: "Door",
+        startDate: "3/20/2025",
+        endDate: "3/20/2025",
+        status: "Expired",
+    },
+];
+
+const AccessControlActivitiesTable: React.FC = () => {
+    // State to hold the selected record for viewing.
+    const [selectedRecord, setSelectedRecord] = useState<RecordData | null>(null);
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+
+    const openViewModal = (record: RecordData) => {
+        setSelectedRecord(record);
+        setIsViewModalOpen(true);
+    };
+
+    const closeViewModal = () => {
+        setIsViewModalOpen(false);
+        setSelectedRecord(null);
+    };
+
     return (
         <div className="bg-neutral-900 rounded-lg p-6">
             <div className="mx-auto max-w-7xl">
                 {/* Dashboard Header */}
                 <header className="mb-6">
-                    <h1 className="font-bold text-orange-100 mb-10 tracking-widest text-center text-4xl">Your Activity Logs</h1>
+                    <h1 className="font-bold text-orange-100 mb-10 tracking-widest text-center text-4xl">
+                        Your Activity Logs
+                    </h1>
                 </header>
-
                 {/* Dashboard Content */}
                 <div className="bg-neutral-900 rounded-lg">
-                    <div className="bg-neutral-900 rounded-lg">
-                        <div className="mx-auto max-w-7xl">
-
+                    <div className="mx-auto max-w-7xl">
+                        <div className="bg-neutral-900 py-10 rounded-lg">
                             <div className="px-4 sm:px-6 lg:px-8">
                                 {/* Table */}
                                 <div className="mt-8 flow-root">
@@ -54,66 +101,39 @@ const AccessControlActivitiesTable = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody className="divide-y divide-orange-500">
-                                                    <tr>
-                                                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
-                                                            Door
-                                                        </td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                            3/20/2025
-                                                        </td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                            3/20/2025
-                                                        </td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                            Expired
-                                                        </td>
-                                                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                            <a href="#" className="text-orange-100 font-bold border border-orange-500 py-2 px-3 rounded-lg cursor-pointer hover:text-orange-400">
-                                                                View
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
-                                                            Parking Permit
-                                                        </td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                            3/17/2025
-                                                        </td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                            3/25/2025
-                                                        </td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-500">
-                                                            Active
-                                                        </td>
-                                                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                            <a href="#" className="text-neutral-900 font-bold bg-orange-500 border border-orange-500 py-2 px-3 rounded-lg cursor-pointer hover:bg-orange-400">
-                                                                Withdraw
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
-                                                            Guest Key
-                                                        </td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                            3/12/2025
-                                                        </td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                            3/19/2025
-                                                        </td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                            Expired
-                                                        </td>
-                                                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                            <a href="#" className="text-orange-100 font-bold border border-orange-500 py-2 px-3 rounded-lg cursor-pointer hover:text-orange-400">
-                                                                View
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    {/* More rows... */}
+                                                    {dummyActivities.map((activity, index) => (
+                                                        <tr key={index}>
+                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
+                                                                {activity.activityName}
+                                                            </td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                                                                {activity.startDate}
+                                                            </td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                                                                {activity.endDate}
+                                                            </td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                                                                {activity.status}
+                                                            </td>
+                                                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                                                {activity.status.toLowerCase() === "expired" ? (
+                                                                    <button
+                                                                        onClick={() => openViewModal(activity)}
+                                                                        className="text-orange-100 font-bold border-2 border-orange-500 py-2 px-3 rounded-lg cursor-pointer hover:text-orange-400"
+                                                                    >
+                                                                        View
+                                                                    </button>
+                                                                ) : (
+                                                                    <button
+                                                                        onClick={() => { }}
+                                                                        className="text-neutral-900 font-bold bg-orange-500 border border-orange-500 py-2 px-3 rounded-lg cursor-pointer hover:bg-orange-400 hover:border-orange-400"
+                                                                    >
+                                                                        Withdraw
+                                                                    </button>
+                                                                )}
+                                                            </td>
+                                                        </tr>
+                                                    ))}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -124,12 +144,16 @@ const AccessControlActivitiesTable = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
+            {selectedRecord && (
+                <ViewRecordModal
+                    isOpen={isViewModalOpen}
+                    onClose={closeViewModal}
+                    record={selectedRecord}
+                />
+            )}
         </div>
-
-
     );
 };
 
-export default AccessControlActivitiesTable
+export default AccessControlActivitiesTable;

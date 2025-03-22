@@ -1,14 +1,19 @@
+import uuid 
+
 from django.shortcuts import render
 from rest_framework import generics, permissions, status, authentication, viewsets
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import authenticate
-
+from django.shortcuts import get_object_or_404
+ 
 from .serializers import TenantSerializer, LandlordSerializer, ApartmentSerializer, LeaseSerializer
-from .custom_permissions import IsTenant, IsLandlord, IsUnauthenticated
-from .models import Landlord, Tenant, Apartment, Lease
+from .custom_permissions import IsTenant, IsLandlord, IsUnauthenticated, IsTenantReadOnly
+from .models import Landlord, Tenant, Apartment, Lease, Notification
 
 # Create your views here.
 
@@ -97,10 +102,20 @@ class LogoutView(APIView):
 
 
 class ApartmentViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsLandlord]
     queryset = Apartment.objects.all()
     serializer_class = ApartmentSerializer
     lookup_field = 'apt_number'
+    permission_classes = [IsLandlord|IsTenantReadOnly]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        vacant = self.request.data.get('vacant')
+
+        if vacant:
+            return queryset.filter(isVacant = (vacant == "True"))
+
+        return queryset
+
 
 
 class CreateLeaseView(generics.CreateAPIView):
@@ -111,3 +126,46 @@ class CreateLeaseView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
         return Response(response.data, status=status.HTTP_201_CREATED)
+    
+
+class SignLeaseView(generics.RetrieveUpdateAPIView):
+    permission_classes = [IsTenant]
+    queryset = Lease.objects.all()
+    serializer_class = LeaseSerializer
+
+    def get_object(self):
+        user = self.request.user
+        try:
+            tenant = Tenant.objects.get(user=user)
+            
+            if tenant:
+                return Lease.objects.get(tenant=tenant)
+
+        except ObjectDoesNotExist:
+            return Response({"error": "Lease not found for the tenant"}, status=status.HTTP_404_NOT_FOUND)
+        
+    
+    def perform_update(self, serializer):
+        instance = serializer.instance
+
+        if not instance.lease_signed:
+            serializer.save(lease_signed=timezone.now())
+
+            if instance.apartment:
+                instance.apartment.isVacant = False
+                instance.apartment.save()
+
+                notification = Notification.objects.create(user=instance.landlord.user, message=f"Lease signed by {instance.tenant} on Apartment {instance.apartment}")
+                notification.save()
+
+
+class DeleteLeaseView(generics.RetrieveDestroyAPIView):
+    permission_classes = [IsLandlord]
+    queryset = Lease.objects.all()
+    serializer_class = LeaseSerializer
+    lookup_field = 'lease_id'
+
+    def get_object(self):
+        lease_id = self.kwargs['lease_id']
+        lease_uuid = uuid.UUID(lease_id)  # Convert to UUID
+        return get_object_or_404(Lease, lease_id=lease_uuid)

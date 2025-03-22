@@ -97,3 +97,10 @@ export type ViewRecordModalProps = {
     onClose: () => void;
     record: RecordData;
 }
+
+export type WithdrawRecordModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+    record: RecordData;
+    onWithdraw: (updatedRecord: RecordData) => void;
+}

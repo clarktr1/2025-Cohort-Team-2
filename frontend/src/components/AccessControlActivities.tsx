@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ViewRecordModal from "./ViewRecordModal";
+import WithdrawRecordModal from "./WithdrawRecordModal";
 import { RecordData } from "../types/types";
 
 const dummyActivities: RecordData[] = [
@@ -33,9 +34,13 @@ const dummyActivities: RecordData[] = [
 ];
 
 const AccessControlActivitiesTable: React.FC = () => {
-    // State to hold the selected record for viewing.
+    // State for the "view" modal.
     const [selectedRecord, setSelectedRecord] = useState<RecordData | null>(null);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+
+    // State for the "withdraw" modal.
+    const [selectedWithdrawRecord, setSelectedWithdrawRecord] = useState<RecordData | null>(null);
+    const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
 
     const openViewModal = (record: RecordData) => {
         setSelectedRecord(record);
@@ -45,6 +50,23 @@ const AccessControlActivitiesTable: React.FC = () => {
     const closeViewModal = () => {
         setIsViewModalOpen(false);
         setSelectedRecord(null);
+    };
+
+    const openWithdrawModal = (record: RecordData) => {
+        setSelectedWithdrawRecord(record);
+        setIsWithdrawModalOpen(true);
+    };
+
+    const closeWithdrawModal = () => {
+        setIsWithdrawModalOpen(false);
+        setSelectedWithdrawRecord(null);
+    };
+
+    // Dummy function to simulate record update after withdrawal.
+    const handleWithdraw = (updatedRecord: RecordData) => {
+        // In a real scenario, update your record in state or re-fetch from DB.
+        console.log("Record updated:", updatedRecord);
+        // Here you might update dummyActivities, or trigger a re-fetch.
     };
 
     return (
@@ -125,7 +147,7 @@ const AccessControlActivitiesTable: React.FC = () => {
                                                                     </button>
                                                                 ) : (
                                                                     <button
-                                                                        onClick={() => { }}
+                                                                        onClick={() => openWithdrawModal(activity)}
                                                                         className="text-neutral-900 font-bold bg-orange-500 border border-orange-500 py-2 px-3 rounded-lg cursor-pointer hover:bg-orange-400 hover:border-orange-400"
                                                                     >
                                                                         Withdraw
@@ -145,11 +167,21 @@ const AccessControlActivitiesTable: React.FC = () => {
                     </div>
                 </div>
             </div>
+            {/* Render ViewRecordModal */}
             {selectedRecord && (
                 <ViewRecordModal
                     isOpen={isViewModalOpen}
                     onClose={closeViewModal}
                     record={selectedRecord}
+                />
+            )}
+            {/* Render WithdrawRecordModal */}
+            {selectedWithdrawRecord && (
+                <WithdrawRecordModal
+                    isOpen={isWithdrawModalOpen}
+                    onClose={closeWithdrawModal}
+                    record={selectedWithdrawRecord}
+                    onWithdraw={handleWithdraw}
                 />
             )}
         </div>

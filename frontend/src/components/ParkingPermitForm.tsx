@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ParkingPermitFormProps } from "../types/types";
+
 
 const carData: Record<string, string[]> = {
     Toyota: ["Camry"],
@@ -42,12 +44,12 @@ const carColors = [
     "Other",
 ];
 
-function ParkingPermitForm() {
+function ParkingPermitForm({ onSubmit, onCancel }: ParkingPermitFormProps) {
     const [selectedMake, setSelectedMake] = useState<string>("");
     const [selectedModel, setSelectedModel] = useState<string>("");
 
     return (
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={onSubmit}>
             <div>
                 <label className="block text-orange-100 text-sm font-medium mb-1">
                     Guest Name
@@ -120,11 +122,26 @@ function ParkingPermitForm() {
                     className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
                 />
             </div>
-
             <div>
                 <p className="w-full p-2 rounded-md bg-neutral-800 text-orange-100">
-                    Valid Until: {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}
+                    Valid Until:{" "}
+                    {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}
                 </p>
+            </div>
+            <div className="mt-4 flex justify-end gap-4">
+                <button
+                    type="button"
+                    onClick={onCancel}
+                    className="inline-flex justify-center rounded-md border-2 border-orange-100 bg-neutral-900 px-3 py-2 text-sm font-semibold text-orange-100 shadow-sm hover:bg-neutral-800"
+                >
+                    Cancel
+                </button>
+                <button
+                    type="submit"
+                    className="inline-flex justify-center rounded-md bg-orange-500 px-3 py-2 text-sm font-semibold text-neutral-900 shadow-sm hover:bg-orange-400"
+                >
+                    Submit
+                </button>
             </div>
         </form>
     );

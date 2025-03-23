@@ -1,15 +1,8 @@
-export interface QuickActionModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSubmit: () => void;
-  header: React.ReactNode;
-  form: React.ReactNode;
-}
+import { QuickActionModalProps } from "../types/types";
 
 const QuickActionModal: React.FC<QuickActionModalProps> = ({
   isOpen,
   onClose,
-  onSubmit,
   header,
   form,
 }) => {
@@ -23,7 +16,10 @@ const QuickActionModal: React.FC<QuickActionModalProps> = ({
       aria-modal="true"
     >
       {/* Background backdrop */}
-      <div className="fixed inset-0 bg-neutral-800/75 transition-opacity" aria-hidden="true"></div>
+      <div
+        className="fixed inset-0 bg-neutral-800/75 transition-opacity"
+        aria-hidden="true"
+      ></div>
 
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -54,8 +50,6 @@ const QuickActionModal: React.FC<QuickActionModalProps> = ({
             </div>
 
             {/* Modal header */}
-
-
             <div className="mt-3 mb-10 text-center sm:text-left">
               <h3
                 className="text-2xl font-medium text-orange-500"
@@ -65,27 +59,8 @@ const QuickActionModal: React.FC<QuickActionModalProps> = ({
               </h3>
             </div>
 
-
             {/* Modal form content */}
             <div className="mt-4">{form}</div>
-
-            {/* Modal actions */}
-            <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-              <button
-                type="button"
-                onClick={onSubmit}
-                className="inline-flex w-full justify-center rounded-md bg-orange-500 px-3 py-2 text-sm font-semibold text-neutral-900 shadow-sm hover:bg-orange-400 sm:ml-3 sm:w-auto"
-              >
-                Submit
-              </button>
-              <button
-                type="button"
-                onClick={onClose}
-                className="mt-3 inline-flex w-full justify-center rounded-md border-2 border-orange-100 bg-neutral-900 px-3 py-2 text-sm font-semibold text-orange-100 shadow-sm hover:bg-neutral-800 sm:mt-0 sm:w-auto"
-              >
-                Cancel
-              </button>
-            </div>
           </div>
         </div>
       </div>

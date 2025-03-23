@@ -1,9 +1,5 @@
+import { HeroSectionProps } from "../types/types";
 
-interface HeroSectionProps {
-    imageSrc: string;
-    title: React.ReactNode;
-    subtitle: string;
-}
 
 const HeroSection = ({ imageSrc, title, subtitle }: HeroSectionProps) => {
     return (

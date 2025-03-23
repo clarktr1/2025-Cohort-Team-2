@@ -1,4 +1,4 @@
-import { Notification } from "../components/Notifications";
+import { Notification } from "../types/types";
 
 export const landlordNotifications: Notification[] = [
   { id: 1, message: "Landlord Notification 1: Simplify management today." },

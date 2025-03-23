@@ -67,22 +67,20 @@ const TenantLeaseManagement: React.FC = () => {
 
     return (
         <>
+
+        <div className="bg-neutral-950 h-full p-2">
             {/* Background ----- fix it overflowing onto the sidebare */}
-            <div className="flex items-center gap-10 justify-center place-items-start
-                             bg-neutral-700 
-                             felx-grow h-screen ml-22">
+
+             <div className='flex'>
+             <div className="flex flex-col  bg-neutral-900 items-center flex-1 h-screen p-2 rounded-lg">
                 
                 {/* Title */}
-                <div className="absolute top-0 left-0 right-0 bg-neutral-700  
-                                h-22 w-screen
-                                flex gap-0">
-                    <h1 className="w-1/2 text-white text-4xl ml-22 p-4">
+                    <h1 className="font-bold text-orange-100 my-10 text-center tracking-widest text-4xl">
                         My Leases:
                     </h1>
-                </div>
 
                 {/* Display */}
-                <div className="bg-neutral-900 rounded-2xl h-9/10 flex-grow mt-20 overflow-auto">
+                <div className="w-full h-auto flex-grow mt-10 p-2 rounded-lg">
                     {/* Lease Data */}
                     {leaseData && leaseData.map((leaseItem) => {
                         if (leaseItem.signed === leaseDisplayState || leaseDisplayState == 2){
@@ -91,8 +89,10 @@ const TenantLeaseManagement: React.FC = () => {
                     })}
 
                 </div>
-                {/* Lease Display */}
-                <div id="lease-display" className="flex bg-red-600 rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-0">
+            </div>
+
+                            {/* Lease Display */}
+                            <div id="lease-display" className="flex flex-1 bg-red-600 rounded-3xl h-9/10 w-3/5 p-4 mt-20 mr-5 overflow-auto scale-0">
                     <div className="bg-neutral-900 rounded-lg p-6 max-w-4xl mx-auto">
                         <h1 className="text-3xl font-bold text-orange-200 mb-6">Lease Signing Portal</h1>
 
@@ -123,7 +123,10 @@ const TenantLeaseManagement: React.FC = () => {
                     </div>
 
                 </div>
-            </div>
+             </div>
+         
+
+        
 
             {/* Sidebar */}
             <div className="fixed top-0 left-0 h-screen w-22 m-0 
@@ -137,6 +140,7 @@ const TenantLeaseManagement: React.FC = () => {
                 <SideBarIcon icon="All" setState={sbButtonClicked}/>
                 <SideBarIcon icon="Pending" setState={sbButtonClicked}/>
                 <SideBarIcon icon="Previous" setState={sbButtonClicked}/>
+            </div>
             </div>
         </>
     );
@@ -153,10 +157,10 @@ const SideBarIcon:React.FC<{icon: string, setState: (clickedName: string) => voi
     return (
         <div className="relative group">
             <button onClick={handleClick} className="relative items-center justify-center
-                                        h-8 w-20 mt-4 mb-2 mr-1.5 mx-auto shadow-lg
-                                        bg-neutral-700 text-white
-                                        hover:bg-orange-400 hover:text-black
-                                        rounded-3xl hover:rounded-xl
+                                        h-8 w-20 mt-4 mb-2 mr-1.5 mx-auto
+                                        border-2 border-orange-500 text-orange-100
+                                        hover:bg-orange-500 hover:text-black
+                                        rounded-lg
                                         transition-all duration-300"> 
             {icon} </button>
         </div>
@@ -179,15 +183,17 @@ const LeaseItem = ({name, status, s_date, e_date}: {name: string, status: number
     return (
         <div className="relative flex items-center justify-center h-12 flex-grow ">
             <button onClick={leaseButtonClicked} className="relative flex items-start justify-start place-items-start
-                                                        h-12 flex-grow gap-10 overflow-hidden
-                                                        text-white bg-neutral-400 hover:bg-orange-400 hover:text-black duration-300">
+                                                        h-12 flex-grow gap-10 overflow-hidden divide-y divide-orange-500
+                                                        text-orange-100 hover:bg-orange-400 hover:text-black duration-300">
                 <div className="w-35 ml-3 truncate text-left">{name}</div>
-                <div id="statusText" className="w-35 truncate text-left">
+                <div id="statusText" className="w-35 truncate text-left 0">
                     {status == 1 ? "Completed" : "Signing Required"}
                 </div>
                 <div className="w-45 truncate text-left">{s_date.toDateString() + " - " + e_date.toDateString()}</div>
             </button>
         </div>
+
+       
     );
 };
 

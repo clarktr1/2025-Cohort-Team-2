@@ -19,10 +19,10 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="landlord" element={<LandlordPage />} />
           <Route path="tenant" element={<TenantPage />} />
-          <Route path="access" element={<AccessControls />} />
-          <Route path="tenant_management" element={<TenantManagementPage />} />
-          <Route path="deliveries" element={<TenantDeliveries />} />
-          <Route path="lease" element={<TenantLeaseManagement />} />
+          <Route path="tenant/access" element={<AccessControls />} />
+          <Route path="landlord/tenant_management" element={<TenantManagementPage />} />
+          <Route path="tenant/deliveries" element={<TenantDeliveries />} />
+          <Route path="tenant/lease" element={<TenantLeaseManagement />} />
         </Route>
       </Routes>
     </RoleProvider>

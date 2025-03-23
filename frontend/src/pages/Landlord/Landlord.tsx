@@ -1,10 +1,10 @@
 
 import HeroSection from "../../components/HeroSection";
 import Notifications from "../../components/Notifications";
-import QuickActions from "../../components/QuickActions";
+// import QuickActions from "../../components/QuickActions";
 import Dashboard from "../../components/Dashboard";
 import { landlordNotifications } from "../../data/landlordNotifications";
-import { landlordActions } from "../../data/landlordQuickActions";
+// import { landlordActions } from "../../data/landlordQuickActions";
 
 
 
@@ -28,7 +28,7 @@ const LandlordPage = () => {
           </div>
         </div>
         <div>
-          <QuickActions actions={landlordActions} />
+          {/* <QuickActions actions={landlordActions} /> */}
         </div>
 
         <div><Dashboard /></div>

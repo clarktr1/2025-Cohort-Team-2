@@ -9,6 +9,7 @@ import AccessControls from "./pages/Tenant/AccessControls";
 import TenantManagementPage from "./pages/Landlord/TenantManagement";
 import TenantDeliveries from "./pages/Tenant/TenantDeliveries";
 import TenantLeaseManagement from "./pages/Tenant/TenantLeaseManagement";
+import Complaints from "./pages/Tenant/Complaints";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="landlord/tenant_management" element={<TenantManagementPage />} />
           <Route path="tenant/deliveries" element={<TenantDeliveries />} />
           <Route path="tenant/lease" element={<TenantLeaseManagement />} />
+          <Route path="tenant/complaints" element={<Complaints />} />
         </Route>
       </Routes>
     </RoleProvider>

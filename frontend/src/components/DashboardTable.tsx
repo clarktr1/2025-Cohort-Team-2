@@ -7,7 +7,7 @@ import DashboardRows from "./DashboardRows";
 
 const DashboardTable = () => {
     return (
-        <div className="bg-neutral-900">
+        <div className="bg-neutral-900 rounded-lg">
             <div className="mx-auto max-w-7xl">
                 <div className="bg-neutral-900 py-10 rounded-lg">
                     <div className="px-4 sm:px-6 lg:px-8">

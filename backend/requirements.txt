@@ -1,4 +1,9 @@
-Django==5.1.6
+Django==4.2
 djangorestframework
 requests
 python-dotenv
+gunicorn
+whitenoise
+dj_database_url
+psycopg
+psycopg2-binary

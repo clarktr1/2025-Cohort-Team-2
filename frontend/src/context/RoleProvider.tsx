@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react';
 import { RoleContext } from './RoleContext';
-import { Role } from './RoleTypes';
+import { Role } from '../types/types';
 
 export const RoleProvider = ({ children }: { children: ReactNode }) => {
     const [currentRole, setCurrentRole] = useState<Role>("entry");

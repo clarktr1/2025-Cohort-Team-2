@@ -1,8 +1,5 @@
 
-interface QuickActionButtonProps {
-    text: string;
-    onClick?: () => void;
-}
+import { QuickActionButtonProps } from "../types/types";
 
 const QuickActionButton: React.FC<QuickActionButtonProps> = ({ text, onClick }) => {
     return (

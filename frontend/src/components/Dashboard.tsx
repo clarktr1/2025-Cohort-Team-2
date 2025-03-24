@@ -3,7 +3,7 @@ import DashboardTable from "./DashboardTable";
 
 const Dashboard = () => {
     return (
-        <div className="bg-neutral-900 rounded-b-lg p-6">
+        <div className="bg-neutral-900 rounded-lg p-6">
             <div className="mx-auto max-w-7xl">
                 {/* Dashboard Header */}
                 <header className="mb-6">

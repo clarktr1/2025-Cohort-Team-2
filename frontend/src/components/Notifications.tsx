@@ -1,11 +1,4 @@
-export interface Notification {
-    id: number;
-    message: string;
-}
-
-interface NotificationsProps {
-    notifications: Notification[];
-}
+import { NotificationsProps } from "../types/types";
 
 const Notifications = ({ notifications }: NotificationsProps) => {
     return (

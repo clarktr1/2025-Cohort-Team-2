@@ -16,11 +16,11 @@ const DashboardTable = () => {
                             <div className="sm:flex-auto">
                                 <h1 className="text-base font-semibold text-orange-100">Users</h1>
                                 <p className="mt-2 text-sm text-orange-100">
-                                    A list of all the users in your account including their name, title, email and role.
+                                    A list of all the users that you manage.
                                 </p>
                             </div>
                             <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                                <SingleUseAction actions={userFormAddAction}></SingleUseAction>
+                                <SingleUseAction actions={userFormAddAction} user_instance={null}></SingleUseAction>
                             </div>
                         </div>
 

@@ -1,7 +1,5 @@
 
-import SingleUseActions from "../components/SingleUseActions";
 import { SingleUseAction } from "../components/SingleUseActions";
-import { generateNewLease } from "./generateNewLease";
 
 interface ApartmentProps {
     apt_id: string;
@@ -11,34 +9,19 @@ interface ApartmentProps {
 
 
 const apartments: ApartmentProps[] = [
-    {
-        apt_id: "APT",
-        apt_num: 1,
-        is_occupied: true
-    },
-    {
-        apt_id: "APT2",
-        apt_num: 2,
-        is_occupied: true
-    },
-    {
-        apt_id: "APT3",
-        apt_num: 3,
-        is_occupied: false
-    },
-    {
-        apt_id: "APT4",
-        apt_num: 4,
-        is_occupied: false
-    },
-]
+    { apt_id: "APT", apt_num: 1, is_occupied: true },
+    { apt_id: "APT2", apt_num: 2, is_occupied: true },
+    { apt_id: "APT3", apt_num: 3, is_occupied: false },
+    { apt_id: "APT4", apt_num: 4, is_occupied: false },
+];
+
+
 
 
 export const userFormAddAction: SingleUseAction[] = [
     {
         text: "Add Tenant User",
         classCss: "block rounded-md bg-orange-500 px-3 py-2 text-center text-sm font-semibold text-orange-100 hover:bg-orange-400 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-orange-500",
-        instance_id: null,
         modalContent: {
             header: <>Add New Tenant User</>,
             form: (
@@ -101,9 +84,6 @@ export const userFormAddAction: SingleUseAction[] = [
                                 <option value={apt.apt_id}>{apt.apt_num}</option>
                             ))}
                         </select>
-                    </div>
-                    <div className="">
-                        <SingleUseActions actions={generateNewLease}></SingleUseActions>
                     </div>
                 </form>
             ),

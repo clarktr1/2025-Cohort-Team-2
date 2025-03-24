@@ -1,11 +1,11 @@
 import { useState } from "react";
 import SingleUseActionButton from "./SingleUseActionButton";
 import HalfScreenActionsModal, { HalfScreenActionsModalProps } from "./HalfScreenActionsModal";
+import { DashboardRowProps } from "./DashboardRows";
 
 export interface SingleUseAction {
     text: string;
     classCss: string;
-    instance_id: string | null;
     // If modalContent is provided, clicking this button will open the modal.
     modalContent?: Omit<HalfScreenActionsModalProps, "isOpen" | "onClose" | "onSubmit">;
     // Fallback onClick if no modalContent is provided.
@@ -14,38 +14,105 @@ export interface SingleUseAction {
 
 interface SingleUseActionProps {
     actions: SingleUseAction[];
+
+    user_instance: DashboardRowProps | null;
 }
 
-const SingleUseActions: React.FC<SingleUseActionProps> = ({ actions}) => {
+const SingleUseActions: React.FC<SingleUseActionProps> = ({ actions, user_instance}) => {
+
+    const selected_user = user_instance
+
     const [modalData, setModalData] = useState<HalfScreenActionsModalProps | null>(null);
 
     const handleModalClose = () => {
         setModalData(null);
     };
 
-    const handleModalSubmit = () => {
+    const handleModalSubmitCreateUser = () => {
         // Add submit logic here if needed.
         setModalData(null);
+
+        // Add Post request to create new user here
+        //
+        // Add Post request to generating lease for user here
+        //
+
+        console.log("New User Created")
     };
+
+    const handleModalSubmitUserChanges = () => {
+        // Add submit logic here if needed.
+        setModalData(null);
+        
+        // Add Post reques to update user here
+        //
+
+        console.log("User Changes Submit")
+    };
+
+   
 
     return (
         <div className="bg-neutral-900 rounded-b-lg py-10">
             <ul className="flex flex-col gap-4 items-center justify-center list-none">
                 {actions.map((action, index) => 
-                    action.instance_id !== null ? (
+                    user_instance !== null ? (
                     
                     <SingleUseActionButton
                         key={index}
-                        text={"Input ID Found"}
+                        text={action.text}
                         classCss={action.classCss}
                         onClick={() => {
                             if (action.modalContent) {
                                 setModalData({
                                     isOpen: true,
                                     header: action.modalContent.header,
-                                    form: action.modalContent.form,
+                                    form: (
+                                        <form className="space-y-4">
+                                            <div>
+                                                <label className="block text-orange-100 text-sm font-medium mb-1">
+                                                    Tenant Email
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    placeholder={selected_user?.email}
+                                                    className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-orange-100 text-sm font-medium mb-1">
+                                                    Tenant First Name
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    placeholder={selected_user?.first_name}
+                                                    className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-orange-100 text-sm font-medium mb-1">
+                                                    Tenant Last Name
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    placeholder={selected_user?.last_name}
+                                                    className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-orange-100 text-sm font-medium mb-1">
+                                                    Tenant Phone Number
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    placeholder={selected_user?.phone_number.toLocaleString()}
+                                                    className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
+                                                />
+                                            </div>
+                                        </form>
+                                    ),
                                     onClose: handleModalClose,
-                                    onSubmit: handleModalSubmit,
+                                    onSubmit: handleModalSubmitUserChanges,
                                 });
                             } else if (action.onClick) {
                                 action.onClick();
@@ -64,7 +131,7 @@ const SingleUseActions: React.FC<SingleUseActionProps> = ({ actions}) => {
                                     header: action.modalContent.header,
                                     form: action.modalContent.form,
                                     onClose: handleModalClose,
-                                    onSubmit: handleModalSubmit,
+                                    onSubmit: handleModalSubmitCreateUser,
                                 });
                             } else if (action.onClick) {
                                 action.onClick();

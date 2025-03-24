@@ -1,4 +1,4 @@
-interface LeaseActionsRowProps {
+export interface LeaseActionsRowProps {
     text: string;
     onClick?: () => void;
     lease_id: number;
@@ -7,7 +7,7 @@ interface LeaseActionsRowProps {
     apartment_num: number;
     date_started: Date;
     date_end: Date;
-    date_signed: Date;
+    date_signed: Date | null;
 }
 
 
@@ -35,7 +35,7 @@ const LeaseActionsRow: React.FC<LeaseActionsRowProps> = ({onClick, lease_id, ten
                 {date_end.toLocaleDateString()}
             </td>
             <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                {date_signed.toLocaleDateString()}
+                {date_signed?.toLocaleDateString()}
             </td>
         </tr>
     );

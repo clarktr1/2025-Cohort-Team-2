@@ -1,9 +1,25 @@
-import LeaseActions, { LeaseAction } from "./LeaseActions";
+import LeaseActions from "./LeaseActions";
 
-let dataFileTable = []
 
-const ClickableDashboardTable = (actions: LeaseAction[]) => {
-    dataFileTable = actions
+export interface LeaseInstanceProps {
+    lease_id: number;
+    tenant_name: string;
+    tenant_email: string;
+    apartment_num: number;
+    date_started: Date;
+    date_end: Date;
+    date_signed: Date | null;
+}
+
+
+const leases: LeaseInstanceProps[] = [
+    { lease_id: 12345, tenant_name: "TEN_NAME", tenant_email: "TEN_EMAIL", apartment_num: 9999, date_started: new Date("2001/01/01"), date_end: new Date("2003/01/03"), date_signed: new Date("2001/02/01"),},
+    { lease_id: 22222, tenant_name: "TEN_NAME_2", tenant_email: "TEN_EMAIL_2", apartment_num: 2222, date_started: new Date("2021/01/01"), date_end: new Date("2023/01/03"), date_signed: new Date("2021/02/01"),},
+    { lease_id: 33333, tenant_name: "TEN_NAME_3", tenant_email: "TEN_EMAIL_3", apartment_num: 3333, date_started: new Date("2022/01/01"), date_end: new Date("2023/08/03"), date_signed: null,},
+    { lease_id: 44444, tenant_name: "TEN_NAME_4", tenant_email: "TEN_EMAIL_4", apartment_num: 4444, date_started: new Date("2002/01/01"), date_end: new Date("2003/05/03"), date_signed: null,},
+]
+
+const ClickableDashboardTable = () => {
 
     return (
         <div className="bg-neutral-900">
@@ -72,7 +88,7 @@ const ClickableDashboardTable = (actions: LeaseAction[]) => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <LeaseActions actions={dataFileTable}/>
+                                            <LeaseActions actions={leases}/>
                                         </tbody>
                                     </table>
                                 </div>

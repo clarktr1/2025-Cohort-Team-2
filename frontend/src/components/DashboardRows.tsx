@@ -2,7 +2,7 @@ import SingleUseAction from "./SingleUseActions";
 import { userFormUpdateAction } from "../data/userFormUpdateAction";
 
 
-interface DashboardRowProps {
+export interface DashboardRowProps {
     email: string;
     first_name: string;
     last_name: string;
@@ -10,18 +10,10 @@ interface DashboardRowProps {
 }
 
 const users: DashboardRowProps[] = [
-    { 
-        email: "email",
-        first_name: "steven",
-        last_name: "smith",
-        phone_number: 1112223333,
-    },
-    { 
-        email: "email_2",
-        first_name: "steven_2",
-        last_name: "smith_2",
-        phone_number: 5552224444,
-    }
+    {  email: "email", first_name: "steven", last_name: "smith", phone_number: 9992223333,},
+    {  email: "email_2", first_name: "steven_2", last_name: "smith_2",phone_number: 5552224444, },
+    {  email: "email_3", first_name: "steven_3", last_name: "smith_3", phone_number: 3333333333,},
+    {  email: "email_24", first_name: "steven_4", last_name: "smith_4",phone_number: 4444444444, }
 ]
 
 //user class and display opening
@@ -44,7 +36,7 @@ const DashboardRow = () => {
                     {user.phone_number}
                 </td>
                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                    <SingleUseAction actions={userFormUpdateAction}></SingleUseAction>
+                    <SingleUseAction actions={userFormUpdateAction} user_instance={user}></SingleUseAction>
                 </td>
             </tr>
         ))}

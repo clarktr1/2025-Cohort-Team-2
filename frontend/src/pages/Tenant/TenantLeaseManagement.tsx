@@ -1,34 +1,36 @@
 import React from 'react';
 import ClickableDashboardTable from '../../components/ClickableDashboardTable';
-import { leaseTableActions } from '../../data/leaseTableActions';
+import HalfScreenActions from '../../components/HalfScreenActions';
+import { tenantHalfScreenActions } from '../../data/tenantHalfScreenActions';
 
 const TenantLeaseManagement: React.FC = () => {
-
     return (
-        <>
-            {/* Background ----- fix it overflowing onto the sidebare */}
-            <div className="flex items-center gap-10 justify-center place-items-start
-                             bg-neutral-900 
-                             felx-grow h-screen">
-                
-                {/* Title */}
-                <div className="absolute top-0 left-0 right-0 bg-neutral-900  
-                                h-22 w-screen
-                                flex gap-0">
-                    <h1 className="w-1/2 text-white text-4xl ml-22 p-4">
-                        My Leases:
-                    </h1>
-                </div>
+        <div className="bg-neutral-950 h-full p-2">
+            <div className="flex flex-col gap-2">
+                <div className="flex h-96 rounded-lg overflow-hidden gap-2">
+                    <div className="bg-neutral-900 w-127 rounded-lg overflow-hidden relative">
+                        <div>
+                            <HalfScreenActions actions={tenantHalfScreenActions} />
+                        </div>
+                    </div>
 
-                {/* Display */}
-                <div className="rounded-2xl h-9/10 w-full flex-grow mt-20 overflow-auto">
-                    {ClickableDashboardTable(leaseTableActions)}
+                    {/* Blank Top Right */}
+                    <div className="bg-neutral-900 w-3/4 rounded-lg p-4 overflow-auto bg-cover bg-center" style={{ backgroundImage: "url('/apartment_bg_img.jpg')" }}></div>
+                    </div>
 
+                    <div className="bg-neutral-900 rounded-b-lg p-6">
+                    <div className="mx-auto max-w-7xl">
+                        <header className="mb-6">
+                        <h1 className="font-bold text-orange-100 mb-10 tracking-widest text-center text-4xl">Dashboards</h1>
+                        
+                        </header>
+                        <div className="bg-neutral-900 py-10 rounded-lg">
+                        {ClickableDashboardTable()}
+                        </div>
+                    </div>
                 </div>
-                {/* Lease Display */}
-                
             </div>
-        </>
+        </div>
     );
 };
 

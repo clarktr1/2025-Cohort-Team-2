@@ -1,5 +1,5 @@
 import { QuickAction } from "../components/QuickActions";
-import ParkingPermitForm from "./ParkingPermitForm";
+import ParkingPermitForm from "../components/ParkingPermitForm";
 
 
 const disturbanceTypes = [
@@ -116,7 +116,15 @@ export const tenantHalfScreenActions: QuickAction[] = [
     text: "Issue parking permit",
     modalContent: {
       header: <>Issue Parking Permit</>,
-      form: <ParkingPermitForm />,
+      form: (
+      <ParkingPermitForm
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log("Parking permit submitted");
+      }}
+      onCancel={() => console.log("Parking permit canceled")}
+        />
+    )
     },
   },
 ];

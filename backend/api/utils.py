@@ -11,3 +11,4 @@ def get_apartment_from_tenant(email):
         return lease.apartment
     except Lease.DoesNotExist:
         return None
+

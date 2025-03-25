@@ -1,17 +1,11 @@
 import { useState } from "react";
 import LeaseActionsRow from "./LeaseActionsRow";
 import LeaseActionsModal, { LeaseActionsModalProps } from "./LeaseActionModal";
-
-export interface LeaseAction {
-    text: string;
-    // If modalContent is provided, clicking this button will open the modal.
-    modalContent?: Omit<LeaseActionsModalProps, "isOpen" | "onClose" | "onRenew">;
-    // Fallback onClick if no modalContent is provided.
-    onClick?: () => void;
-}
+import LeaseDisplay from "./LeaseDisplay";
+import { LeaseInstanceProps } from "./ClickableDashboardTable";
 
 interface LeaseActionsProps {
-    actions: LeaseAction[];
+    actions: LeaseInstanceProps[];
 }
 
 const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
@@ -21,9 +15,19 @@ const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
         setModalData(null);
     };
 
-    const handleModalSubmit = () => {
+    const handleModalRenewLease = (curStartDate: Date, curEndDate: Date) => {
         // Add submit logic here if needed.
         setModalData(null);
+
+        const dateDifference = curStartDate.getTime() - curEndDate.getTime()
+        const newStartDate = curEndDate
+        const newEndDate = new Date(curEndDate.getTime()+dateDifference)
+
+        console.log(newStartDate.toLocaleDateString())
+        console.log(newEndDate.toLocaleDateString())
+
+        // add POST request to change lease dates
+
     };
 
     return (
@@ -31,31 +35,30 @@ const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
             {actions.map((action, index) => (
                 <LeaseActionsRow
                     key={index}
-                    text={action.text}
+                    text={"IDK WHERE THIS SHIT SHOWS UP"}
                     onClick={() => {
-                        if (action.modalContent) {
-                            setModalData({
-                                isOpen: true,
-                                header: action.modalContent.header,
-                                display: action.modalContent.display,
-                                onClose: handleModalClose,
-                                onRenew: handleModalSubmit,
-                            });
-                        } else if (action.onClick) {
-                            action.onClick();
-                        }
+                        setModalData({
+                            isOpen: true,
+                            header: <>Lease Number: {action.lease_id}</>,
+                            display: <LeaseDisplay lease_id={action.lease_id} 
+                                                    tenant_name={action.tenant_name} 
+                                                    landlord_name={action.tenant_email} 
+                                                    date_created={action.date_started} 
+                                                    date_signed={action.date_signed} 
+                                                    date_end={action.date_end}>
+                                    </LeaseDisplay>,
+                            onClose: handleModalClose,
+                            onRenew: () => handleModalRenewLease(action.date_started, action.date_end),
+                        });
                     }}
-                    name="NAME--"
-                    title="TITLE--"
-                    email="EMAIL--"
-                    role="ROLE--"
 
-                    // tenant_name="TEN_NAME"
-                    // tenant_email="TEN_EMAIL"
-                    // apartment_num={9999}
-                    // date_started={new Date("2001/01/01")}
-                    // date_end={new Date("2003/01/03")}
-                    // date_signed={new Date("2001/02/01")}
+                    lease_id={action.lease_id}
+                    tenant_name={action.tenant_name}
+                    tenant_email={action.tenant_email}
+                    apartment_num={action.apartment_num}
+                    date_started={action.date_started}
+                    date_end={action.date_end}
+                    date_signed={action.date_signed}
 
                 />
             ))}

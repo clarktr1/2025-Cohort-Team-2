@@ -1,10 +1,18 @@
-// import { useEffect, useState } from "react";
+import { DeliveryProps } from "../pages/Tenant/TenantDeliveries";
 
-const DeliveriesDashboardTable = () => {
+interface DeliveriesDashboardTableProps {
+    delivery_data: DeliveryProps[];
+}
+
+const DeliveriesDashboardTable: React.FC<DeliveriesDashboardTableProps> = ({delivery_data}) => {
+
+    const sortedDeliveryData = [...delivery_data].sort(
+        (a, b) => b.date_delivered.getTime() - a.date_delivered.getTime()
+    );
 
     return (
-        <div className="bg-neutral-900">
-            <div className="mx-auto max-w-7xl">
+        <div className="bg-neutral-900 h-full">
+            <div className="mx-auto max-w-7xl h-full">
                 <div className="bg-neutral-900 py-10 rounded-lg">
                     <div className="px-4 sm:px-6 lg:px-8">
                         {/* Header */}
@@ -56,26 +64,25 @@ const DeliveriesDashboardTable = () => {
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-orange-500">
+                                        </tbody>
+                                        <tbody>
+                                            {sortedDeliveryData.map((delivery) => (
                                             <tr>
                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
-                                                    Lindsey Walton
+                                                    {delivery.package_id}
                                                 </td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                    Front-end Developer
+                                                    {delivery.apt_id}
                                                 </td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                    lindsay.walton@example.com
+                                                    {delivery.date_delivered.toLocaleDateString()}
                                                 </td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                    Member
-                                                </td>
-                                                <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                    <a href="#" className="text-orange-500 hover:text-orange-400">
-                                                        Dismiss<span className="sr-only">, Lindsay Walton</span>
-                                                    </a>
-                                                    {/* <SingleUseAction actions={userFormUpdateAction}></SingleUseAction> */}
+                                                    {delivery.date_recieved?.toLocaleDateString()}
                                                 </td>
                                             </tr>
+                                                ))
+                                            };
                                             {/* More rows... */}
                                         </tbody>
                                     </table>

@@ -30,8 +30,12 @@ COPY . .
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
+# Run database migrations
+RUN python manage.py migrate
+
 # Switch to non-root user
 USER appuser
+
 
 # Expose port (Render assigns dynamically)
 EXPOSE 8000

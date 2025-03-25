@@ -1,6 +1,6 @@
 // import { useEffect, useState } from "react";
 
-import SingleUseAction from "./SingleUseAction";
+import SingleUseActions from "./SingleUseActions";
 import { userFormAddAction } from "../data/userFormAddAction";
 import { userFormUpdateAction } from "../data/userFormUpdateAction";
 
@@ -76,7 +76,7 @@ const CommDashboardTable = () => {
                                                     Member
                                                 </td>
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                    <SingleUseAction actions={userFormUpdateAction}></SingleUseAction>
+                                                    <SingleUseActions actions={userFormUpdateAction} user_instance={null}></SingleUseActions>
                                                 </td>
                                             </tr>
                                             {/* More rows... */}

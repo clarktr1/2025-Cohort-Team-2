@@ -1,5 +1,5 @@
 import React from 'react';
-import ClickableDashboardTable from '../../components/ClickableDashboardTable';
+import ClickableDashboardTableTenant from '../../components/ClickableDashboardTableTenant';
 import HalfScreenActions from '../../components/HalfScreenActions';
 import { tenantHalfScreenActions } from '../../data/tenantHalfScreenActions';
 
@@ -25,7 +25,7 @@ const TenantLeaseManagement: React.FC = () => {
                         
                         </header>
                         <div className="bg-neutral-900 py-10 rounded-lg">
-                        {ClickableDashboardTable()}
+                        {ClickableDashboardTableTenant()}
                         </div>
                     </div>
                 </div>

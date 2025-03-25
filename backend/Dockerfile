@@ -8,6 +8,9 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+# Install a shell?
+RUN apt-get update && apt-get install -y bash
+
 # Create a non-privileged user for security
 ARG UID=10001
 RUN adduser \

@@ -6,8 +6,6 @@ import ClickableDashboardTable from "../../components/ClickableDashboardTable";
 import HalfScreenActions from "../../components/HalfScreenActions";
 
 
-
-
 const TenantManagementPage = () => {
   return (
     <div className="bg-neutral-950 h-full p-2">
@@ -33,7 +31,7 @@ const TenantManagementPage = () => {
               <DashboardTable />
             </div>
             <div className="bg-neutral-900 py-10 rounded-lg">
-              <ClickableDashboardTable />
+              {ClickableDashboardTable()}
             </div>
           </div>
         </div>

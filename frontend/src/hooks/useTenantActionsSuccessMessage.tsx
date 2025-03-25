@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { QuickAction } from "../components/QuickActions";
 import { QuickActionModalProps, SuccessModalData } from "../types/types";

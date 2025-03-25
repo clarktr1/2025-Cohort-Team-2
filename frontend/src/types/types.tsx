@@ -104,3 +104,10 @@ export type WithdrawRecordModalProps = {
     record: RecordData;
     onWithdraw: (updatedRecord: RecordData) => void;
 }
+
+export type SuccessModalData = {
+    isOpen: boolean;
+    generatedKey: string;
+    message: string;
+    label: string;
+}

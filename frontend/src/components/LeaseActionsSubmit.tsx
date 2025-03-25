@@ -17,15 +17,20 @@ const LeaseActionsSubmit: React.FC<LeaseActionsProps> = ({ actions }) => {
         setModalData(null);
     };
 
-    const handleModalSignLease = () => {
+    const handleModalSignLease = (isSigned: Date | null) => {
         // Add submit logic here if needed.
         setModalData(null);
 
-        const signedDate = new Date()
+        if(isSigned !== null){
+            //maybe have statement saying this
+            console.log("Lease Already Signed")
+        }
+        else{
+            const signedDate = new Date()
+            console.log(signedDate.toLocaleDateString())
+            // add POST request to change lease sign date and fill in that name
+        }
 
-        console.log(signedDate.toLocaleDateString())
-
-        // add POST request to change lease sign date and fill in that name
 
     };
 
@@ -48,7 +53,7 @@ const LeaseActionsSubmit: React.FC<LeaseActionsProps> = ({ actions }) => {
                                                     date_end={action.date_end}>
                                     </LeaseDisplay>,
                             onClose: handleModalClose,
-                            onSign: handleModalSignLease,
+                            onSign: () => handleModalSignLease(action.date_signed),
                         });
                     }}
 

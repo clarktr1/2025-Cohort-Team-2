@@ -1,7 +1,6 @@
 import { QuickAction } from "../components/QuickActions";
 import CommunityAlertForm from "../components/CommunityAlertForm";
 import SendNotificationForm from "../components/SendNotificationForm";
-import IssueTemporaryKeyForm from "../components/IssueTemporaryKeyFormLandlord";
 // Assume RenewLeaseForm is already implemented
 
 export const landlordCommunicationActions: QuickAction[] = [
@@ -31,21 +30,6 @@ export const landlordCommunicationActions: QuickAction[] = [
                         console.log("Notification submitted");
                     }}
                     onCancel={() => console.log("Notification canceled")}
-                />
-            ),
-        },
-    },
-    {
-        text: "Issue temporary key",
-        modalContent: {
-            header: <>Issue Temporary Key</>,
-            form: (
-                <IssueTemporaryKeyForm
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        console.log("Temporary key submitted");
-                    }}
-                    onCancel={() => console.log("Temporary key canceled")}
                 />
             ),
         },

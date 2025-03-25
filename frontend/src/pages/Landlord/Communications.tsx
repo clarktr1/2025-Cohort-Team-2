@@ -1,5 +1,4 @@
 import { useState } from "react";
-import HeroSection from "../../components/HeroSection";
 import Notifications from "../../components/Notifications";
 import CommDashboardTable from "../../components/CommDashboardTable";
 import QuickActions from "../../components/QuickActions";

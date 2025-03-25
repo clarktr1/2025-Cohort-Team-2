@@ -64,7 +64,6 @@ export interface LeaseActionsSubmitModalProps {
                 </h3>
               </div>
   
-  
               {/* Modal display content */}
               <div className="mt-4">{display}</div>
   

@@ -11,9 +11,9 @@ from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
  
-from .serializers import TenantSerializer, LandlordSerializer, ApartmentSerializer, LeaseSerializer
+from .serializers import TenantSerializer, LandlordSerializer, ApartmentSerializer, LeaseSerializer, ParkingSerializer
 from .custom_permissions import IsTenant, IsLandlord, IsUnauthenticated, IsTenantReadOnly
-from .models import Landlord, Tenant, Apartment, Lease, Notification
+from .models import Landlord, Tenant, Apartment, Lease, Notification, Parking
 
 # Create your views here.
 
@@ -170,3 +170,8 @@ class GetDeleteLeaseView(generics.RetrieveDestroyAPIView):
         lease_id = self.kwargs['lease_id']
         lease_uuid = uuid.UUID(lease_id)  # Convert to UUID
         return get_object_or_404(Lease, lease_id=lease_uuid)
+
+
+class ParkingViewSet(viewsets.ModelViewSet):
+    queryset = Parking.objects.all()
+    serializer_class = ParkingSerializer

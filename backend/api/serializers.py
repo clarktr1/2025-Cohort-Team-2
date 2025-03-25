@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from datetime import datetime
 
-from .models import CustomUser, Tenant, Landlord, Apartment, Lease, Notification
+from .models import CustomUser, Tenant, Landlord, Apartment, Lease, Notification, Parking
 
 class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -131,6 +131,9 @@ class LeaseSerializer(serializers.ModelSerializer):
         return lease
     
 
-    
+class ParkingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Parking
+        fields = '__all__' 
     
     

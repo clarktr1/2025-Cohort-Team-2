@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from datetime import datetime
 
-from .models import CustomUser, Tenant, Landlord, Apartment, Lease
+from .models import CustomUser, Tenant, Landlord, Apartment, Lease, Notification
 
 class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -77,12 +77,13 @@ class LandlordSerializer(serializers.ModelSerializer):
 class ApartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Apartment
-        fields = ["apt_number", "apt_type", "available_permits"]
+        fields = ["apt_number", "apt_type", "available_permits", "isVacant"]
     
     def to_representation(self, instance):
         data = super().to_representation(instance)
         if self.context['request'].method == 'POST':
             data.pop('available_permits', None)
+            data.pop('isVacant', None)
         return data
 
 
@@ -124,6 +125,9 @@ class LeaseSerializer(serializers.ModelSerializer):
             validated_data['landlord'] = Landlord.objects.get(user=CustomUser.objects.get(email=request.user.email))
         
         lease = Lease.objects.create(tenant=tenant, apartment=apartment, lease_end=end_date, **validated_data)
+        notification = Notification.objects.create(user=CustomUser.objects.get(email=tenant_email), message="Lease created by landlord. Please sign it.")
+        notification.save()
+
         return lease
     
 

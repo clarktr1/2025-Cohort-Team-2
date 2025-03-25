@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useRole } from "../hooks/useRole";
-import NavItem from "./NavbarListElement";
+import NavItem from "./NavItem";
 import { tenantNav } from "../data/tenantNav";
 import { landlordNav } from "../data/landlordNav";
 

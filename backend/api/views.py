@@ -203,7 +203,7 @@ class GetDeleteLeaseView(generics.RetrieveDestroyAPIView):
 
     def get_object(self):
         lease_id = self.kwargs['lease_id']
-        lease_uuid = uuid.UUID(lease_id)  # Convert to UUID
+        lease_uuid = uuid.UUID(lease_id)  
         return get_object_or_404(Lease, lease_id=lease_uuid)
 
 
@@ -268,5 +268,3 @@ class ComplaintListView(generics.ListAPIView):
             return queryset.filter(complainer = apartment)
         
         return queryset
-    
-

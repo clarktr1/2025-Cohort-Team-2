@@ -1,4 +1,4 @@
-import { Notification } from "../components/Notifications";
+import { Notification } from "../types/types";
 
 export const tenantNotifications: Notification[] = [
   { id: 1, message: "Tenant Notification 1: Lorem ipsum dolor sit amet." },

@@ -1,8 +1,9 @@
 
 export const landlordNav = [
-    { to: "/", navLinkName: "Home" },
+  { to: "/", navLinkName: "Entry Page" },
+    { to: "/landlord", navLinkName: "Home" },
     { to: "/tenant_management", navLinkName: "Tenant Management" },
-    { to: "/lease_agreements", navLinkName: "Lease Agreements" },
+    { to: "/access", navLinkName: "Access Controls" },
     { to: "/complaints", navLinkName: "Complaints" },
     { to: "/communication", navLinkName: "Communication & Announcements" },
   ];

@@ -37,4 +37,4 @@ USER appuser
 EXPOSE 8000
 
 # Use Render's assigned port
-CMD ["sh", "-c", "python manage.py migrate && gunicorn backend.wsgi --bind 0.0.0.0:${PORT:-8000}"]
+CMD gunicorn backend.wsgi --bind 0.0.0.0:${PORT:-8000}

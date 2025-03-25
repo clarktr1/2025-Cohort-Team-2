@@ -1,5 +1,5 @@
 
-import { SingleUseAction } from "../components/SingleUseAction";
+import { SingleUseAction } from "../components/SingleUseActions";
 
 export const userFormUpdateAction: SingleUseAction[] = [
     {

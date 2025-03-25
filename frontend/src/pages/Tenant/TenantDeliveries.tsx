@@ -2,7 +2,13 @@
 import DeliveriesDashboardTable from "../../components/DeliveriesDashboardTable";
 import { useState } from "react";
 
-
+//template for delivery items
+export interface DeliveryProps {
+  package_id: number;
+  apt_id: number;
+  date_delivered: Date;
+  date_recieved: Date | null;
+}
 
 const TenantDeliveries: React.FC = () => {
 
@@ -15,6 +21,15 @@ const TenantDeliveries: React.FC = () => {
 
     if(lockerStatus === 0 && mostRecentDate){
       setLockerStatus(1)
+
+      //POST request to update dates with null delivery dates
+      deliveryData.forEach((delivery) => {
+        if(delivery.date_recieved == null){
+          console.log("Pending Package")
+          console.log(delivery.package_id)
+        }
+      });
+
       mostRecentDate.innerHTML = currentDate.toLocaleDateString()
     }
     else
@@ -43,8 +58,23 @@ const TenantDeliveries: React.FC = () => {
     return "Locked"
   }
 
+  //delivery data read from API
+  const deliveryData: DeliveryProps[] = [
+    {  package_id: 1, apt_id: 1234, date_delivered: new Date("2024-01-01"), date_recieved: new Date("2025-01-01")},
+    {  package_id: 2, apt_id: 1234, date_delivered: new Date("2025-02-02"), date_recieved: null},
+    {  package_id: 3, apt_id: 1234, date_delivered: new Date("2025-03-03"), date_recieved: null},
+    {  package_id: 4, apt_id: 1234, date_delivered: new Date("2000-01-01"), date_recieved: new Date("2001-01-01")},
+
+  ]
+
+  const mostRecentDelivery = deliveryData
+    .filter(delivery => delivery.date_recieved !== null) // Exclude null values
+    .reduce((latest, current) => 
+        current.date_recieved! > latest.date_recieved! ? current : latest
+  );
+
   return (
-    <div className="bg-neutral-950 h-full p-2">
+    <div className="bg-neutral-950 h-screen p-2">
       <div className="flex flex-col gap-2">
         <div className="flex h-96 rounded-lg overflow-hidden gap-2">
           <div className="bg-neutral-900 flex justify-center items-center w-1/2 rounded-lg overflow-hidden relative">
@@ -60,7 +90,7 @@ const TenantDeliveries: React.FC = () => {
               </div>
               <div className="text-white text-4xl p-2 h-1/2">
                 Last Opened:
-                <div id="recent-date" className="bg-neutral-800 flex justify-center items-center mt-8 text-3xl">01/01/01</div>
+                <div id="recent-date" className="bg-neutral-800 flex justify-center items-center mt-8 text-3xl">{mostRecentDelivery.date_recieved?.toLocaleDateString()}</div>
               </div>
           </div>
         </div>
@@ -72,7 +102,7 @@ const TenantDeliveries: React.FC = () => {
               
             </header>
             <div className="bg-neutral-900 py-10 rounded-lg">
-              <DeliveriesDashboardTable />
+              <DeliveriesDashboardTable delivery_data = {deliveryData}></DeliveriesDashboardTable>
             </div>
           </div>
         </div>

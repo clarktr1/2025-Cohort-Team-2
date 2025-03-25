@@ -1,6 +1,6 @@
 import { useState } from "react";
 import QuickActions, { QuickAction } from "../../components/QuickActions";
-import AccessControlActivitiesTable from "../../components/AccessControlActivitiesTenant";
+import AccessControlActivitiesTable from "../../components/AccessControlActivitiesLandlord";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
 import { accessControlActionsLandlord as accessControlActionsData } from "../../data/landlordAccessControlsQuickActions";
 import { QuickActionModalProps, SuccessModalData } from "../../types/types";

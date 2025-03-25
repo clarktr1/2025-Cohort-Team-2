@@ -13,7 +13,7 @@ from django.shortcuts import get_object_or_404
  
 from .serializers import TenantSerializer, LandlordSerializer, ApartmentSerializer, LeaseSerializer, NotificationSerializer, KeycodeSerializer, ComplaintSerializer
 from .custom_permissions import IsTenant, IsLandlord, IsUnauthenticated, IsTenantReadOnly
-from .models import Landlord, Tenant, Apartment, Lease, Notification, Keycode, Complaint
+from .models import CustomUser, Landlord, Tenant, Apartment, Lease, Notification, Keycode, Complaint
 from .utils import get_apartment_from_tenant
 
 # Create your views here.
@@ -119,6 +119,7 @@ class ApartmentViewSet(viewsets.ModelViewSet):
 
 
 
+
 class LeaseView(generics.ListCreateAPIView):
     permission_classes = [IsLandlord]
     queryset = Lease.objects.all()
@@ -128,6 +129,39 @@ class LeaseView(generics.ListCreateAPIView):
         response = super().create(request, *args, **kwargs)
         return Response(response.data, status=status.HTTP_201_CREATED)
     
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        unsigned = self.request.data.get('unsigned')
+
+        if unsigned:
+            queryset = queryset.filter(lease_signed__isnull = (unsigned == "True"))
+
+        return queryset
+
+
+class ListLandlordsView(generics.ListAPIView):
+    queryset = Landlord.objects.all()
+    serializer_class = LandlordSerializer
+    permission_classes = [IsLandlord]
+
+
+
+class ListTenantsView(generics.ListAPIView):
+    queryset = Tenant.objects.all()
+    serializer_class = TenantSerializer
+    permission_classes = [IsLandlord]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        inactive = self.request.data.get('inactive')
+
+        if inactive:
+            queryset = queryset.filter(lease__isnull=(inactive == "True"))
+
+        
+        return queryset 
+
+
     
 
 class SignLeaseView(generics.RetrieveUpdateAPIView):

@@ -1,43 +1,32 @@
-# Use a slim Python image
-ARG PYTHON_VERSION=3.9.6
-FROM python:${PYTHON_VERSION}-slim as base
+FROM python:3.12-slim
 
-# Prevents Python from writing pyc files
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
+# Set working directory
 WORKDIR /app
 
-# Install a shell?
-RUN apt-get update && apt-get install -y bash
+# Install bash and openssh-server ??
+RUN apt-get update && apt-get install -y \
+    bash \
+    openssh-server \
+ && rm -rf /var/lib/apt/lists/*
 
-# Create a non-privileged user for security
-ARG UID=10001
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    appuser
+# Ensure the sshd directory exists
+RUN mkdir /var/run/sshd
 
-# Install dependencies (COPY first for caching)
-COPY requirements.txt .
-RUN --mount=type=cache,target=/root/.cache/pip \
-    python -m pip install --no-cache-dir -r requirements.txt
+# Optional: Expose port 22 for SSH purposes
+EXPOSE 22
 
-# Copy project files
-COPY . .
+# Create a non-root user for SSH also
+RUN useradd -ms /bin/bash appuser
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
-
-# Switch to non-root user
+# Switch users
 USER appuser
 
-# Expose port (Render assigns dynamically)
-EXPOSE 8000
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Use Render's assigned port
+# Copy over the code
+COPY . .
+
+# run gunicorn of course
 CMD gunicorn backend.wsgi --bind 0.0.0.0:${PORT:-8000}

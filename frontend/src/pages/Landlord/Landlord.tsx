@@ -3,8 +3,6 @@ import HeroSection from "../../components/HeroSection";
 import Notifications from "../../components/Notifications";
 // import QuickActions from "../../components/QuickActions";
 import Dashboard from "../../components/Dashboard";
-import { landlordNotifications } from "../../data/landlordNotifications";
-// import { landlordActions } from "../../data/landlordQuickActions";
 
 
 

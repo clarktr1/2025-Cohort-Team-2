@@ -5,7 +5,7 @@ import QuickActions from "../../components/QuickActions";
 import { QuickActionModalProps } from "../../types/types";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
 import { useTenantActionsSuccessMessage } from "../../hooks/useTenantActionsSuccessMessage";
-import { SuccessModalData } from "../../hooks/useTenantActionsSuccessMessage";
+import { SuccessModalData } from "../../types/types";
 // import { tenantActions as tenantActionsData } from "../../data/tenantQuickActions";
 import { landlordCommunicationActions as landlorCommActionsData } from "../../data/landlordCommunicationActions";
 

@@ -118,3 +118,12 @@ export type ComplaintData = {
     complaintTitle: string;
     description: string;
 };
+
+export type LandlordComplaintData = {
+    apartmentNumber: string;         // Apartment being complained about.
+    tenantName: string;              // Tenant in that apartment.
+    sourceApartmentNumber: string;   // Complainant's apartment.
+    sourceTenantName: string;        // Complainant's name.
+    complaintTitle: string;
+    description: string;
+};

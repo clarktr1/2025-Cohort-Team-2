@@ -21,7 +21,7 @@ const DashboardRow = () => {
 
     return (
         <>
-        {users.map((user, index) => (
+        {users.map((user) => (
             <tr className="h-min">
                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
                     {user.email}

@@ -119,6 +119,12 @@ export type ComplaintData = {
     description: string;
 };
 
+export type ComplaintNotificationForTenantProps = {
+    complaintType: string;
+    title: string;
+    description: string;
+};
+
 export type LandlordComplaintData = {
     apartmentNumber: string;         // Apartment being complained about.
     tenantName: string;              // Tenant in that apartment.

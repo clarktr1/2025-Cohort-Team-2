@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ComplaintNotificationForTenantProps } from "../types/types";
 
 const resolutionMessages: Record<string, string> = {
     Noise:
@@ -12,26 +13,35 @@ const resolutionMessages: Record<string, string> = {
     Other: "Please address any concerns in your apartment to maintain a pleasant environment.",
 };
 
-const ComplaintNotificationForTenant: React.FC = () => {
-    const [complaintType, setComplaintType] = useState("");
+const ComplaintNotificationForTenant: React.FC<ComplaintNotificationForTenantProps> = ({
+    complaintType,
+    title,
+    description,
+}) => {
     const [resolution, setResolution] = useState("");
 
     useEffect(() => {
-        // Get all available complaint types.
-        const types = Object.keys(resolutionMessages);
-        // Pick one at random.
-        const randomType = types[Math.floor(Math.random() * types.length)];
-        setComplaintType(randomType);
-        setResolution(resolutionMessages[randomType]);
-    }, []);
+        // Use the provided complaintType to look up the resolution message.
+        setResolution(resolutionMessages[complaintType] || "Please address the issue promptly.");
+    }, [complaintType]);
 
     return (
         <div className="bg-neutral-900 rounded-lg p-6 text-orange-100">
-            <h2 className="text-3xl text-orange-500 font-bold mb-2">A Complaint Has Been Reported on Your Apartment</h2>
+            <h2 className="text-3xl text-orange-500 font-bold mb-2">
+                A Complaint Has Been Reported on Your Apartment
+            </h2>
             <p className="mb-4 text-xl">
                 Complaint Type: <span className="font-black">{complaintType}</span>
             </p>
-            <p className="italic text-lg"> <span className="text-orange-500 font-bold">Resolution:</span>  {resolution}</p>
+            <p className="mb-4 text-xl">
+                Title: <span className="font-black">{title}</span>
+            </p>
+            <p className="italic text-lg">
+                <span className="text-orange-500 font-bold">Resolution:</span> {resolution}
+            </p>
+            <p className="text-lg">
+                Description: <span className="font-black">{description}</span>
+            </p>
         </div>
     );
 };

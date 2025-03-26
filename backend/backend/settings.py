@@ -42,6 +42,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://two025-cohort-team-2.onrender.com",
 ]
 
+CORS_ALLOW_METHODS = ('PATCH', 'DELETE', 'PUT', 'GET', 'POST')
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", # React's default development server
     "http://localhost:5173",

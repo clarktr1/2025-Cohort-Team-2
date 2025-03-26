@@ -1,7 +1,7 @@
 import uuid 
 
 from django.shortcuts import render
-from rest_framework import generics, permissions, status, authentication, viewsets
+from rest_framework import generics, permissions, status, authentication, viewsets, serializers
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 from rest_framework.response import Response
@@ -11,9 +11,10 @@ from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
  
-from .serializers import TenantSerializer, LandlordSerializer, ApartmentSerializer, LeaseSerializer
+from .serializers import TenantSerializer, LandlordSerializer, ApartmentSerializer, LeaseSerializer, NotificationSerializer, KeycodeSerializer, ComplaintSerializer
 from .custom_permissions import IsTenant, IsLandlord, IsUnauthenticated, IsTenantReadOnly
-from .models import Landlord, Tenant, Apartment, Lease, Notification
+from .models import CustomUser, Landlord, Tenant, Apartment, Lease, Notification, Keycode, Complaint
+from .utils import get_apartment_from_tenant
 
 # Create your views here.
 
@@ -40,7 +41,7 @@ class RegisterTenantView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         tenant, token = serializer.save()
         tenant_serializer = TenantSerializer(tenant)
-        return Response({"token": token.key, "landlord": tenant_serializer.data}, status=status.HTTP_201_CREATED)
+        return Response({"token": token.key, "tenant": tenant_serializer.data}, status=status.HTTP_201_CREATED)
 
 
 class UpdateLandlordView(generics.UpdateAPIView):
@@ -118,6 +119,7 @@ class ApartmentViewSet(viewsets.ModelViewSet):
 
 
 
+
 class LeaseView(generics.ListCreateAPIView):
     permission_classes = [IsLandlord]
     queryset = Lease.objects.all()
@@ -127,6 +129,39 @@ class LeaseView(generics.ListCreateAPIView):
         response = super().create(request, *args, **kwargs)
         return Response(response.data, status=status.HTTP_201_CREATED)
     
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        unsigned = self.request.data.get('unsigned')
+
+        if unsigned:
+            queryset = queryset.filter(lease_signed__isnull = (unsigned == "True"))
+
+        return queryset
+
+
+class ListLandlordsView(generics.ListAPIView):
+    queryset = Landlord.objects.all()
+    serializer_class = LandlordSerializer
+    permission_classes = [IsLandlord]
+
+
+
+class ListTenantsView(generics.ListAPIView):
+    queryset = Tenant.objects.all()
+    serializer_class = TenantSerializer
+    permission_classes = [IsLandlord]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        inactive = self.request.data.get('inactive')
+
+        if inactive:
+            queryset = queryset.filter(lease__isnull=(inactive == "True"))
+
+        
+        return queryset 
+
+
     
 
 class SignLeaseView(generics.RetrieveUpdateAPIView):
@@ -168,5 +203,68 @@ class GetDeleteLeaseView(generics.RetrieveDestroyAPIView):
 
     def get_object(self):
         lease_id = self.kwargs['lease_id']
-        lease_uuid = uuid.UUID(lease_id)  # Convert to UUID
+        lease_uuid = uuid.UUID(lease_id)  
         return get_object_or_404(Lease, lease_id=lease_uuid)
+
+
+class NotificationViewset(viewsets.ReadOnlyModelViewSet):
+    queryset = Notification.objects.all().order_by('-time')
+    serializer_class = NotificationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        return queryset.filter(user=self.request.user)
+    
+
+class KeycodeView(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Keycode.objects.all()
+    serializer_class = KeycodeSerializer
+
+    def get_object(self):
+        apt_number = self.kwargs['apt_number']
+        apartment = get_object_or_404(Apartment, apt_number = apt_number)
+
+        code, created = Keycode.objects.get_or_create(apartment = apartment)
+        code.save()
+        return code
+
+
+class CreateComplaintView(generics.CreateAPIView):
+    queryset = Complaint.objects.all()
+    serializer_class = ComplaintSerializer
+    permission_classes = [IsTenant]
+    
+    def perform_create(self, serializer):
+        apartment = get_apartment_from_tenant(self.request.user.email)
+        
+        if not apartment:
+            raise serializers.ValidationError({"error": "Apartment not found for user"})
+        
+        serializer.save(complainer=apartment)
+
+class ComplaintListView(generics.ListAPIView):
+    queryset = Complaint.objects.all().order_by('-complaint_time')
+    serializer_class = ComplaintSerializer
+    permission_classes = [IsLandlord|IsTenantReadOnly]
+
+    def get_queryset(self):
+        apartment = get_apartment_from_tenant(self.request.user.email)
+
+        try:
+            landlord = Landlord.objects.get(user = self.request.user)
+        except ObjectDoesNotExist:
+            landlord = None
+
+        if not apartment and not landlord:
+            return Complaint.objects.none()
+
+        queryset = super().get_queryset()
+        
+        if apartment:
+            return queryset.filter(complainer = apartment)
+        
+        return queryset

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from datetime import datetime
 
-from .models import CustomUser, Tenant, Landlord, Apartment, Lease, Notification
+from .models import CustomUser, Tenant, Landlord, Apartment, Lease, Notification, Keycode, Complaint
 
 class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -41,8 +41,6 @@ class TenantSerializer(serializers.ModelSerializer):
 
         return instance
     
-
-
 class LandlordSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer()
 
@@ -73,7 +71,6 @@ class LandlordSerializer(serializers.ModelSerializer):
 
         return instance
     
-
 class ApartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Apartment
@@ -85,7 +82,6 @@ class ApartmentSerializer(serializers.ModelSerializer):
             data.pop('available_permits', None)
             data.pop('isVacant', None)
         return data
-
 
 class LeaseSerializer(serializers.ModelSerializer):
     tenant_email = serializers.EmailField(write_only=True)
@@ -130,7 +126,22 @@ class LeaseSerializer(serializers.ModelSerializer):
 
         return lease
     
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = '__all__'
 
+class KeycodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Keycode
+        fields = '__all__'
+        read_only_fields = ['key_generated', ' key']
     
+class ComplaintSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Complaint
+        fields = ['complaint_title', 'complaint_desc', 'complaint_time', 'complainer']
+        read_only_fields = ['complaint_time', 'complainer']
+        
     
     

@@ -1,5 +1,6 @@
 from .models import Apartment, Lease, Tenant, Landlord, CustomUser
 
+
 def get_apartment_from_tenant(email):
     try:
         tenant = Tenant.objects.get(user=CustomUser.objects.get(email=email))

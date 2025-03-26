@@ -1,4 +1,4 @@
-Django==4.2.9
+Django==5.0.1
 djangorestframework
 requests
 python-dotenv
@@ -7,3 +7,4 @@ whitenoise
 dj_database_url
 psycopg
 psycopg2-binary
+django-cors-headers

@@ -38,7 +38,7 @@ const TenantPage = () => {
                         subtitle="Experience comfort, embrace innovation."
                     />
                     <div className="bg-neutral-900 rounded-lg p-4 overflow-auto">
-                        <Notifications notifications={tenantNotifications} />
+                        <Notifications/>
                     </div>
                 </div>
                 <div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import LeaseActionsRow from "./LeaseActionsRow";
-import LeaseActionsModal, { LeaseActionsModalProps } from "./LeaseActionModal";
+// import LeaseActionsModal, { LeaseActionsModalProps } from "./LeaseActionModal";
+import LeaseActionsSubmitModal, { LeaseActionsSubmitModalProps } from "./LeaseActionSubmitModal";
 import LeaseDisplay from "./LeaseDisplay";
 import { LeaseInstanceProps } from "./ClickableDashboardTable";
 
@@ -8,25 +9,28 @@ interface LeaseActionsProps {
     actions: LeaseInstanceProps[];
 }
 
-const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
-    const [modalData, setModalData] = useState<LeaseActionsModalProps | null>(null);
+
+const LeaseActionsSubmit: React.FC<LeaseActionsProps> = ({ actions }) => {    
+    const [modalData, setModalData] = useState<LeaseActionsSubmitModalProps | null>(null);
 
     const handleModalClose = () => {
         setModalData(null);
     };
 
-    const handleModalRenewLease = (curStartDate: Date, curEndDate: Date) => {
+    const handleModalSignLease = (isSigned: Date | null) => {
         // Add submit logic here if needed.
         setModalData(null);
 
-        const dateDifference = curStartDate.getTime() - curEndDate.getTime()
-        const newStartDate = curEndDate
-        const newEndDate = new Date(curEndDate.getTime()+dateDifference)
+        if(isSigned !== null){
+            //maybe have statement saying this
+            console.log("Lease Already Signed")
+        }
+        else{
+            const signedDate = new Date()
+            console.log(signedDate.toLocaleDateString())
+            // add POST request to change lease sign date and fill in that name
+        }
 
-        console.log(newStartDate.toLocaleDateString())
-        console.log(newEndDate.toLocaleDateString())
-
-        // add POST request to change lease dates
 
     };
 
@@ -42,14 +46,14 @@ const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
                             header: <>Lease Number: {action.lease_id}</>,
                             display: <LeaseDisplay lease_id={action.lease_id} 
                                                     tenant_name={action.tenant_name} 
+                                                    tenant_signature={(action.date_signed !== null) ? action.tenant_name : null}
                                                     landlord_name={action.tenant_email} 
-                                                    tenant_signature={action.date_signed ? action.tenant_name : null}
                                                     date_created={action.date_started} 
                                                     date_signed={action.date_signed} 
                                                     date_end={action.date_end}>
                                     </LeaseDisplay>,
                             onClose: handleModalClose,
-                            onRenew: () => handleModalRenewLease(action.date_started, action.date_end),
+                            onSign: () => handleModalSignLease(action.date_signed),
                         });
                     }}
 
@@ -65,16 +69,16 @@ const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
             ))}
             {/* </ul> */}
             {modalData && (
-                <LeaseActionsModal
+                <LeaseActionsSubmitModal
                     isOpen={modalData.isOpen}
                     header={modalData.header}
                     display={modalData.display}
                     onClose={modalData.onClose}
-                    onRenew={modalData.onRenew}
+                    onSign={modalData.onSign}
                 />
             )}
         </>
     );
 };
 
-export default LeaseActions;
+export default LeaseActionsSubmit;

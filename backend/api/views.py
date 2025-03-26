@@ -170,8 +170,3 @@ class GetDeleteLeaseView(generics.RetrieveDestroyAPIView):
         lease_id = self.kwargs['lease_id']
         lease_uuid = uuid.UUID(lease_id)  # Convert to UUID
         return get_object_or_404(Lease, lease_id=lease_uuid)
-
-
-class ParkingViewSet(viewsets.ModelViewSet):
-    queryset = Parking.objects.all()
-    serializer_class = ParkingSerializer

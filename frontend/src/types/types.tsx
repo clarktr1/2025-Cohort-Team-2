@@ -111,3 +111,10 @@ export type SuccessModalData = {
     message: string;
     label: string;
 }
+
+export type ComplaintData = {
+    apartmentNumber: string;
+    tenantName: string;
+    complaintTitle: string;
+    description: string;
+};

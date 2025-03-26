@@ -23,15 +23,11 @@ const HomePage = () => {
       <div className="relative z-10 flex flex-col justify-center items-center h-full">
         <div className="flex space-x-4">
           <button
-            className="px-8 py-4 bg-orange-700 text-orange-100 font-semibold rounded-md hover:bg-orange-800 transition"
-            onClick={() => setCurrentRole("landlord")}
-          >
+            className="px-8 py-4 bg-orange-700 text-orange-100 font-semibold rounded-md hover:bg-orange-800 transition">
             <Link to={'/landlord'}>Landlord</Link>
           </button>
           <button
-            className="px-8 py-4 bg-orange-200 text-stone-700 font-semibold rounded-md hover:bg-orange-100 transition"
-            onClick={() => setCurrentRole("tenant")}
-          >
+            className="px-8 py-4 bg-orange-200 text-stone-700 font-semibold rounded-md hover:bg-orange-100 transition">
             <Link to={'/tenant'}>Tenant</Link>
           </button>
         </div>

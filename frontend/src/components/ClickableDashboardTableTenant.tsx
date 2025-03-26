@@ -1,4 +1,4 @@
-import LeaseActions from "./LeaseActions";
+import LeaseActionsSubmit from "./LeaseActionsSubmit";
 
 
 export interface LeaseInstanceProps {
@@ -11,6 +11,7 @@ export interface LeaseInstanceProps {
     date_signed: Date | null;
 }
 
+//get lease data for that specific user alone
 async function fetchData(){
     try{
         const response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
@@ -29,7 +30,6 @@ async function fetchData(){
 
 fetchData()
 
-
 const leases: LeaseInstanceProps[] = [
     { lease_id: 12345, tenant_name: "TEN_NAME", tenant_email: "TEN_EMAIL", apartment_num: 9999, date_started: new Date("2001/01/01"), date_end: new Date("2003/01/03"), date_signed: new Date("2001/02/01"),},
     { lease_id: 22222, tenant_name: "TEN_NAME_2", tenant_email: "TEN_EMAIL_2", apartment_num: 2222, date_started: new Date("2021/01/01"), date_end: new Date("2023/01/03"), date_signed: new Date("2021/02/01"),},
@@ -37,7 +37,7 @@ const leases: LeaseInstanceProps[] = [
     { lease_id: 44444, tenant_name: "TEN_NAME_4", tenant_email: "TEN_EMAIL_4", apartment_num: 4444, date_started: new Date("2002/01/01"), date_end: new Date("2003/05/03"), date_signed: null,},
 ]
 
-const ClickableDashboardTable = () => {
+const ClickableDashboardTableTenant = () => {
 
     return (
         <div className="bg-neutral-900">
@@ -106,7 +106,7 @@ const ClickableDashboardTable = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <LeaseActions actions={leases}/>
+                                            <LeaseActionsSubmit actions={leases}/>
                                         </tbody>
                                     </table>
                                 </div>
@@ -120,4 +120,4 @@ const ClickableDashboardTable = () => {
     );
 };
 
-export default ClickableDashboardTable;
+export default ClickableDashboardTableTenant;

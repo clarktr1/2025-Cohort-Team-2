@@ -3,19 +3,30 @@ import LeaseActionsRow from "./LeaseActionsRow";
 import LeaseActionsModal, { LeaseActionsModalProps } from "./LeaseActionModal";
 import LeaseDisplay from "./LeaseDisplay";
 import { LeaseInstanceProps } from "./ClickableDashboardTable";
+import SuccessMessageModal from "./SuccessMessageModal";
 
 interface LeaseActionsProps {
     actions: LeaseInstanceProps[];
 }
 
 const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
+
+    //success message setup
+    const [successModalData, setSuccessModalData] = useState({
+        isOpen: false,
+        generatedKey: "",
+        message: "",
+        label: "Lease ID",
+    });
+
+
     const [modalData, setModalData] = useState<LeaseActionsModalProps | null>(null);
 
     const handleModalClose = () => {
         setModalData(null);
     };
 
-    const handleModalRenewLease = (curStartDate: Date, curEndDate: Date) => {
+    const handleModalRenewLease = (curStartDate: Date, curEndDate: Date, leaseId: number) => {
         // Add submit logic here if needed.
         setModalData(null);
 
@@ -28,6 +39,14 @@ const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
 
         // add POST request to change lease dates
 
+        setTimeout(() => {
+            setSuccessModalData({
+                isOpen: true,
+                generatedKey: leaseId.toString(),
+                message: "Your lease was renewed successfully!",
+                label: "Lease ID",
+            });
+        }, 200);
     };
 
     return (
@@ -49,7 +68,7 @@ const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
                                                     date_end={action.date_end}>
                                     </LeaseDisplay>,
                             onClose: handleModalClose,
-                            onRenew: () => handleModalRenewLease(action.date_started, action.date_end),
+                            onRenew: () => handleModalRenewLease(action.date_started, action.date_end, action.lease_id),
                         });
                     }}
 
@@ -73,6 +92,13 @@ const LeaseActions: React.FC<LeaseActionsProps> = ({ actions }) => {
                     onRenew={modalData.onRenew}
                 />
             )}
+            <SuccessMessageModal
+                isOpen={successModalData.isOpen}
+                onClose={() => setSuccessModalData({ ...successModalData, isOpen: false })}
+                generatedKey={successModalData.generatedKey}
+                message={successModalData.message}
+                label={successModalData.label}
+            />
         </>
     );
 };

@@ -11,6 +11,8 @@ export const landlordCommunicationActions: QuickAction[] = [
             form: (
                 <CommunityAlertForm
                     onSubmit={(e) => {
+                        //add post call here
+
                         e.preventDefault();
                         console.log("Community alert submitted");
                     }}
@@ -26,6 +28,8 @@ export const landlordCommunicationActions: QuickAction[] = [
             form: (
                 <SendNotificationForm
                     onSubmit={(e) => {
+                        //add post call here
+
                         e.preventDefault();
                         console.log("Notification submitted");
                     }}

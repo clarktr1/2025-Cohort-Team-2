@@ -7,7 +7,7 @@ const TenantLeaseManagement: React.FC = () => {
     return (
         <div className="bg-neutral-950 h-full p-2">
             <div className="flex flex-col gap-2">
-                <div className="flex h-96 rounded-lg overflow-hidden gap-2">
+                <div className="flex h-72 rounded-lg overflow-hidden gap-2">
                     <div className="bg-neutral-900 w-127 rounded-lg overflow-hidden relative">
                         <div>
                             <HalfScreenActions actions={tenantHalfScreenActions} />
@@ -22,9 +22,8 @@ const TenantLeaseManagement: React.FC = () => {
                     <div className="mx-auto max-w-7xl">
                         <header className="mb-6">
                             <h1 className="font-bold text-orange-100 mb-10 tracking-widest text-center text-4xl">Dashboards</h1>
-
                         </header>
-                        <div className="bg-neutral-900 py-10 rounded-lg">
+                        <div className="bg-red-900 rounded-lg">
                             {ClickableDashboardTableTenant()}
                         </div>
                     </div>

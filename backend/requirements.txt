@@ -1,4 +1,4 @@
-Django==4.2.20
+django==5.0.1
 djangorestframework
 requests
 python-dotenv

@@ -33,16 +33,17 @@ SECRET_KEY = 'django-insecure-94o0@v22wej$605_5w+k!f)nm1n250-+fxi_wkwi8%uqsql+e3
 DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = [
-    'two025-cohort-team-2.onrender.com'
+    'two025-cohort-team-2-abhiram.onrender.com'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://two025-cohort-team-2.onrender.com",
+    "https://two025-cohort-team-2-abhiram.onrender.com",
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", # React's default development server
     "http://localhost:5173",
+    "https://dsd-team2.netlify.app"
 ]
 
 

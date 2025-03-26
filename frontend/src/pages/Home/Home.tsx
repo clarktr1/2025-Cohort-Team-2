@@ -25,7 +25,7 @@ const HomePage = () => {
   //             },
   //             body: JSON.stringify({
   //                 'email': 'luser1@mail.com',
-  //                 'password': '4gjhdfosbfigypai'
+  //                 'password': 
   //             })
   //         })
   //         const data = await response.json()

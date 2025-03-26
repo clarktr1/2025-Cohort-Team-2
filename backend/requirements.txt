@@ -3,7 +3,8 @@ djangorestframework
 requests
 python-dotenv
 gunicorn
-whitenoise
+uvicorn
+whitenoise[brotli]
 dj_database_url
 psycopg
 psycopg2-binary

@@ -3,8 +3,6 @@ import HeroSection from "../../components/HeroSection";
 import Notifications from "../../components/Notifications";
 // import QuickActions from "../../components/QuickActions";
 import Dashboard from "../../components/Dashboard";
-import { landlordNotifications } from "../../data/landlordNotifications";
-// import { landlordActions } from "../../data/landlordQuickActions";
 
 
 
@@ -24,7 +22,7 @@ const LandlordPage = () => {
             subtitle="Simplify management, maximize success."
           />
           <div className="bg-neutral-900 rounded-lg p-4 overflow-auto">
-            <Notifications notifications={landlordNotifications} />
+            <Notifications/>
           </div>
         </div>
         <div>

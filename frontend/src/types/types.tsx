@@ -23,6 +23,8 @@ export type IssueTemporaryKeyFormProps = {
 
 export interface Notification {
     id: number;
+    tenant_id: string | null;
+    date: Date;
     message: string;
 }
 

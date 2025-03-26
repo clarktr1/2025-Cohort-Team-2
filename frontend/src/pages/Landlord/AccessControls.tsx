@@ -1,12 +1,13 @@
 import { useState } from "react";
 import QuickActions, { QuickAction } from "../../components/QuickActions";
-import AccessControlActivitiesTable from "../../components/AccessControlActivitiesTenant";
+import AccessControlActivitiesTable from "../../components/AccessControlActivitiesLandlord";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
-import { accessControlActions as accessControlActionsData } from "../../data/accessControlsQuickActions";
+import { accessControlActionsLandlord as accessControlActionsData } from "../../data/landlordAccessControlsQuickActions";
 import { QuickActionModalProps, SuccessModalData } from "../../types/types";
-import { useTenantActionsSuccessMessage } from "../../hooks/useTenantActionsSuccessMessage";
+// import { useTenantActionsSuccessMessage } from "../../hooks/useTenantActionsSuccessMessage";
+import { useLandlordActionsSuccessMessage } from "../../hooks/useLandlordActionsSuccessMessage";
 
-const AccessControls = () => {
+const AccessControlsLandlord = () => {
     // Lift QuickActions modal state.
     const [quickActionModalData, setQuickActionModalData] = useState<QuickActionModalProps | null>(null);
     // State for the success modal.
@@ -18,7 +19,7 @@ const AccessControls = () => {
     });
 
     // Use the hook with accessControlActionsData.
-    const accessActions: QuickAction[] = useTenantActionsSuccessMessage(
+    const accessActions: QuickAction[] = useLandlordActionsSuccessMessage(
         setQuickActionModalData,
         setSuccessModalData,
         accessControlActionsData
@@ -49,4 +50,4 @@ const AccessControls = () => {
     );
 };
 
-export default AccessControls;
+export default AccessControlsLandlord;

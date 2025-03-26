@@ -9,6 +9,8 @@ import AccessControls from "./pages/Tenant/AccessControls";
 import TenantManagementPage from "./pages/Landlord/TenantManagement";
 import TenantDeliveries from "./pages/Tenant/TenantDeliveries";
 import TenantLeaseManagement from "./pages/Tenant/TenantLeaseManagement";
+import Complaints from "./pages/Tenant/Complaints";
+import AccessControlsLandlord from "./pages/Landlord/AccessControls";
 
 function App() {
   return (
@@ -19,10 +21,12 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="landlord" element={<LandlordPage />} />
           <Route path="tenant" element={<TenantPage />} />
-          <Route path="access" element={<AccessControls />} />
-          <Route path="tenant_management" element={<TenantManagementPage />} />
-          <Route path="deliveries" element={<TenantDeliveries />} />
-          <Route path="lease" element={<TenantLeaseManagement />} />
+          <Route path="tenant/access" element={<AccessControls />} />
+          <Route path="landlord/tenant_management" element={<TenantManagementPage />} />
+          <Route path="tenant/deliveries" element={<TenantDeliveries />} />
+          <Route path="tenant/lease" element={<TenantLeaseManagement />} />
+          <Route path="tenant/complaints" element={<Complaints />} />
+          <Route path="landlord/access" element={<AccessControlsLandlord />} />
         </Route>
       </Routes>
     </RoleProvider>

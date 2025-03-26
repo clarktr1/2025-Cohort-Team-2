@@ -16,21 +16,23 @@ const TenantLeaseManagement: React.FC = () => {
 
                     {/* Blank Top Right */}
                     <div className="bg-neutral-900 w-3/4 rounded-lg p-4 overflow-auto bg-cover bg-center" style={{ backgroundImage: "url('/apartment_bg_img.jpg')" }}></div>
-                    </div>
+                </div>
 
-                    <div className="bg-neutral-900 rounded-b-lg p-6">
+                <div className="bg-neutral-900 rounded-b-lg p-6">
                     <div className="mx-auto max-w-7xl">
                         <header className="mb-6">
-                        <h1 className="font-bold text-orange-100 mb-10 tracking-widest text-center text-4xl">Dashboards</h1>
-                        
+                            <h1 className="font-bold text-orange-100 mb-10 tracking-widest text-center text-4xl">Dashboards</h1>
+
                         </header>
                         <div className="bg-neutral-900 py-10 rounded-lg">
-                        {ClickableDashboardTable()}
+                            {ClickableDashboardTable()}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
     );
 };
 

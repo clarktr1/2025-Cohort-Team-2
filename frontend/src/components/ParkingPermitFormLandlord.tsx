@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ParkingPermitFormProps } from "../types/types";
 
-
 const carData: Record<string, string[]> = {
     Toyota: ["Camry"],
     Honda: ["Civic", "Accord"],
@@ -44,12 +43,35 @@ const carColors = [
     "Other",
 ];
 
-function ParkingPermitForm({ onSubmit, onCancel }: ParkingPermitFormProps) {
+function ParkingPermitFormLandlord({ onSubmit, onCancel }: ParkingPermitFormProps) {
     const [selectedMake, setSelectedMake] = useState<string>("");
     const [selectedModel, setSelectedModel] = useState<string>("");
 
     return (
         <form className="space-y-4" onSubmit={onSubmit}>
+            {/* New: Apartment Number */}
+            <div>
+                <label className="block text-orange-100 text-sm font-medium mb-1">
+                    Apartment Number
+                </label>
+                <input
+                    type="text"
+                    placeholder="Apartment number"
+                    className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
+                />
+            </div>
+            {/* New: Tenant Name */}
+            <div>
+                <label className="block text-orange-100 text-sm font-medium mb-1">
+                    Tenant Name
+                </label>
+                <input
+                    type="text"
+                    placeholder="Tenant name"
+                    className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
+                />
+            </div>
+            {/* Existing: Guest Name */}
             <div>
                 <label className="block text-orange-100 text-sm font-medium mb-1">
                     Guest Name
@@ -147,4 +169,4 @@ function ParkingPermitForm({ onSubmit, onCancel }: ParkingPermitFormProps) {
     );
 }
 
-export default ParkingPermitForm;
+export default ParkingPermitFormLandlord;

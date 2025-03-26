@@ -24,7 +24,7 @@ const LandlordPage = () => {
             subtitle="Simplify management, maximize success."
           />
           <div className="bg-neutral-900 rounded-lg p-4 overflow-auto">
-            <Notifications notifications={landlordNotifications} />
+            <Notifications/>
           </div>
         </div>
         <div>

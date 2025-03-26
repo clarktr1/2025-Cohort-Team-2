@@ -4,7 +4,6 @@ import CommDashboardTable from "../../components/CommDashboardTable";
 import QuickActions from "../../components/QuickActions";
 import { QuickActionModalProps } from "../../types/types";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
-import { tenantNotifications } from "../../data/tenantNotifications";
 import { useTenantActionsSuccessMessage } from "../../hooks/useTenantActionsSuccessMessage";
 import { SuccessModalData } from "../../hooks/useTenantActionsSuccessMessage";
 // import { tenantActions as tenantActionsData } from "../../data/tenantQuickActions";
@@ -43,8 +42,8 @@ const CommunicationPage = () => {
                             <div className="rounded-lg font-bold text-orange-100 text-2xl text-center w-full mb-4">
                                 Global Notification Display:
                             </div>
-                            <div className="border-2 border-orange-100 rounded-lg h-full p-2">
-                                <Notifications notifications={tenantNotifications} />
+                            <div className="border-2 border-orange-100 rounded-lg h-full p-2 overflow-auto">
+                                <Notifications />
                             </div>
                         </div>
                     </div>

@@ -29,7 +29,7 @@ const HalfScreenActions: React.FC<HalfScreenActionsProps> = ({ actions }) => {
     return (
         <div className="bg-neutral-900 rounded-b-lg py-10">
             <h2 className="font-bold text-orange-100 mb-10 tracking-widest text-center text-4xl">
-                Admin Actions
+                Quick Actions
             </h2>
             <ul className="flex flex-col gap-4 items-center justify-center list-none">
                 {actions.map((action, index) => (

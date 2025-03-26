@@ -45,7 +45,7 @@ CSRF_TRUSTED_ORIGINS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", # React's default development server
     "http://localhost:5173",
-    "https://dsd-team2.netlify.app/"
+    "https://dsd-team2.netlify.app"
 ]
 
 

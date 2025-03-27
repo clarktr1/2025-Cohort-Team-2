@@ -113,3 +113,25 @@ export type SuccessModalData = {
     message: string;
     label: string;
 }
+
+export type ComplaintData = {
+    apartmentNumber: string;
+    tenantName: string;
+    complaintTitle: string;
+    description: string;
+};
+
+export type ComplaintNotificationForTenantProps = {
+    complaintType: string;
+    title: string;
+    description: string;
+};
+
+export type LandlordComplaintData = {
+    apartmentNumber: string;         // Apartment being complained about.
+    tenantName: string;              // Tenant in that apartment.
+    sourceApartmentNumber: string;   // Complainant's apartment.
+    sourceTenantName: string;        // Complainant's name.
+    complaintTitle: string;
+    description: string;
+};

@@ -12,6 +12,7 @@ import TenantLeaseManagement from "./pages/Tenant/TenantLeaseManagement";
 import Complaints from "./pages/Tenant/Complaints";
 import AccessControlsLandlord from "./pages/Landlord/AccessControls";
 import CommunicationPage from "./pages/Landlord/Communications";
+import LandlordComplaints from "./pages/Landlord/Complaints";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="tenant/complaints" element={<Complaints />} />
           <Route path="landlord/access" element={<AccessControlsLandlord />} />
           <Route path="landlord/communication" element={<CommunicationPage />} />
+          <Route path="landlord/complaints" element={<LandlordComplaints />} />
         </Route>
       </Routes>
     </RoleProvider>

@@ -90,7 +90,7 @@ async function getProcessedLeases() {
 
 
 
-const leases: LeaseInstanceProps[] = await getProcessedLeases();
+// const leases: LeaseInstanceProps[] = await getProcessedLeases();
 
 
 // const leases: LeaseInstanceProps[] = [
@@ -103,13 +103,13 @@ const leases: LeaseInstanceProps[] = await getProcessedLeases();
 const ClickableDashboardTable = () => {
 
     const [leases, setLeases] = useState<LeaseInstanceProps[]>([]);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchLeases = async () => {
             const data = await getProcessedLeases();
             setLeases(data);
-            setLoading(false);
+            // setLoading(false);
         };
 
         fetchLeases();

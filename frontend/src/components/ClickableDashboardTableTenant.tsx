@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { fetchTenants, fetchAllLeases } from "../hooks/useAPIRoutes";
 import LeaseActionsSubmit from "./LeaseActionsSubmit";
 
 
@@ -30,14 +32,46 @@ async function fetchData(){
 
 fetchData()
 
-const leases: LeaseInstanceProps[] = [
-    { lease_id: 12345, tenant_name: "TEN_NAME", tenant_email: "TEN_EMAIL", apartment_num: 9999, date_started: new Date("2001/01/01"), date_end: new Date("2003/01/03"), date_signed: new Date("2001/02/01"),},
-    { lease_id: 22222, tenant_name: "TEN_NAME_2", tenant_email: "TEN_EMAIL_2", apartment_num: 2222, date_started: new Date("2021/01/01"), date_end: new Date("2023/01/03"), date_signed: new Date("2021/02/01"),},
-    { lease_id: 33333, tenant_name: "TEN_NAME_3", tenant_email: "TEN_EMAIL_3", apartment_num: 3333, date_started: new Date("2022/01/01"), date_end: new Date("2023/08/03"), date_signed: null,},
-    { lease_id: 44444, tenant_name: "TEN_NAME_4", tenant_email: "TEN_EMAIL_4", apartment_num: 4444, date_started: new Date("2002/01/01"), date_end: new Date("2003/05/03"), date_signed: null,},
-]
+// const leases: LeaseInstanceProps[] = [
+//     { lease_id: 12345, tenant_name: "TEN_NAME", tenant_email: "TEN_EMAIL", apartment_num: 9999, date_started: new Date("2001/01/01"), date_end: new Date("2003/01/03"), date_signed: new Date("2001/02/01"),},
+//     { lease_id: 22222, tenant_name: "TEN_NAME_2", tenant_email: "TEN_EMAIL_2", apartment_num: 2222, date_started: new Date("2021/01/01"), date_end: new Date("2023/01/03"), date_signed: new Date("2021/02/01"),},
+//     { lease_id: 33333, tenant_name: "TEN_NAME_3", tenant_email: "TEN_EMAIL_3", apartment_num: 3333, date_started: new Date("2022/01/01"), date_end: new Date("2023/08/03"), date_signed: null,},
+//     { lease_id: 44444, tenant_name: "TEN_NAME_4", tenant_email: "TEN_EMAIL_4", apartment_num: 4444, date_started: new Date("2002/01/01"), date_end: new Date("2003/05/03"), date_signed: null,},
+// ]
 
 const ClickableDashboardTableTenant = () => {
+    const [leaseData, updateLeaseData] = useState<LeaseInstanceProps[]>([]);
+        
+        async function getProcessedLeases() {
+            const leaseData = await fetchAllLeases();
+            const tenantData = await fetchTenants();
+        
+            console.log(leaseData)
+            console.log(tenantData)
+        
+            const processedLeases: LeaseInstanceProps[] = []
+            for (const lease of leaseData) {
+                const date = lease.lease_signed ? new Date(lease.lease_signed) : null;
+            
+                if(tenantData[lease.tenant - 1].user.email == "tenant@tenant.com"){
+                    processedLeases.push({
+                        lease_id: lease.lease_id,
+                        tenant_name: tenantData[lease.tenant - 1].user.first_name + ' ' + tenantData[lease.tenant - 1].user.last_name,
+                        tenant_email: tenantData[lease.tenant - 1].user.email,
+                        apartment_num: 111,
+                        date_started: new Date(lease.lease_created),
+                        date_end: new Date(lease.lease_end),
+                        date_signed: date
+                    })
+                }
+            }
+        
+            updateLeaseData(processedLeases);
+        }
+        
+        useEffect(() => { getProcessedLeases() }, [] )
+
+
 
     return (
         <div className="bg-neutral-900">
@@ -106,7 +140,7 @@ const ClickableDashboardTableTenant = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <LeaseActionsSubmit actions={leases}/>
+                                            <LeaseActionsSubmit actions={leaseData}/>
                                         </tbody>
                                     </table>
                                 </div>

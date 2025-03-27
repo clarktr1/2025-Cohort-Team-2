@@ -48,7 +48,7 @@ const TenantPage = () => {
                     />
                 </div>
                 <div>
-                    <Dashboard />
+                    {/* <Dashboard /> */}
                 </div>
             </div>
             <SuccessMessageModal

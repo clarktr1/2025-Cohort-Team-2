@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from datetime import datetime
 
-from .models import CustomUser, Tenant, Landlord, Apartment, Lease, Notification, Keycode, Complaint
+from .models import CustomUser, Tenant, Landlord, Apartment, Lease, Notification, Keycode, Complaint, Parking
 
 class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -16,7 +16,7 @@ class TenantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tenant
-        fields = ["user", "emergency_contact", "emergency_email", "emergency_phone"]
+        fields = ["id", "user", "emergency_contact", "emergency_email", "emergency_phone"]
     
     def create(self, validated_data):
         user_data = validated_data.pop("user")  
@@ -46,7 +46,7 @@ class LandlordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Landlord
-        fields = ["user", "address_line1", "address_line2", "city", "state", "zipcode"]
+        fields = ["id", "user", "address_line1", "address_line2", "city", "state", "zipcode"]
     
     def create(self, validated_data):
         user_data = validated_data.pop("user")  
@@ -142,6 +142,11 @@ class ComplaintSerializer(serializers.ModelSerializer):
         model = Complaint
         fields = ['complaint_title', 'complaint_desc', 'complaint_time', 'complainer']
         read_only_fields = ['complaint_time', 'complainer']
-        
+
+class ParkingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Parking
+        fields = '__all__'
+        read_only_fields = ['apartment', 'created_time']
     
     

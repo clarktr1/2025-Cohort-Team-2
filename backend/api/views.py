@@ -11,9 +11,9 @@ from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
  
-from .serializers import TenantSerializer, LandlordSerializer, ApartmentSerializer, LeaseSerializer, NotificationSerializer, KeycodeSerializer, ComplaintSerializer
-from .custom_permissions import IsTenant, IsLandlord, IsUnauthenticated, IsTenantReadOnly
-from .models import CustomUser, Landlord, Tenant, Apartment, Lease, Notification, Keycode, Complaint
+from .serializers import TenantSerializer, LandlordSerializer, ApartmentSerializer, LeaseSerializer, NotificationSerializer, KeycodeSerializer, ComplaintSerializer, ParkingSerializer
+from .custom_permissions import IsTenant, IsLandlord, IsUnauthenticated, IsTenantReadOnly, IsLandlordReadOnly
+from .models import CustomUser, Landlord, Tenant, Apartment, Lease, Notification, Keycode, Complaint, Parking
 from .utils import get_apartment_from_tenant
 
 # Create your views here.
@@ -278,3 +278,43 @@ class ComplaintListView(generics.ListAPIView):
             return queryset.filter(complainer = apartment)
         
         return queryset
+    
+
+class CreateParkingView(generics.CreateAPIView):
+    serializer_class = ParkingSerializer
+    queryset = Parking.objects.all()
+    permission_classes = [IsTenant]
+
+    def perform_create(self, serializer):
+        apartment = get_apartment_from_tenant(self.request.user.email)
+        
+        if not apartment:
+            raise serializers.ValidationError({"error": "Apartment not found for user"})
+        
+        serializer.save(apartment=apartment)
+
+
+class ParkingListView(viewsets.ReadOnlyModelViewSet):
+    queryset = Parking.objects.all()
+    serializer_class = ParkingSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
+        apartment = get_apartment_from_tenant(self.request.user.email)
+
+        try:
+            landlord = Landlord.objects.get(user = self.request.user)
+        except ObjectDoesNotExist:
+            landlord = None
+
+        if not apartment and not landlord:
+            return Parking.objects.none()
+
+        if apartment:
+            return queryset.filter(apartment = apartment)
+
+        return queryset
+
+
+

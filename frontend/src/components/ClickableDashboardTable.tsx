@@ -59,9 +59,14 @@ async function fetchTenants(){
     }
 }
 
+
+let leases: LeaseInstanceProps[]
 async function getProcessedLeases() {
     const leaseData = await fetchAllLeases();
     const tenantData = await fetchTenants();
+
+    console.log(leaseData)
+    console.log(tenantData)
 
     const processedLeases = []
     for (const lease of leaseData) {
@@ -78,15 +83,10 @@ async function getProcessedLeases() {
         })
     }
 
-    return processedLeases;
+    leases = processedLeases
 }
 
-
-
-
-
-
-const leases: LeaseInstanceProps[] = await getProcessedLeases();
+getProcessedLeases()
 
 
 // const leases: LeaseInstanceProps[] = [

@@ -1,7 +1,6 @@
 // import { getProcessedLeases } from "./APIRouteCallsLandlord";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LeaseActions from "./LeaseActions";
-
 
 export interface LeaseInstanceProps {
     lease_id: number;
@@ -13,86 +12,6 @@ export interface LeaseInstanceProps {
     date_signed: Date | null;
 }
 
-
-async function fetchAllLeases(){
-    try{
-        const response = await fetch("https://two025-cohort-team-2.onrender.com/api/lease/", {
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization": "Token 2c3313d4873182ef51e50e6f794d76661fe08651"
-            },
-        });
-
-        const data = await response.json()
-
-        if(!response.ok){
-            throw new Error("some error message")
-        }
-
-        return Array.isArray(data) ? data : [];
-    } catch(error){
-        console.log(error)
-        return []
-    }
-}
-
-async function fetchTenants(){
-    try{
-        const response = await fetch("https://two025-cohort-team-2.onrender.com/api/all-tenants/", {
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization": "Token 2c3313d4873182ef51e50e6f794d76661fe08651"
-            },
-        });
-
-        const data = await response.json()
-
-        if(!response.ok){
-            throw new Error("some error message")
-        }
-
-        return Array.isArray(data) ? data : [];
-    } catch(error){
-        console.log(error)
-        return []
-    }
-}
-
-
-async function getProcessedLeases() {
-    const leaseData = await fetchAllLeases();
-    const tenantData = await fetchTenants();
-
-    console.log(leaseData)
-    console.log(tenantData)
-
-    const processedLeases = []
-    for (const lease of leaseData) {
-        const date = lease.lease_signed ? new Date(lease.lease_signed) : null;
-
-        processedLeases.push({
-            lease_id: lease.lease_id,
-            tenant_name: tenantData[lease.tenant - 1].user.first_name + ' ' + tenantData[lease.tenant - 1].user.last_name,
-            tenant_email: tenantData[lease.tenant - 1].user.email,
-            apartment_num: 111,
-            date_started: new Date(lease.lease_created),
-            date_end: new Date(lease.lease_end),
-            date_signed: date
-        })
-    }
-
-    return processedLeases;
-}
-
-
-
-
-
-// const leases: LeaseInstanceProps[] = await getProcessedLeases();
-
-
 // const leases: LeaseInstanceProps[] = [
 //     { lease_id: 12345, tenant_name: "TEN_NAME", tenant_email: "TEN_EMAIL", apartment_num: 9999, date_started: new Date("2001/01/01"), date_end: new Date("2003/01/03"), date_signed: new Date("2001/02/01"),},
 //     { lease_id: 22222, tenant_name: "TEN_NAME_2", tenant_email: "TEN_EMAIL_2", apartment_num: 2222, date_started: new Date("2021/01/01"), date_end: new Date("2023/01/03"), date_signed: new Date("2021/02/01"),},
@@ -101,21 +20,81 @@ async function getProcessedLeases() {
 // ]
 
 const ClickableDashboardTable = () => {
+    const [leaseData, updateLeaseData] = useState<any[]>([]);
 
-    const [leases, setLeases] = useState<LeaseInstanceProps[]>([]);
-    // const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchLeases = async () => {
-            const data = await getProcessedLeases();
-            setLeases(data);
-            // setLoading(false);
-        };
-
-        fetchLeases();
-    }, []);
-
-
+    async function fetchAllLeases(){
+        try{
+            const response = await fetch("https://two025-cohort-team-2.onrender.com/api/lease/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Token 2c3313d4873182ef51e50e6f794d76661fe08651"
+                },
+            });
+    
+            const data = await response.json()
+    
+            if(!response.ok){
+                throw new Error("some error message")
+            }
+    
+            return Array.isArray(data) ? data : [];
+        } catch(error){
+            console.log(error)
+            return []
+        }
+    }
+    
+    async function fetchTenants(){
+        try{
+            const response = await fetch("https://two025-cohort-team-2.onrender.com/api/all-tenants/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Token 2c3313d4873182ef51e50e6f794d76661fe08651"
+                },
+            });
+    
+            const data = await response.json()
+    
+            if(!response.ok){
+                throw new Error("some error message")
+            }
+    
+            return Array.isArray(data) ? data : [];
+        } catch(error){
+            console.log(error)
+            return []
+        }
+    }
+    
+    async function getProcessedLeases() {
+        const leaseData = await fetchAllLeases();
+        const tenantData = await fetchTenants();
+    
+        console.log(leaseData)
+        console.log(tenantData)
+    
+        const processedLeases = []
+        for (const lease of leaseData) {
+            const date = lease.lease_signed ? new Date(lease.lease_signed) : null;
+    
+            processedLeases.push({
+                lease_id: lease.lease_id,
+                tenant_name: tenantData[lease.tenant - 1].user.first_name + ' ' + tenantData[lease.tenant - 1].user.last_name,
+                tenant_email: tenantData[lease.tenant - 1].user.email,
+                apartment_num: 111,
+                date_started: new Date(lease.lease_created),
+                date_end: new Date(lease.lease_end),
+                date_signed: date
+            })
+        }
+    
+        updateLeaseData(processedLeases);
+    }
+    
+    getProcessedLeases()
+    
     return (
         <div className="bg-neutral-900">
             <div className="mx-auto max-w-7xl">
@@ -183,7 +162,7 @@ const ClickableDashboardTable = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <LeaseActions actions={leases}/>
+                                            <LeaseActions actions={leaseData}/>
                                         </tbody>
                                     </table>
                                 </div>

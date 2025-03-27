@@ -1,4 +1,5 @@
 // import { getProcessedLeases } from "./APIRouteCallsLandlord";
+import { useEffect, useState } from "react";
 import LeaseActions from "./LeaseActions";
 
 
@@ -60,7 +61,6 @@ async function fetchTenants(){
 }
 
 
-let leases: LeaseInstanceProps[]
 async function getProcessedLeases() {
     const leaseData = await fetchAllLeases();
     const tenantData = await fetchTenants();
@@ -83,10 +83,14 @@ async function getProcessedLeases() {
         })
     }
 
-    leases = processedLeases
+    return processedLeases;
 }
 
-getProcessedLeases()
+
+
+
+
+const leases: LeaseInstanceProps[] = await getProcessedLeases();
 
 
 // const leases: LeaseInstanceProps[] = [
@@ -97,6 +101,20 @@ getProcessedLeases()
 // ]
 
 const ClickableDashboardTable = () => {
+
+    const [leases, setLeases] = useState<LeaseInstanceProps[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchLeases = async () => {
+            const data = await getProcessedLeases();
+            setLeases(data);
+            setLoading(false);
+        };
+
+        fetchLeases();
+    }, []);
+
 
     return (
         <div className="bg-neutral-900">

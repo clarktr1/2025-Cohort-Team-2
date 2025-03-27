@@ -120,11 +120,13 @@ class Keycode(models.Model):
 
 class Parking(models.Model):
     apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
-    license_plate = models.CharField(max_length=7, unique=True)
+    license_plate = models.CharField(max_length=7)
     car_model = models.CharField(max_length=15)
     created_time = models.DateField(auto_now_add=True)
     end_time = models.DateField(null=True)
 
+    def __str__(self):
+        return self.apartment.__str__() + ": " + self.car_model
 
     
     

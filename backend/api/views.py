@@ -137,7 +137,17 @@ class LeaseView(generics.ListCreateAPIView):
             queryset = queryset.filter(lease_signed__isnull = (unsigned == "True"))
 
         return queryset
+    
+class GetTenantView(generics.RetrieveAPIView):
+    permission_classes = [IsLandlord]
+    serializer_class = TenantSerializer
+    queryset = Tenant.objects.all()
 
+
+class GetLandlordView(generics.RetrieveAPIView):
+    permission_classes = [IsLandlord]
+    serializer_class = LandlordSerializer
+    queryset = Landlord.objects.all()
 
 class ListLandlordsView(generics.ListAPIView):
     queryset = Landlord.objects.all()

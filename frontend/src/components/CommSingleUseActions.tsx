@@ -3,16 +3,25 @@ import SingleUseActionButton from "./SingleUseActionButton";
 import { SingleUseAction } from "./SingleUseActions";
 import HalfScreenActionsModal, { HalfScreenActionsModalProps } from "./HalfScreenActionsModal";
 import { DashboardRowProps } from "./DashboardRows";
+import SuccessMessageModal from "./SuccessMessageModal";
 
 
 interface SingleUseActionProps {
     actions: SingleUseAction[];
-
     user_instance: DashboardRowProps | null;
 }
 
 const CommSingleUseActions: React.FC<SingleUseActionProps> = ({ actions, user_instance}) => {
 
+    //success message setup
+    const [successModalData, setSuccessModalData] = useState({
+        isOpen: false,
+        generatedKey: "",
+        message: "",
+        label: "Lease ID",
+    });
+
+    //user selected from dashboard
     const selected_user = user_instance
 
     //find apt number from given user instance
@@ -25,12 +34,28 @@ const CommSingleUseActions: React.FC<SingleUseActionProps> = ({ actions, user_in
         setModalData(null);
     };
 
-    const handleModalSubmitUserNotification = (targetUser: string | null) => {
+    const handleModalSubmitUserNotification = (targetUser: DashboardRowProps | null) => {
         // Add submit logic here if needed.
         setModalData(null);
         
         // Add Post reques to update user here
         //
+
+        const userEmail = targetUser?.email
+
+        let userKey = "no entered user key"
+        if(userEmail){
+            userKey = userEmail
+        }
+
+        setTimeout(() => {
+            setSuccessModalData({
+                isOpen: true,
+                generatedKey: userKey.toString(),
+                message: "Your notification has been posted successfully!",
+                label: "User ID",
+            });
+        }, 200);
 
         console.log("Target User is ", {targetUser})
     };
@@ -87,7 +112,7 @@ const CommSingleUseActions: React.FC<SingleUseActionProps> = ({ actions, user_in
                                         </form>
                                     ),
                                     onClose: handleModalClose,
-                                    onSubmit: () => handleModalSubmitUserNotification(selected_user!.email),
+                                    onSubmit: () => handleModalSubmitUserNotification(selected_user),
                                 });
                             } else if (action.onClick) {
                                 action.onClick();
@@ -105,6 +130,13 @@ const CommSingleUseActions: React.FC<SingleUseActionProps> = ({ actions, user_in
                     onSubmit={modalData.onSubmit}
                 />
             )}
+            <SuccessMessageModal
+                isOpen={successModalData.isOpen}
+                onClose={() => setSuccessModalData({ ...successModalData, isOpen: false })}
+                generatedKey={successModalData.generatedKey}
+                message={successModalData.message}
+                label={successModalData.label}
+            />
         </div>
     );
 };

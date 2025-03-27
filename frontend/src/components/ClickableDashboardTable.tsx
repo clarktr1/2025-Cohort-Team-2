@@ -1,5 +1,6 @@
+// import { getProcessedLeases } from "./APIRouteCallsLandlord";
+import { useState } from "react";
 import LeaseActions from "./LeaseActions";
-
 
 export interface LeaseInstanceProps {
     lease_id: number;
@@ -11,34 +12,89 @@ export interface LeaseInstanceProps {
     date_signed: Date | null;
 }
 
-async function fetchData(){
-    try{
-        const response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-        const data = await response.json()
-
-        if(!response.ok){
-            throw new Error("some error message")
-        }
-        console.log(data)
-        //do something with data
-    } catch(error){
-        console.log(error)
-        //modify something on the frontend to show error
-    }
-}
-
-fetchData()
-
-
-const leases: LeaseInstanceProps[] = [
-    { lease_id: 12345, tenant_name: "TEN_NAME", tenant_email: "TEN_EMAIL", apartment_num: 9999, date_started: new Date("2001/01/01"), date_end: new Date("2003/01/03"), date_signed: new Date("2001/02/01"),},
-    { lease_id: 22222, tenant_name: "TEN_NAME_2", tenant_email: "TEN_EMAIL_2", apartment_num: 2222, date_started: new Date("2021/01/01"), date_end: new Date("2023/01/03"), date_signed: new Date("2021/02/01"),},
-    { lease_id: 33333, tenant_name: "TEN_NAME_3", tenant_email: "TEN_EMAIL_3", apartment_num: 3333, date_started: new Date("2022/01/01"), date_end: new Date("2023/08/03"), date_signed: null,},
-    { lease_id: 44444, tenant_name: "TEN_NAME_4", tenant_email: "TEN_EMAIL_4", apartment_num: 4444, date_started: new Date("2002/01/01"), date_end: new Date("2003/05/03"), date_signed: null,},
-]
+// const leases: LeaseInstanceProps[] = [
+//     { lease_id: 12345, tenant_name: "TEN_NAME", tenant_email: "TEN_EMAIL", apartment_num: 9999, date_started: new Date("2001/01/01"), date_end: new Date("2003/01/03"), date_signed: new Date("2001/02/01"),},
+//     { lease_id: 22222, tenant_name: "TEN_NAME_2", tenant_email: "TEN_EMAIL_2", apartment_num: 2222, date_started: new Date("2021/01/01"), date_end: new Date("2023/01/03"), date_signed: new Date("2021/02/01"),},
+//     { lease_id: 33333, tenant_name: "TEN_NAME_3", tenant_email: "TEN_EMAIL_3", apartment_num: 3333, date_started: new Date("2022/01/01"), date_end: new Date("2023/08/03"), date_signed: null,},
+//     { lease_id: 44444, tenant_name: "TEN_NAME_4", tenant_email: "TEN_EMAIL_4", apartment_num: 4444, date_started: new Date("2002/01/01"), date_end: new Date("2003/05/03"), date_signed: null,},
+// ]
 
 const ClickableDashboardTable = () => {
+    const [leaseData, updateLeaseData] = useState<LeaseInstanceProps[]>([]);
 
+    async function fetchAllLeases(){
+        try{
+            const response = await fetch("https://two025-cohort-team-2.onrender.com/api/lease/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Token 2c3313d4873182ef51e50e6f794d76661fe08651"
+                },
+            });
+    
+            const data = await response.json()
+    
+            if(!response.ok){
+                throw new Error("some error message")
+            }
+    
+            return Array.isArray(data) ? data : [];
+        } catch(error){
+            console.log(error)
+            return []
+        }
+    }
+    
+    async function fetchTenants(){
+        try{
+            const response = await fetch("https://two025-cohort-team-2.onrender.com/api/all-tenants/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Token 2c3313d4873182ef51e50e6f794d76661fe08651"
+                },
+            });
+    
+            const data = await response.json()
+    
+            if(!response.ok){
+                throw new Error("some error message")
+            }
+    
+            return Array.isArray(data) ? data : [];
+        } catch(error){
+            console.log(error)
+            return []
+        }
+    }
+    
+    async function getProcessedLeases() {
+        const leaseData = await fetchAllLeases();
+        const tenantData = await fetchTenants();
+    
+        console.log(leaseData)
+        console.log(tenantData)
+    
+        const processedLeases: LeaseInstanceProps[] = []
+        for (const lease of leaseData) {
+            const date = lease.lease_signed ? new Date(lease.lease_signed) : null;
+    
+            processedLeases.push({
+                lease_id: lease.lease_id,
+                tenant_name: tenantData[lease.tenant - 1].user.first_name + ' ' + tenantData[lease.tenant - 1].user.last_name,
+                tenant_email: tenantData[lease.tenant - 1].user.email,
+                apartment_num: 111,
+                date_started: new Date(lease.lease_created),
+                date_end: new Date(lease.lease_end),
+                date_signed: date
+            })
+        }
+    
+        updateLeaseData(processedLeases);
+    }
+    
+    getProcessedLeases()
+    
     return (
         <div className="bg-neutral-900">
             <div className="mx-auto max-w-7xl">
@@ -106,7 +162,7 @@ const ClickableDashboardTable = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <LeaseActions actions={leases}/>
+                                            <LeaseActions actions={leaseData}/>
                                         </tbody>
                                     </table>
                                 </div>

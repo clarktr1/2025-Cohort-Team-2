@@ -1,6 +1,4 @@
 import { QuickAction } from "../components/QuickActions";
-import ParkingPermitForm from "../components/ParkingPermitForm";
-
 
 const disturbanceTypes = [
   "Noise",
@@ -12,35 +10,6 @@ const disturbanceTypes = [
 ];
 
 export const tenantHalfScreenActions: QuickAction[] = [
-  {
-    text: "Generate temporary key",
-    modalContent: {
-      header: <>Generate Temporary Key</>,
-      form: (
-        <form className="space-y-4">
-          <div>
-            <label className="block text-orange-100 text-sm font-medium mb-1">
-              Enter Key Details
-            </label>
-            <input
-              type="text"
-              placeholder="Key description"
-              className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
-            />
-          </div>
-          <div>
-            <label className="block text-orange-100 text-sm font-medium mb-1">
-              Valid Until
-            </label>
-            <input
-              type="date"
-              className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
-            />
-          </div>
-        </form>
-      ),
-    },
-  },
   {
     text: "Report disturbance",
     modalContent: {
@@ -110,21 +79,6 @@ export const tenantHalfScreenActions: QuickAction[] = [
           </div>
         </form>
       ),
-    },
-  },
-  {
-    text: "Issue parking permit",
-    modalContent: {
-      header: <>Issue Parking Permit</>,
-      form: (
-      <ParkingPermitForm
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log("Parking permit submitted");
-      }}
-      onCancel={() => console.log("Parking permit canceled")}
-        />
-    )
     },
   },
 ];

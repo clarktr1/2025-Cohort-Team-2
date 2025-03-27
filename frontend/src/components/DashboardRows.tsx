@@ -23,19 +23,19 @@ const DashboardRow = () => {
         <>
         {users.map((user) => (
             <tr className="h-min">
-                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
+                <td className="whitespace-nowrap pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
                     {user.email}
                 </td>
-                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
+                <td className="whitespace-nowrap pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
                     {user.first_name}
                 </td>
-                <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                <td className="whitespace-nowrap px-3 text-sm text-orange-100">
                     {user.last_name}
                 </td>
-                <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                <td className="whitespace-nowrap px-3 text-sm text-orange-100">
                     {user.phone_number}
                 </td>
-                <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                <td className="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                     <SingleUseAction actions={userFormUpdateAction} user_instance={user}></SingleUseAction>
                 </td>
             </tr>

@@ -21,8 +21,13 @@ const CommunicationPage = () => {
         label: "",
     });
 
+
     // Use our custom hook to get the modified tenant actions.
-    const landlordCommunicationActions = useTenantActionsSuccessMessage(setQuickActionModalData, setSuccessModalData, landlorCommActionsData);
+    const landlordCommunicationActions = useTenantActionsSuccessMessage(
+        setQuickActionModalData, 
+        setSuccessModalData, 
+        landlorCommActionsData
+    );
 
     return (
         <div className="bg-neutral-950 h-full p-2">

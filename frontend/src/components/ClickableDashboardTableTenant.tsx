@@ -42,7 +42,7 @@ const ClickableDashboardTableTenant = () => {
     return (
         <div className="bg-neutral-900">
             <div className="mx-auto max-w-7xl">
-                <div className="bg-neutral-900 py-10 rounded-lg">
+                <div className="bg-neutral-900 rounded-lg">
                     <div className="px-4 sm:px-6 lg:px-8">
                         {/* Header */}
                         <div className="sm:flex sm:items-center">

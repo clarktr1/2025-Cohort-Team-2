@@ -2,6 +2,7 @@ import { useState } from "react";
 import SingleUseActionButton from "./SingleUseActionButton";
 import HalfScreenActionsModal, { HalfScreenActionsModalProps } from "./HalfScreenActionsModal";
 import { DashboardRowProps } from "./DashboardRows";
+import SuccessMessageModal from "./SuccessMessageModal";
 
 export interface SingleUseAction {
     text: string;
@@ -20,6 +21,13 @@ interface SingleUseActionProps {
 
 const SingleUseActions: React.FC<SingleUseActionProps> = ({ actions, user_instance}) => {
 
+    const [successModalData, setSuccessModalData] = useState({
+        isOpen: false,
+        generatedKey: "",
+        message: "",
+        label: "Lease ID",
+    });
+
     const selected_user = user_instance
 
     const [modalData, setModalData] = useState<HalfScreenActionsModalProps | null>(null);
@@ -37,15 +45,40 @@ const SingleUseActions: React.FC<SingleUseActionProps> = ({ actions, user_instan
         // Add Post request to generating lease for user here
         //
 
+        setTimeout(() => {
+            setSuccessModalData({
+                isOpen: true,
+                generatedKey: "Added to table",
+                message: "Your new user has been created successfully!",
+                label: "User ID",
+            });
+        }, 200);
+
         console.log("New User Created")
     };
 
-    const handleModalSubmitUserChanges = () => {
+    const handleModalSubmitUserChanges = (userInput: DashboardRowProps | null) => {
         // Add submit logic here if needed.
         setModalData(null);
         
         // Add Post reques to update user here
         //
+
+        const userEmail = userInput?.email
+
+        let userKey = "no entered user key"
+        if(userEmail){
+            userKey = userEmail
+        }
+
+        setTimeout(() => {
+            setSuccessModalData({
+                isOpen: true,
+                generatedKey: userKey,
+                message: "Your user data has been changed successfully!",
+                label: "User ID",
+            });
+        }, 200);
 
         console.log("User Changes Submit")
     };
@@ -112,7 +145,7 @@ const SingleUseActions: React.FC<SingleUseActionProps> = ({ actions, user_instan
                                         </form>
                                     ),
                                     onClose: handleModalClose,
-                                    onSubmit: handleModalSubmitUserChanges,
+                                    onSubmit: () => handleModalSubmitUserChanges(selected_user),
                                 });
                             } else if (action.onClick) {
                                 action.onClick();
@@ -149,6 +182,13 @@ const SingleUseActions: React.FC<SingleUseActionProps> = ({ actions, user_instan
                     onSubmit={modalData.onSubmit}
                 />
             )}
+            <SuccessMessageModal
+                isOpen={successModalData.isOpen}
+                onClose={() => setSuccessModalData({ ...successModalData, isOpen: false })}
+                generatedKey={successModalData.generatedKey}
+                message={successModalData.message}
+                label={successModalData.label}
+            />
         </div>
     );
 };

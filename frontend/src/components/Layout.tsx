@@ -3,6 +3,7 @@ import NavBar from "./Navbar";
 
 const Layout = () => {
   const { pathname } = useLocation();
+  console.log("Current pathname:", pathname);
   const isHomePage = pathname === "/";
 
   return (

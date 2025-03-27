@@ -17,6 +17,8 @@ import dj_database_url
 
 load_dotenv()
 
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +42,14 @@ CSRF_TRUSTED_ORIGINS = [
     "https://two025-cohort-team-2.onrender.com",
 ]
 
+CORS_ALLOW_METHODS = ('PATCH', 'DELETE', 'PUT', 'GET', 'POST')
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000", # React's default development server
+    "http://localhost:5173",
+]
+
+
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
@@ -57,11 +67,14 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 
     'api',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

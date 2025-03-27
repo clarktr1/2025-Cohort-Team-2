@@ -123,9 +123,9 @@ function ParkingPermitForm({ onSubmit, onCancel }: ParkingPermitFormProps) {
                 />
             </div>
             <div>
+                {/* Valid for a week */}
                 <p className="w-full p-2 rounded-md bg-neutral-800 text-orange-100">
-                    Valid Until:{" "}
-                    {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}
+                    Valid Until: {new Date(Date.now() + 604800000).toLocaleDateString()}
                 </p>
             </div>
             <div className="mt-4 flex justify-end gap-4">

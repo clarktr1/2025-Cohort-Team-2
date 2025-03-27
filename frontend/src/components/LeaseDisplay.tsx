@@ -1,13 +1,14 @@
-interface LeaseActionsProps {
+export interface LeaseActionsProps {
     lease_id: number;
     tenant_name: string;
+    tenant_signature: string | null;
     landlord_name: string;
     date_created: Date;
-    date_signed: Date;
+    date_signed: Date | null;
     date_end: Date;
 }
 
-const LeaseDisplay: React.FC<LeaseActionsProps> = ({ lease_id, tenant_name, landlord_name, date_created, date_signed, date_end }) => {
+const LeaseDisplay: React.FC<LeaseActionsProps> = ({ lease_id, tenant_name, tenant_signature, landlord_name, date_created, date_signed, date_end }) => {
 
     return (
         <div className="bg-white h-full rounded overflow-auto p-2 mb-4">
@@ -18,7 +19,7 @@ const LeaseDisplay: React.FC<LeaseActionsProps> = ({ lease_id, tenant_name, land
                 <span>Lease ID: {lease_id}</span>
                 <br></br>
                 THIS RESIDENTIAL LEASE AGREEMENT (the "Agreement") is made and entered into as of
-                __{date_signed.toLocaleDateString()}__, by and between {landlord_name} ("Landlord") and {tenant_name}
+                __{date_signed?.toLocaleDateString()}__, by and between {landlord_name} ("Landlord") and {tenant_name}
                 ("Tenant").<br></br>
                 <span className='text-lg font-bold'>1. PREMISES </span> Landlord leases to Tenant the premises located at 
                 <span id="lease-room-num"></span> (the
@@ -91,10 +92,10 @@ const LeaseDisplay: React.FC<LeaseActionsProps> = ({ lease_id, tenant_name, land
                 IN WITNESS WHEREOF, the parties have executed this Agreement as of the date first written
                 above.
                 LANDLORD: _____{landlord_name}______
-                TENANT: ____{tenant_name}_____
+                TENANT: _____{tenant_signature}______
             </p>
             <br></br>
-            <span>Date Signed: _____{date_signed.toLocaleDateString()}____</span>
+            <span>Date Signed: _____{date_signed?.toLocaleDateString()}____</span>
         </div>
     );
 };

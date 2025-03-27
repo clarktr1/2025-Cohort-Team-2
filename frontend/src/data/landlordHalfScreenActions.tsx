@@ -88,46 +88,6 @@ export const landlordHalfScreenActions: QuickAction[] = [
         },
     },
 
-    // {
-    //     text: "Send notification",
-    //     modalContent: {
-    //         header: <>Send Notification</>,
-    //         form: (
-    //             <form className="space-y-4">
-    //                 <div>
-    //                     <label className="block text-orange-100 text-sm font-medium mb-1">
-    //                         Apartment Number
-    //                     </label>
-    //                     <input
-    //                         type="text"
-    //                         placeholder="Apartment number"
-    //                         className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
-    //                     />
-    //                 </div>
-    //                 <div>
-    //                     <label className="block text-orange-100 text-sm font-medium mb-1">
-    //                         Tenant Name
-    //                     </label>
-    //                     <input
-    //                         type="text"
-    //                         placeholder="Tenant name"
-    //                         className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
-    //                     />
-    //                 </div>
-    //                 <div>
-    //                     <label className="block text-orange-100 text-sm font-medium mb-1">
-    //                         Notification Message
-    //                     </label>
-    //                     <textarea
-    //                         placeholder="Enter notification message"
-    //                         className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
-    //                         rows={4}
-    //                     />
-    //                 </div>
-    //             </form>
-    //         ),
-    //     },
-    // }
     {
         text: "Issue temporary key",
         modalContent: {

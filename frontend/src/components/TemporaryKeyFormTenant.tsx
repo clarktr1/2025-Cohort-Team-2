@@ -15,13 +15,10 @@ const TemporaryKeyForm: React.FC<TemporaryKeyFormProps> = ({ onSubmit, onCancel 
                 />
             </div>
             <div>
-                <label className="block text-orange-100 text-sm font-medium mb-1">
-                    Valid Until
-                </label>
-                <input
-                    type="date"
-                    className="w-full p-2 rounded-md bg-neutral-800 text-orange-100"
-                />
+                {/* Valid for a week */}
+                <p className="w-full p-2 rounded-md bg-neutral-800 text-orange-100">
+                    Valid Until: {new Date(Date.now() + 604800000).toLocaleDateString()}
+                </p>
             </div>
             <div className="mt-4 flex justify-end gap-4">
                 <button

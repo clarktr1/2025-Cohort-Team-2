@@ -1,10 +1,10 @@
 import { useState } from "react";
 import QuickActions, { QuickAction } from "../../components/QuickActions";
-import AccessControlActivitiesTable from "../../components/AccessControlActivities";
+import AccessControlActivitiesTable from "../../components/AccessControlActivitiesTenant";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
 import { accessControlActions as accessControlActionsData } from "../../data/accessControlsQuickActions";
-import { QuickActionModalProps } from "../../types/types";
-import { useTenantActionsSuccessMessage, SuccessModalData } from "../../hooks/useTenantActionsSuccessMessage";
+import { QuickActionModalProps, SuccessModalData } from "../../types/types";
+import { useTenantActionsSuccessMessage } from "../../hooks/useTenantActionsSuccessMessage";
 
 const AccessControls = () => {
     // Lift QuickActions modal state.

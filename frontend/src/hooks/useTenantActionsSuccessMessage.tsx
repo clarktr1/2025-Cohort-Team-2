@@ -1,13 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { QuickAction } from "../components/QuickActions";
-import { QuickActionModalProps } from "../types/types";
+import { QuickActionModalProps, SuccessModalData } from "../types/types";
 
-export interface SuccessModalData {
-    isOpen: boolean;
-    generatedKey: string;
-    message: string;
-    label: string;
-}
+
 
 export function useTenantActionsSuccessMessage(
     setQuickActionModalData: React.Dispatch<React.SetStateAction<QuickActionModalProps | null>>,

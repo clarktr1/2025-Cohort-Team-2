@@ -2,12 +2,10 @@ import { useState } from "react";
 import HeroSection from "../../components/HeroSection";
 import Notifications from "../../components/Notifications";
 import QuickActions from "../../components/QuickActions";
-import { QuickActionModalProps } from "../../types/types";
+import { QuickActionModalProps, SuccessModalData } from "../../types/types";
 import Dashboard from "../../components/Dashboard";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
-import { tenantNotifications } from "../../data/tenantNotifications";
 import { useTenantActionsSuccessMessage } from "../../hooks/useTenantActionsSuccessMessage";
-import { SuccessModalData } from "../../hooks/useTenantActionsSuccessMessage";
 import { tenantActions as tenantActionsData } from "../../data/tenantQuickActions";
 
 const TenantPage = () => {
@@ -39,7 +37,7 @@ const TenantPage = () => {
                         subtitle="Experience comfort, embrace innovation."
                     />
                     <div className="bg-neutral-900 rounded-lg p-4 overflow-auto">
-                        <Notifications notifications={tenantNotifications} />
+                        <Notifications/>
                     </div>
                 </div>
                 <div>

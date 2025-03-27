@@ -88,11 +88,13 @@ class Notification(models.Model):
 
 
 class Complaint(models.Model):
-    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
-    landlord = models.ForeignKey(Landlord, on_delete=models.CASCADE)
-    tenant = models.ForeignKey(Tenant, on_delete=models.SET_NULL, null=True)
+    complainer = models.ForeignKey(Apartment, on_delete=models.CASCADE)
     complaint_title = models.CharField(max_length=50)
     complaint_desc = models.TextField(null=True, blank=True)
+    complaint_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.complainer.__str__() + ": " + self.complaint_title
 
 
 class Package(models.Model):
@@ -107,7 +109,7 @@ class Package(models.Model):
 
 
 class Keycode(models.Model):
-    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
+    apartment = models.OneToOneField(Apartment, on_delete=models.CASCADE)
     key_generated = models.DateTimeField(auto_now_add=True)
     key = models.PositiveIntegerField()
 
@@ -115,13 +117,16 @@ class Keycode(models.Model):
         self.key = random.randint(100000, 999999)
         super().save(*args, **kwargs)
 
+
 class Parking(models.Model):
     apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)
-    license_plate = models.CharField(max_length=7, unique=True)
+    license_plate = models.CharField(max_length=7)
     car_model = models.CharField(max_length=15)
     created_time = models.DateField(auto_now_add=True)
     end_time = models.DateField(null=True)
 
+    def __str__(self):
+        return self.apartment.__str__() + ": " + self.car_model
 
     
     

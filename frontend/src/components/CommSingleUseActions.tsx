@@ -38,8 +38,14 @@ const CommSingleUseActions: React.FC<SingleUseActionProps> = ({ actions, user_in
         // Add submit logic here if needed.
         setModalData(null);
         
-        // Add Post reques to update user here
-        //
+        // const oneNotif: Notification = [{
+        //     id: 3524,
+        //     tenant_id: targetUser?.email,
+        //     date: new Date(),
+        //     message: "Testing testing",
+        // }]
+
+        // createNotification(oneNotif)
 
         const userEmail = targetUser?.email
 

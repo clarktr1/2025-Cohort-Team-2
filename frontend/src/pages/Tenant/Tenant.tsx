@@ -3,7 +3,6 @@ import HeroSection from "../../components/HeroSection";
 import Notifications from "../../components/Notifications";
 import QuickActions from "../../components/QuickActions";
 import { QuickActionModalProps, SuccessModalData } from "../../types/types";
-import Dashboard from "../../components/Dashboard";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
 import { useTenantActionsSuccessMessage } from "../../hooks/useTenantActionsSuccessMessage";
 import { tenantActions as tenantActionsData } from "../../data/tenantQuickActions";
@@ -48,7 +47,7 @@ const TenantPage = () => {
                     />
                 </div>
                 <div>
-                    <Dashboard />
+                    {/* <Dashboard /> */}
                 </div>
             </div>
             <SuccessMessageModal

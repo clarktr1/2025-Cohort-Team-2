@@ -1,26 +1,32 @@
 import { Notification } from "../types/types";
-
-//API Call to get all notifications
-const notifs: Notification[] = [
-    {  id: 111, tenant_id:"tenant1", date: new Date("10/26/2004"), message: "Hello this is the first global message"},
-    {  id: 222, tenant_id:null, date: new Date("10/26/2003"), message: "Hello this is the second global message"},
-    {  id: 333, tenant_id:"tenant3", date: new Date("10/26/2002"), message: "Hello this is the third global message"},
-    {  id: 444, tenant_id:"tenant4", date: new Date("01/26/2002"), message: "Hello this is the first global message"},
-]
-
-let globalNotifs: Notification[]
-
-const getGlobalNotifs = () => {
-
-    globalNotifs = notifs.filter(notif => notif.tenant_id !== null)
-    globalNotifs = globalNotifs.sort((a,b) => b.date.getTime() - a.date.getTime())
-
-    console.log(getGlobalNotifs)
-};
-
-getGlobalNotifs()
+import { fetchNotifications } from "../hooks/useAPIRoutes";
+import { useState, useEffect } from "react";
 
 const Notifications = () => {
+
+    const [globalNotifs, updateLeaseData] = useState<Notification[]>([]);
+        
+        async function getProcessedLeases() {
+            const notifData = await fetchNotifications();
+        
+            console.log(notifData)
+        
+            const processedNotifs: Notification[] = []
+            for (const notif of notifData) {
+        
+                processedNotifs.push({
+                    id: notif.id.toString(),
+                    tenant_id: notif.user.toString(),
+                    date: new Date(notif.time),
+                    message: notif.message
+                })
+            }
+        
+            updateLeaseData(processedNotifs);
+        }
+        
+        useEffect(() => { getProcessedLeases() }, [] )
+
     return (
         <table className="">
             <tbody>

@@ -1,5 +1,5 @@
-// import { getProcessedLeases } from "./APIRouteCallsLandlord";
-import { useState } from "react";
+import { fetchAllLeases, fetchTenants } from "../hooks/useAPIRoutes";
+import { useState, useEffect } from "react";
 import LeaseActions from "./LeaseActions";
 
 export interface LeaseInstanceProps {
@@ -21,52 +21,6 @@ export interface LeaseInstanceProps {
 
 const ClickableDashboardTable = () => {
     const [leaseData, updateLeaseData] = useState<LeaseInstanceProps[]>([]);
-
-    async function fetchAllLeases(){
-        try{
-            const response = await fetch("https://two025-cohort-team-2.onrender.com/api/lease/", {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": "Token 2c3313d4873182ef51e50e6f794d76661fe08651"
-                },
-            });
-    
-            const data = await response.json()
-    
-            if(!response.ok){
-                throw new Error("some error message")
-            }
-    
-            return Array.isArray(data) ? data : [];
-        } catch(error){
-            console.log(error)
-            return []
-        }
-    }
-    
-    async function fetchTenants(){
-        try{
-            const response = await fetch("https://two025-cohort-team-2.onrender.com/api/all-tenants/", {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": "Token 2c3313d4873182ef51e50e6f794d76661fe08651"
-                },
-            });
-    
-            const data = await response.json()
-    
-            if(!response.ok){
-                throw new Error("some error message")
-            }
-    
-            return Array.isArray(data) ? data : [];
-        } catch(error){
-            console.log(error)
-            return []
-        }
-    }
     
     async function getProcessedLeases() {
         const leaseData = await fetchAllLeases();
@@ -93,8 +47,8 @@ const ClickableDashboardTable = () => {
         updateLeaseData(processedLeases);
     }
     
-    getProcessedLeases()
-    
+    useEffect(() => { getProcessedLeases() }, [] )
+
     return (
         <div className="bg-neutral-900">
             <div className="mx-auto max-w-7xl">

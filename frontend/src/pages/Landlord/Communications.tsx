@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Notifications from "../../components/Notifications";
 import CommDashboardTable from "../../components/CommDashboardTable";
-import QuickActions from "../../components/QuickActions";
+import QuickActions, { QuickAction } from "../../components/QuickActions";
 import { QuickActionModalProps } from "../../types/types";
 import SuccessMessageModal from "../../components/SuccessMessageModal";
 import { useTenantActionsSuccessMessage } from "../../hooks/useTenantActionsSuccessMessage";
 import { SuccessModalData } from "../../types/types";
 // import { tenantActions as tenantActionsData } from "../../data/tenantQuickActions";
-import { landlordCommunicationActions as landlorCommActionsData } from "../../data/landlordCommunicationActions";
+import { landlordCommunicationActions as landlordCommActionsData } from "../../data/landlordCommunicationActions";
 
 
 const CommunicationPage = () => {
@@ -23,10 +23,10 @@ const CommunicationPage = () => {
 
 
     // Use our custom hook to get the modified tenant actions.
-    const landlordCommunicationActions = useTenantActionsSuccessMessage(
+    const landlordCommunicationActions: QuickAction[] = useTenantActionsSuccessMessage(
         setQuickActionModalData, 
         setSuccessModalData, 
-        landlorCommActionsData
+        landlordCommActionsData
     );
 
     return (

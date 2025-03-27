@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import RegisterLandlordView, RegisterTenantView, UpdateTenantView, UpdateLandlordView,  LoginView, LogoutView, ApartmentViewSet, LeaseView, SignLeaseView, GetDeleteLeaseView, NotificationViewset, KeycodeView, CreateComplaintView, ComplaintListView, ListLandlordsView, ListTenantsView
+from .views import RegisterLandlordView, RegisterTenantView, UpdateTenantView, UpdateLandlordView,  LoginView, LogoutView, ApartmentViewSet, LeaseView, SignLeaseView, GetDeleteLeaseView, NotificationViewset, KeycodeView, CreateComplaintView, ComplaintListView, ListLandlordsView, ListTenantsView, GetTenantView, GetLandlordView
 
 router = DefaultRouter()
 router.register(r'apartment', ApartmentViewSet)
@@ -17,6 +17,9 @@ urlpatterns = [
     path('update-tenant/', UpdateTenantView.as_view(), name='update-tenant'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+
+    path('get-tenant/<int:pk>/', GetTenantView.as_view(), name='get-tenant'),
+    path('get-landlord/<int:pk>/', GetLandlordView.as_view(), name='get-landlord'),
 
     path('all-tenants/', ListTenantsView.as_view(), name='all-tenants'),
     path('all-landlords/', ListLandlordsView.as_view(), name='all-landlords'),

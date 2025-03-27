@@ -20,7 +20,7 @@ export interface LeaseInstanceProps {
 // ]
 
 const ClickableDashboardTable = () => {
-    const [leaseData, updateLeaseData] = useState<any[]>([]);
+    const [leaseData, updateLeaseData] = useState<LeaseInstanceProps[]>([]);
 
     async function fetchAllLeases(){
         try{
@@ -75,7 +75,7 @@ const ClickableDashboardTable = () => {
         console.log(leaseData)
         console.log(tenantData)
     
-        const processedLeases = []
+        const processedLeases: LeaseInstanceProps[] = []
         for (const lease of leaseData) {
             const date = lease.lease_signed ? new Date(lease.lease_signed) : null;
     

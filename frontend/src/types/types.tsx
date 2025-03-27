@@ -82,9 +82,10 @@ export type TemporaryKeyFormProps = {
 
 
 export type RecordData = {
+    id: number
     apartmentNumber: string;
     tenantName: string;
-    activityName: string; // e.g., "Parking Permit", "Door", "Temporary Key"
+    activityName: string; // e.g., "Parking Permit", "Guest Key"
     startDate: string;
     endDate: string;
     status: string;
@@ -92,7 +93,10 @@ export type RecordData = {
     carModel?: string;
     carColor?: string;
     description?: string;
-}
+    key?: number; // For keycodes (Guest Key)
+    licensePlate?: string; // For parking permits
+};
+
 
 export type ViewRecordModalProps = {
     isOpen: boolean;

@@ -1,46 +1,63 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from "react";
 import ViewRecordModal from "./ViewRecordModal";
 import WithdrawRecordModal from "./WithdrawRecordModal";
 import { RecordData } from "../types/types";
 
-const dummyActivities: RecordData[] = [
-    {
-        apartmentNumber: "101",
-        tenantName: "Alice",
-        activityName: "Guest Key",
-        startDate: "3/12/2025",
-        endDate: "3/19/2025",
-        status: "Expired",
-        description: "Guest key for front door.",
-    },
-    {
-        apartmentNumber: "102",
-        tenantName: "Bob",
-        activityName: "Parking Permit",
-        startDate: "3/17/2025",
-        endDate: "3/25/2025",
-        status: "Active",
-        carModel: "Honda Civic",
-        carColor: "Blue",
-    },
-    {
-        apartmentNumber: "103",
-        tenantName: "Charlie",
-        activityName: "Door",
-        startDate: "3/20/2025",
-        endDate: "3/20/2025",
-        status: "Expired",
-    },
-];
-
 const AccessControlActivitiesTable: React.FC = () => {
-    // State for the "view" modal.
+    const [activities, setActivities] = useState<RecordData[]>([]);
+    // Modal state for viewing.
     const [selectedRecord, setSelectedRecord] = useState<RecordData | null>(null);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-
-    // State for the "withdraw" modal.
+    // Modal state for withdrawing.
     const [selectedWithdrawRecord, setSelectedWithdrawRecord] = useState<RecordData | null>(null);
     const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
+
+    useEffect(() => {
+        const fetchActivities = async () => {
+            try {
+                // Hardcoded token and apartment number.
+                const token = "14ed994159b3789e6d6809c9df5d050caf3f6847";
+                const apt = "113";
+                const url = `https://two025-cohort-team-2.onrender.com/api/keycode/${encodeURIComponent(apt)}/`;
+                const response = await fetch(url, {
+                    headers: {
+                        "Authorization": `Token ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                });
+                const data = await response.json();
+                console.log("Fetched data:", data);
+                // The endpoint returns a single keycode object.
+                // Wrap it in an array for consistency.
+                const recordsArray = Array.isArray(data) ? data : [data];
+                // Transform each record into our RecordData format.
+                const transformed: RecordData[] = recordsArray.map((record: any) => {
+                    const generatedDate = new Date(record.key_generated);
+                    // Set expiration to 7 days after generation.
+                    const expirationDate = new Date(generatedDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+                    const now = new Date();
+                    const status = now > expirationDate ? "Expired" : "Active";
+                    return {
+                        id: record.id,
+                        apartmentNumber: apt,
+                        tenantName: "David Tenant",
+                        activityName: "Guest Key",
+                        startDate: generatedDate.toLocaleString(),
+                        endDate: expirationDate.toLocaleString(),
+                        status: status,
+                        description: `Key: ${record.key}`,
+                        key: record.key,
+                    };
+                });
+                setActivities(transformed);
+            } catch (error) {
+                console.error("Error fetching activities:", error);
+            }
+        };
+
+        fetchActivities();
+    }, []);
 
     const openViewModal = (record: RecordData) => {
         setSelectedRecord(record);
@@ -64,9 +81,8 @@ const AccessControlActivitiesTable: React.FC = () => {
 
     // Dummy function to simulate record update after withdrawal.
     const handleWithdraw = (updatedRecord: RecordData) => {
-        // In a real scenario, update your record in state or re-fetch from DB.
         console.log("Record updated:", updatedRecord);
-        // Here you might update dummyActivities, or trigger a re-fetch.
+        // In production, update your state or re-fetch data here.
     };
 
     return (
@@ -78,96 +94,66 @@ const AccessControlActivitiesTable: React.FC = () => {
                         Your Activity Logs
                     </h1>
                 </header>
-                {/* Dashboard Content */}
-                <div className="bg-neutral-900 rounded-lg">
-                    <div className="mx-auto max-w-7xl">
-                        <div className="bg-neutral-900 py-10 rounded-lg">
-                            <div className="px-4 sm:px-6 lg:px-8">
-                                {/* Table */}
-                                <div className="mt-8 flow-root">
-                                    <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                        <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                            <table className="min-w-full divide-y divide-orange-500">
-                                                <thead>
-                                                    <tr>
-                                                        <th
-                                                            scope="col"
-                                                            className="py-3.5 pl-4 pr-3 text-left text-lg font-semibold text-orange-100 sm:pl-0"
-                                                        >
-                                                            Activity
-                                                        </th>
-                                                        <th
-                                                            scope="col"
-                                                            className="px-3 py-3.5 text-left text-lg font-semibold text-orange-100"
-                                                        >
-                                                            Start Date/Time
-                                                        </th>
-                                                        <th
-                                                            scope="col"
-                                                            className="px-3 py-3.5 text-left text-lg font-semibold text-orange-100"
-                                                        >
-                                                            End Date/Time
-                                                        </th>
-                                                        <th
-                                                            scope="col"
-                                                            className="px-3 py-3.5 text-left text-lg font-semibold text-orange-100"
-                                                        >
-                                                            Status
-                                                        </th>
-                                                        <th
-                                                            scope="col"
-                                                            className="px-3 py-3.5 text-right text-lg font-semibold text-orange-100"
-                                                        >
-                                                            Action
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-orange-500">
-                                                    {dummyActivities.map((activity, index) => (
-                                                        <tr key={index}>
-                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100 sm:pl-0">
-                                                                {activity.activityName}
-                                                            </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                                {activity.startDate}
-                                                            </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                                {activity.endDate}
-                                                            </td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
-                                                                {activity.status}
-                                                            </td>
-                                                            <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                                {activity.status.toLowerCase() === "expired" ? (
-                                                                    <button
-                                                                        onClick={() => openViewModal(activity)}
-                                                                        className="text-orange-100 font-bold border-2 border-orange-500 py-2 px-3 rounded-lg cursor-pointer hover:text-orange-400"
-                                                                    >
-                                                                        View
-                                                                    </button>
-                                                                ) : (
-                                                                    <button
-                                                                        onClick={() => openWithdrawModal(activity)}
-                                                                        className="text-neutral-900 font-bold bg-orange-500 border border-orange-500 py-2 px-3 rounded-lg cursor-pointer hover:bg-orange-400 hover:border-orange-400"
-                                                                    >
-                                                                        Withdraw
-                                                                    </button>
-                                                                )}
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* End Table */}
-                            </div>
-                        </div>
-                    </div>
+                {/* Table */}
+                <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-orange-500">
+                        <thead>
+                            <tr>
+                                <th className="py-3.5 pl-4 pr-3 text-left text-lg font-semibold text-orange-100">
+                                    Activity
+                                </th>
+                                <th className="px-3 py-3.5 text-left text-lg font-semibold text-orange-100">
+                                    Start Date/Time
+                                </th>
+                                <th className="px-3 py-3.5 text-left text-lg font-semibold text-orange-100">
+                                    End Date/Time
+                                </th>
+                                <th className="px-3 py-3.5 text-left text-lg font-semibold text-orange-100">
+                                    Status
+                                </th>
+                                <th className="px-3 py-3.5 text-right text-lg font-semibold text-orange-100">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-orange-500">
+                            {activities.map((activity) => (
+                                <tr key={activity.id}>
+                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-orange-100">
+                                        {activity.activityName}
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                                        {activity.startDate}
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                                        {activity.endDate}
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-orange-100">
+                                        {activity.status}
+                                    </td>
+                                    <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium">
+                                        {activity.status.toLowerCase() === "expired" ? (
+                                            <button
+                                                onClick={() => openViewModal(activity)}
+                                                className="text-orange-100 font-bold border-2 border-orange-500 py-2 px-3 rounded-lg cursor-pointer hover:text-orange-400"
+                                            >
+                                                View
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={() => openWithdrawModal(activity)}
+                                                className="text-neutral-900 font-bold bg-orange-500 border border-orange-500 py-2 px-3 rounded-lg cursor-pointer hover:bg-orange-400 hover:border-orange-400"
+                                            >
+                                                Withdraw
+                                            </button>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            {/* Render ViewRecordModal */}
             {selectedRecord && (
                 <ViewRecordModal
                     isOpen={isViewModalOpen}
@@ -175,7 +161,6 @@ const AccessControlActivitiesTable: React.FC = () => {
                     record={selectedRecord}
                 />
             )}
-            {/* Render WithdrawRecordModal */}
             {selectedWithdrawRecord && (
                 <WithdrawRecordModal
                     isOpen={isWithdrawModalOpen}

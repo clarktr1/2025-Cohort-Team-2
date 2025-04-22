@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import TenantPage from "./pages/Tenant/Tenant";
+import LandlordPage from "./pages/Landlord/Landlord";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import HomePage from "./pages/Home/Home";
+import { RoleProvider } from "./context/RoleProvider";
+import AccessControls from "./pages/Tenant/AccessControls";
+import TenantManagementPage from "./pages/Landlord/TenantManagement";
+import TenantDeliveries from "./pages/Tenant/TenantDeliveries";
+import TenantLeaseManagement from "./pages/Tenant/TenantLeaseManagement";
+import Complaints from "./pages/Tenant/Complaints";
+import AccessControlsLandlord from "./pages/Landlord/AccessControls";
+import CommunicationPage from "./pages/Landlord/Communications";
+import LandlordComplaints from "./pages/Landlord/Complaints";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <RoleProvider>
+      <Routes>
+        {/* Layout is the parent route */}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="landlord" element={<LandlordPage />} />
+          <Route path="tenant" element={<TenantPage />} />
+          <Route path="tenant/access" element={<AccessControls />} />
+          <Route path="landlord/tenant_management" element={<TenantManagementPage />} />
+          <Route path="tenant/deliveries" element={<TenantDeliveries />} />
+          <Route path="tenant/lease" element={<TenantLeaseManagement />} />
+          <Route path="tenant/complaints" element={<Complaints />} />
+          <Route path="landlord/access" element={<AccessControlsLandlord />} />
+          <Route path="landlord/communication" element={<CommunicationPage />} />
+          <Route path="landlord/complaints" element={<LandlordComplaints />} />
+        </Route>
+      </Routes>
+    </RoleProvider>
+  );
 }
 
-export default App
+export default App;

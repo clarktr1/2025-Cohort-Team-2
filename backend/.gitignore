@@ -1,3 +1,12 @@
+*.py[cod]
+backend/__pycache__/
+api/__pycache__/
+
+# Django DB File
+db.sqlite3
+
+# Env file
+.env
 __pycache__/
 *.py[cod]
 

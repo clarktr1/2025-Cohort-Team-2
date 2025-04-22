@@ -7,3 +7,8 @@ db.sqlite3
 
 # Env file
 .env
+__pycache__/
+*.py[cod]
+
+# Django
+db.sqlite3

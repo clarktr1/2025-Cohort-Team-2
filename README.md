@@ -59,7 +59,6 @@ Smart Living is a platform designed to improve apartment complex management by e
 - **Backend**  
   - Developed using [Python](https://www.python.org/) and [Django](https://www.djangoproject.com/).  
   - Hosted on [Render](https://render.com/) for production.
-  - **Production Backend**: [two025-cohort-team-2.onrender.com](https://two025-cohort-team-2.onrender.com/)
 
 
 - **Database**:  
@@ -156,7 +155,7 @@ Once everything is running:
 - **Sabina Rasulova** ([GitHub](https://github.com/srasulova))
 - **Rick Lattin** ([GitHub](https://github.com/lattiric))
 - **J’Mari Wyatt** ([GitHub](https://github.com/fffilps))
-- **Will Dev** ([GitHub](https://github.com/addicted2crypto))
+- **Will Heeb** ([GitHub](https://github.com/addicted2crypto))
 
 
 

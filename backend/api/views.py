@@ -16,6 +16,7 @@ from .custom_permissions import IsTenant, IsLandlord, IsUnauthenticated, IsTenan
 from .models import CustomUser, Landlord, Tenant, Apartment, Lease, Notification, Keycode, Complaint, Parking
 from .utils import get_apartment_from_tenant
 
+
 # Create your views here.
 
 class RegisterLandlordView(generics.CreateAPIView):

@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from .views import RegisterLandlordView, RegisterTenantView, UpdateTenantView, UpdateLandlordView,  LoginView, LogoutView, ApartmentViewSet, LeaseView, SignLeaseView, GetDeleteLeaseView, NotificationViewset, KeycodeView, CreateComplaintView, ComplaintListView, ListLandlordsView, ListTenantsView, GetTenantView, GetLandlordView, CreateParkingView, ParkingListView
 
+
 router = DefaultRouter()
 router.register(r'apartment', ApartmentViewSet)
 router.register(r'notifications', NotificationViewset)
